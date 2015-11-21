@@ -11,7 +11,6 @@ class Library():
 
     def searchUser(self, name):
         '''
-
         :param name:
         :return: user
         '''
