@@ -7,11 +7,6 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-from signUp import SignUp
-from bookpageGUI import BookpageGUI
-from superuserGUI import SuperUserPage
-
-import sys
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -27,11 +22,7 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Visitor_MainWindow(object):
-    def __init__(self, library):
-        self.library = library
-        self.user =None
-
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(577, 393)
@@ -46,49 +37,52 @@ class Visitor_MainWindow(object):
         self.top5List = QtGui.QListWidget(self.centralwidget)
         self.top5List.setGeometry(QtCore.QRect(30, 110, 256, 192))
         self.top5List.setObjectName(_fromUtf8("top5List"))
-        for i in range(5):
-            item = QtGui.QListWidgetItem()
-            self.top5List.addItem(item)
-
-        # item = QtGui.QListWidgetItem()
-        # self.top5List.addItem(item)
+        item = QtGui.QListWidgetItem()
+        self.top5List.addItem(item)
+        item = QtGui.QListWidgetItem()
+        self.top5List.addItem(item)
         self.top5_label = QtGui.QLabel(self.centralwidget)
         self.top5_label.setGeometry(QtCore.QRect(40, 80, 54, 12))
         self.top5_label.setObjectName(_fromUtf8("top5_label"))
-        self.signinButton = QtGui.QPushButton(self.centralwidget)
-        self.signinButton.setGeometry(QtCore.QRect(351, 121, 75, 23))
-        self.signinButton.setObjectName(_fromUtf8("signinButton"))
-        self.signUpButton = QtGui.QPushButton(self.centralwidget)
-        self.signUpButton.setGeometry(QtCore.QRect(432, 121, 75, 23))
-        self.signUpButton.setObjectName(_fromUtf8("signUpButton"))
-        self.widget = QtGui.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(330, 40, 203, 70))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.widget)
+        self.layoutWidget = QtGui.QWidget(self.centralwidget)
+        self.layoutWidget.setGeometry(QtCore.QRect(330, 60, 203, 52))
+        self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
+        self.verticalLayout = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.warning = QtGui.QLabel(self.widget)
-        self.warning.setEnabled(True)
-        self.warning.setText(_fromUtf8(""))
-        self.warning.setObjectName(_fromUtf8("warning"))
-        self.verticalLayout.addWidget(self.warning)
+
         self.horizontalLayout = QtGui.QHBoxLayout()
+
+        self.horizontalLayout_3 = QtGui.QHBoxLayout()
+        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
+        self.warmingLabel = QtGui.QLabel(self.layoutWidget)
+        self.warmingLabel.setObjectName(_fromUtf8("warmingLabel"))
+        self.horizontalLayout_3.addWidget(self.warmingLabel)
+
+        self.verticalLayout.addLayout(self.horizontalLayout_3)
+
         self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.userNameLaber = QtGui.QLabel(self.widget)
+        self.userNameLaber = QtGui.QLabel(self.layoutWidget)
         self.userNameLaber.setObjectName(_fromUtf8("userNameLaber"))
         self.horizontalLayout.addWidget(self.userNameLaber)
-        self.usernameInput = QtGui.QLineEdit(self.widget)
+        self.usernameInput = QtGui.QLineEdit(self.layoutWidget)
         self.usernameInput.setObjectName(_fromUtf8("usernameInput"))
         self.horizontalLayout.addWidget(self.usernameInput)
         self.verticalLayout.addLayout(self.horizontalLayout)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()
         self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.passwordLabel = QtGui.QLabel(self.widget)
+        self.passwordLabel = QtGui.QLabel(self.layoutWidget)
         self.passwordLabel.setObjectName(_fromUtf8("passwordLabel"))
         self.horizontalLayout_2.addWidget(self.passwordLabel)
-        self.passwordInput = QtGui.QLineEdit(self.widget)
+        self.passwordInput = QtGui.QLineEdit(self.layoutWidget)
         self.passwordInput.setObjectName(_fromUtf8("passwordInput"))
         self.horizontalLayout_2.addWidget(self.passwordInput)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.signinButton = QtGui.QPushButton(self.centralwidget)
+        self.signinButton.setGeometry(QtCore.QRect(351, 131, 71, 31))
+        self.signinButton.setObjectName(_fromUtf8("signinButton"))
+        self.signUpButton = QtGui.QPushButton(self.centralwidget)
+        self.signUpButton.setGeometry(QtCore.QRect(432, 131, 71, 31))
+        self.signUpButton.setObjectName(_fromUtf8("signUpButton"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 577, 23))
@@ -105,66 +99,37 @@ class Visitor_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
-
         QtCore.QObject.connect(self.signinButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signIn)
-        QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signUp)
-        # QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.passwordInput.copy)
+        QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.passwordInput.copy)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
-    def signUp(self):
-        self.signUp = SignUp()
-        self.signUp.show()
 
     def signIn(self):
         username = self.usernameInput.text()
         password = self.passwordInput.text()
-        user = None
         if not username:
-            self.warning.setText(_fromUtf8("username is required"))
+            self.warmingLabel.setInputContext("username is required")
             print("username is required")
         if not password:
-            self.warning.setText(_fromUtf8("password is required"))
             print("password is required")
         else:
-            for i in self.library.userData:
-                if str(username) == i.username:
-                    print("success user")
-                    if str(password) == i.password:
-                        print("login success")
-                        user = i
-                    else:
-                        print("password wrong")
-                    break
-
-            if user == None:
-                print("username is invalid")
-            else:
-                self.user = user
-                if self.user.superUser == True:
-                    self.UserPage = SuperUserPage(self.library, self.user)
-                    self.UserPage.show()
-                else:
-                    pass # need register Page
-
-
+            print("success")
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.searchButton.setText(_translate("MainWindow", "Search", None))
         __sortingEnabled = self.top5List.isSortingEnabled()
-
         self.top5List.setSortingEnabled(False)
-        books = self.library.top5Book
-        for i in range(5):
-            item = self.top5List.item(i)
-            item.setText(_translate("MainWindow", books[i].title, None))
+        item = self.top5List.item(0)
+        item.setText(_translate("MainWindow", "book1", None))
+        item = self.top5List.item(1)
+        item.setText(_translate("MainWindow", "book2", None))
         self.top5List.setSortingEnabled(__sortingEnabled)
-
         self.top5_label.setText(_translate("MainWindow", "Top5", None))
-        self.signinButton.setText(_translate("MainWindow", "sign in", None))
-        self.signUpButton.setText(_translate("MainWindow", "sign up", None))
+        self.warmingLabel.setText(_translate("MainWindow", "warming", None))
         self.userNameLaber.setText(_translate("MainWindow", "User name:", None))
         self.passwordLabel.setText(_translate("MainWindow", "Password:", None))
+        self.signinButton.setText(_translate("MainWindow", "sign in", None))
+        self.signUpButton.setText(_translate("MainWindow", "sign up", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionClose.setText(_translate("MainWindow", "Close", None))
 
@@ -173,7 +138,7 @@ if __name__ == "__main__":
     import sys
     app = QtGui.QApplication(sys.argv)
     MainWindow = QtGui.QMainWindow()
-    ui = Visitor_MainWindow()
+    ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())

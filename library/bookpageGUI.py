@@ -8,21 +8,21 @@
 
 from PyQt4 import QtCore, QtGui
 
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s):
-        return s
+# try:
+#     _fromUtf8 = QtCore.QString.fromUtf8
+# except AttributeError:
+#     def _fromUtf8(s):
+#         return s
+#
+# try:
+#     _encoding = QtGui.QApplication.UnicodeUTF8
+#     def _translate(context, text, disambig):
+#         return QtGui.QApplication.translate(context, text, disambig, _encoding)
+# except AttributeError:
+#     def _translate(context, text, disambig):
+#         return QtGui.QApplication.translate(context, text, disambig)
 
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
-
-class Ui_Form(object):
+class BookpageGUI(object):
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(611, 647)
@@ -112,12 +112,12 @@ class Ui_Form(object):
         self.label_8.setText(_translate("Form", "comments", None))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    Form = QtGui.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
-
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     bookPage = QtGui.QWidget()
+#     ui = BookpageGUI()
+#     ui.setupUi(bookPage)
+#     bookPage.show()
+#     sys.exit(app.exec_())
+#
