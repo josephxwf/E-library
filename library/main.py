@@ -3,7 +3,7 @@ from Library import Library
 # from Book import Book
 from PyQt4 import QtCore, QtGui
 from visitorGUI import Visitor_MainWindow
-from bookpageGUI import BookpageGUI
+# from bookpageGUI import BookpageGUI
 import sys
 
 

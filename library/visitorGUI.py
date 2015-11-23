@@ -8,7 +8,7 @@
 
 from PyQt4 import QtCore, QtGui
 from signUp import SignUp
-from bookpageGUI import BookpageGUI
+from bookpageGUI import BookPageGUI
 from superuserGUI import SuperUserPage
 
 import sys
@@ -49,9 +49,6 @@ class Visitor_MainWindow(object):
         for i in range(5):
             item = QtGui.QListWidgetItem()
             self.top5List.addItem(item)
-
-        # item = QtGui.QListWidgetItem()
-        # self.top5List.addItem(item)
         self.top5_label = QtGui.QLabel(self.centralwidget)
         self.top5_label.setGeometry(QtCore.QRect(40, 80, 54, 12))
         self.top5_label.setObjectName(_fromUtf8("top5_label"))
@@ -108,8 +105,19 @@ class Visitor_MainWindow(object):
 
         QtCore.QObject.connect(self.signinButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signIn)
         QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signUp)
-        # QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.passwordInput.copy)
+        QtCore.QObject.connect(self.searchButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def searchBook(self):
+        keyWord = str(self.searchInput.text())
+        result = self.library.searchBook(keyWord)
+        if len(result) == 0:
+            # QtGui.QMessageBox.warning(self, "Sorry", "we can't find any result.")
+            print("Sorry, we can't find any result.")
+        else:
+            for i in range(len(result)):
+                item = self.top5List.item(i)
+                item.setText(_translate("MainWindow", result[i].title, None))
 
     def signUp(self):
         self.signUp = SignUp()

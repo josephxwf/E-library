@@ -56,11 +56,26 @@ class Library():
         return fakeBookData
 
 
-    def searchBook(self, title):
+    def searchBook(self, keyword):
         '''
         :param title:
         :return: book
         '''
+        result = []
+        resultNum = 5
+        for book in self.bookData:
+            if keyword in book.title:
+                result.append(book)
+                resultNum -=1
+            elif keyword in book.author:
+                result.append(book)
+                resultNum -=1
+            elif keyword in book.description:
+                result.append(book)
+                resultNum -=1
+            if resultNum == 0:
+                break
+        return result
 
     def searchUser(self, name):
         '''
