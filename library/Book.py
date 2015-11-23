@@ -30,3 +30,29 @@ class Book():
 
     def read(self):
         self.NumOfRead += 1
+
+    book_count = 0 #shared variable by all objects of type Book. Total number of books in catalog
+
+    #def __init__(self, callnumber):
+#       self.callnumber = callnumber
+ #       Book.book_count += 1
+
+    def cover_page(self):
+
+    def summary(self):
+
+    def clock(self):
+        #timer for book reading durations
+
+    def points_needed(self):
+
+    def book_reviews(self, count):
+        self.count = 0 #initially the number of reviews are 0
+
+    def book_rating(self, rate):
+        self.rate = 0 #initialize the rating to 0
+
+    def weight(self):
+        #weight of each review and rating for this book
+
+    def remove_book(self):
