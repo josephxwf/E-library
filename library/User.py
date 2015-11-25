@@ -1,5 +1,4 @@
 
-
 class User(object):
     def __init__(self):
         self.username = ""
@@ -19,25 +18,6 @@ class User(object):
     def setReadingHistory(self,list):
         self.readingHistory = list
 
-
-class Visitor:
-
-    def __init__(self):
-
-    def search_book(self):
-
-    def register(self):
-
-class RegisteredUser(Visitor):
-
-    registered_user_count = 0 #total number of users in system
-
-    def __init__(self, name, username, password, points):
-        self.name = name
-        self.username = username
-        self.password = password
-        self.points = points
-        RegisteredUser.registered_user_count += 1
 
     def read_book(self):
         #first check if user have enough points to read book
@@ -61,31 +41,31 @@ class RegisteredUser(Visitor):
         self.book_callnumber = 1
 
     def send_complaints(self):
+        self.userid = " "
 
     def invite_users(self):
-
-    def book_history(self):
-        #record of books the user read. This will help suggest books to user in future
+        self.userid = " "
 
 
-
-class SuperUser(RegisteredUser):
-
-    super_user_count = 0 #total number of superuser in system
+class SuperUser(User):
 
     def __init__(self):
         super().__init__()
-        SuperUser.super_user_count += 1
 
     def approve_new_user(self):
+        self.userid = ""
 
     def book_approval(self):
+        self.bookcallnumber = ""
 
     def book_updates(self):
+        self.bookcallnumber = ""
 
     def process_complaints(self):
+        self.userid = ""
 
     def setup_reading_points(self):
+        self.bookcallnumber = ""
 
 
 
