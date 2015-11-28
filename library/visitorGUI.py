@@ -8,6 +8,7 @@
 
 from PyQt4 import QtCore, QtGui
 from signUp import SignUp
+from registeredUser import registeredUser
 from bookpageGUI import BookPageGUI
 from superuserGUI import SuperUserPage
 
@@ -143,12 +144,18 @@ class Visitor_MainWindow(object):
 
                         if str(username + password) == "".join(line[1:].split()):
                              print("success user")
+                            
+                             self.registeredUser= registeredUser()
+                             self.registeredUser.show()
                              find = True
                              self.label_3.setText(_fromUtf8(""))
                              break
                    if find == False:
                        self.label_3.setText(_fromUtf8("username or password is incorrect"))
                        print("username or password is incorrect")
+
+
+
 
 
 

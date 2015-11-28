@@ -64,7 +64,7 @@ class SignUp(QtGui.QDialog):
         self.retranslateUi(Form)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.close)
         QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signup)
-        #QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.close)
+
 
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -81,6 +81,7 @@ class SignUp(QtGui.QDialog):
         else:
           with open("userDatabase.txt",'a') as file_handle:
              file_handle.write("0" + username + password + "\n")
+            
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
