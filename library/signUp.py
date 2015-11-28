@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'signUp.ui'
+# Form implementation generated from reading ui file 'signup.ui'
 #
-# Created by: PyQt4 UI code generator 4.11.4
+# Created: Sat Nov 28 01:30:17 2015
+#      by: PyQt4 UI code generator 4.9.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -11,75 +12,75 @@ from PyQt4 import QtCore, QtGui
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
-        return s
+    _fromUtf8 = lambda s: s
 
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+
+
 
 class SignUp(QtGui.QDialog):
     def __init__(self):
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
+    def setupUi(self, Form):
+        Form.setObjectName(_fromUtf8("Form"))
+        Form.resize(400, 300)
+        self.label = QtGui.QLabel(Form)
+        self.label.setGeometry(QtCore.QRect(30, 50, 81, 31))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.label_2 = QtGui.QLabel(Form)
+        self.label_2.setGeometry(QtCore.QRect(30, 100, 81, 31))
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.label_3 = QtGui.QLabel(Form)
+        self.label_3.setGeometry(QtCore.QRect(30, 140, 131, 41))
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.lineEdit = QtGui.QLineEdit(Form)
+        self.lineEdit.setGeometry(QtCore.QRect(120, 60, 113, 21))
+        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
+        self.lineEdit_2 = QtGui.QLineEdit(Form)
+        self.lineEdit_2.setGeometry(QtCore.QRect(122, 100, 111, 21))
+        self.lineEdit_2.setEchoMode(QtGui.QLineEdit.Password)
+        self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
+        self.lineEdit_3 = QtGui.QLineEdit(Form)
+        self.lineEdit_3.setGeometry(QtCore.QRect(170, 150, 113, 21))
+        self.lineEdit_3.setEchoMode(QtGui.QLineEdit.Password)
+        self.lineEdit_3.setObjectName(_fromUtf8("lineEdit_3"))
+        self.pushButton = QtGui.QPushButton(Form)
+        self.pushButton.setGeometry(QtCore.QRect(20, 200, 81, 32))
+        self.pushButton.setObjectName(_fromUtf8("pushButton"))
+        self.pushButton_2 = QtGui.QPushButton(Form)
+        self.pushButton_2.setGeometry(QtCore.QRect(110, 200, 81, 32))
+        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
 
-    def setupUi(self, Dialog):
-        Dialog.setObjectName(_fromUtf8("Sign Up"))
-        Dialog.resize(400, 300)
-        self.signButton = QtGui.QPushButton(Dialog)
-        self.signButton.setGeometry(QtCore.QRect(111, 161, 75, 23))
-        self.signButton.setObjectName(_fromUtf8("signButton"))
-        self.cancelButton = QtGui.QPushButton(Dialog)
-        self.cancelButton.setGeometry(QtCore.QRect(192, 161, 75, 23))
-        self.cancelButton.setObjectName(_fromUtf8("cancelButton"))
-        self.widget = QtGui.QWidget(Dialog)
-        self.widget.setGeometry(QtCore.QRect(60, 50, 245, 80))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.widget)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.usernameLabel = QtGui.QLabel(self.widget)
-        self.usernameLabel.setObjectName(_fromUtf8("usernameLabel"))
-        self.horizontalLayout.addWidget(self.usernameLabel)
-        self.usernameInput = QtGui.QLineEdit(self.widget)
-        self.usernameInput.setObjectName(_fromUtf8("usernameInput"))
-        self.horizontalLayout.addWidget(self.usernameInput)
-        self.verticalLayout.addLayout(self.horizontalLayout)
-        self.horizontalLayout_2 = QtGui.QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.pwLabel = QtGui.QLabel(self.widget)
-        self.pwLabel.setObjectName(_fromUtf8("pwLabel"))
-        self.horizontalLayout_2.addWidget(self.pwLabel)
-        self.pwInput = QtGui.QLineEdit(self.widget)
-        self.pwInput.setEchoMode(QtGui.QLineEdit.Password)
-        self.pwInput.setObjectName(_fromUtf8("pwInput"))
-        self.horizontalLayout_2.addWidget(self.pwInput)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
-        self.horizontalLayout_3 = QtGui.QHBoxLayout()
-        self.horizontalLayout_3.setObjectName(_fromUtf8("horizontalLayout_3"))
-        self.confirmPwLabel = QtGui.QLabel(self.widget)
-        self.confirmPwLabel.setObjectName(_fromUtf8("confirmPwLabel"))
-        self.horizontalLayout_3.addWidget(self.confirmPwLabel)
-        self.confirmPwInput = QtGui.QLineEdit(self.widget)
-        self.confirmPwInput.setText(_fromUtf8(""))
-        self.confirmPwInput.setEchoMode(QtGui.QLineEdit.Password)
-        self.confirmPwInput.setObjectName(_fromUtf8("confirmPwInput"))
-        self.horizontalLayout_3.addWidget(self.confirmPwInput)
-        self.verticalLayout.addLayout(self.horizontalLayout_3)
+        self.retranslateUi(Form)
+        QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.close)
+        QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signup)
+        #QtCore.QObject.connect(self.pushButton, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.close)
 
-        self.retranslateUi(Dialog)
-        QtCore.QMetaObject.connectSlotsByName(Dialog)
+        QtCore.QMetaObject.connectSlotsByName(Form)
 
-    def retranslateUi(self, Dialog):
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
-        self.signButton.setText(_translate("Dialog", "sign Up", None))
-        self.cancelButton.setText(_translate("Dialog", "cancel", None))
-        self.usernameLabel.setText(_translate("Dialog", "username:", None))
-        self.pwLabel.setText(_translate("Dialog", "password:", None))
-        self.confirmPwLabel.setText(_translate("Dialog", "confirm password:", None))
 
+    def signup(self):
+
+        username = self.lineEdit.text()
+
+        password = self.lineEdit_2.text()
+        with open("userDatabase.txt",'a') as file_handle:
+            file_handle.write("0" + username + password + "\n")
+
+    def retranslateUi(self, Form):
+        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
+        self.label.setText(QtGui.QApplication.translate("Form", "Username:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_2.setText(QtGui.QApplication.translate("Form", "Password:", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_3.setText(QtGui.QApplication.translate("Form", "Confirm Password:", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton.setText(QtGui.QApplication.translate("Form", "Signup", None, QtGui.QApplication.UnicodeUTF8))
+        self.pushButton_2.setText(QtGui.QApplication.translate("Form", "Cancel", None, QtGui.QApplication.UnicodeUTF8))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtGui.QApplication(sys.argv)
+    Form = QtGui.QWidget()
+    ui = Ui_Form()
+    ui.setupUi(Form)
+    Form.show()
+    sys.exit(app.exec_())

@@ -2,7 +2,7 @@ from Library import Library
 # from User import User
 # from Book import Book
 from PyQt4 import QtCore, QtGui
-from visitorGUI import Visitor_MainWindow
+import visitorGUI
 # from bookpageGUI import BookpageGUI
 import sys
 
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     mainUser = None
     app = QtGui.QApplication(sys.argv)
     MainWindow = QtGui.QMainWindow()
-    visitorGUI = Visitor_MainWindow(library)
+    visitorGUI = visitorGUI.Visitor_MainWindow(library)
     # visitorGUI.library = library
     visitorGUI.setupUi(MainWindow)
     MainWindow.show()
