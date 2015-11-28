@@ -50,6 +50,16 @@ class SignUp(QtGui.QDialog):
         self.pushButton_2 = QtGui.QPushButton(Form)
         self.pushButton_2.setGeometry(QtCore.QRect(110, 200, 81, 32))
         self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
+        self.label_4 = QtGui.QLabel(Form)
+        self.label_4.setGeometry(QtCore.QRect(250, 60, 131, 20))
+        self.label_4.setText(_fromUtf8(""))
+        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.label_5 = QtGui.QLabel(Form)
+        self.label_5.setGeometry(QtCore.QRect(250, 100, 131, 20))
+        self.label_5.setObjectName(_fromUtf8("label_5"))
+        self.label_6 = QtGui.QLabel(Form)
+        self.label_6.setGeometry(QtCore.QRect(170, 180, 141, 20))
+        self.label_6.setObjectName(_fromUtf8("label_6"))
 
         self.retranslateUi(Form)
         QtCore.QObject.connect(self.pushButton_2, QtCore.SIGNAL(_fromUtf8("clicked()")), Form.close)
@@ -60,12 +70,17 @@ class SignUp(QtGui.QDialog):
 
 
     def signup(self):
-
         username = self.lineEdit.text()
-
         password = self.lineEdit_2.text()
-        with open("userDatabase.txt",'a') as file_handle:
-            file_handle.write("0" + username + password + "\n")
+        if not username:
+            self.label_4.setText(_fromUtf8("username is required"))
+            print("username is required")
+        if not password:
+            self.label_5.setText(_fromUtf8("password is required"))
+            print("password is required")
+        else:
+          with open("userDatabase.txt",'a') as file_handle:
+             file_handle.write("0" + username + password + "\n")
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))

@@ -53,42 +53,38 @@ class Visitor_MainWindow(object):
         self.top5_label.setGeometry(QtCore.QRect(40, 80, 54, 12))
         self.top5_label.setObjectName(_fromUtf8("top5_label"))
         self.signinButton = QtGui.QPushButton(self.centralwidget)
-        self.signinButton.setGeometry(QtCore.QRect(351, 121, 75, 23))
+        self.signinButton.setGeometry(QtCore.QRect(350, 170, 75, 23))
         self.signinButton.setObjectName(_fromUtf8("signinButton"))
         self.signUpButton = QtGui.QPushButton(self.centralwidget)
-        self.signUpButton.setGeometry(QtCore.QRect(432, 121, 75, 23))
+        self.signUpButton.setGeometry(QtCore.QRect(440, 170, 75, 23))
         self.signUpButton.setObjectName(_fromUtf8("signUpButton"))
-        self.widget = QtGui.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(330, 40, 203, 70))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.widget)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.warning = QtGui.QLabel(self.widget)
-        self.warning.setEnabled(True)
-        self.warning.setText(_fromUtf8(""))
-        self.warning.setObjectName(_fromUtf8("warning"))
-        self.verticalLayout.addWidget(self.warning)
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.userNameLaber = QtGui.QLabel(self.widget)
+        self.userNameLaber = QtGui.QLabel(self.centralwidget)
+        self.userNameLaber.setGeometry(QtCore.QRect(310, 50, 68, 29))
         self.userNameLaber.setObjectName(_fromUtf8("userNameLaber"))
-        self.horizontalLayout.addWidget(self.userNameLaber)
-        self.usernameInput = QtGui.QLineEdit(self.widget)
+        self.usernameInput = QtGui.QLineEdit(self.centralwidget)
+        self.usernameInput.setGeometry(QtCore.QRect(390, 50, 151, 21))
         self.usernameInput.setObjectName(_fromUtf8("usernameInput"))
-        self.horizontalLayout.addWidget(self.usernameInput)
-        self.verticalLayout.addLayout(self.horizontalLayout)
-        self.horizontalLayout_2 = QtGui.QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.passwordLabel = QtGui.QLabel(self.widget)
+        self.passwordLabel = QtGui.QLabel(self.centralwidget)
+        self.passwordLabel.setGeometry(QtCore.QRect(310, 100, 61, 28))
         self.passwordLabel.setObjectName(_fromUtf8("passwordLabel"))
-        self.horizontalLayout_2.addWidget(self.passwordLabel)
-        self.passwordInput = QtGui.QLineEdit(self.widget)
+        self.passwordInput = QtGui.QLineEdit(self.centralwidget)
+        self.passwordInput.setGeometry(QtCore.QRect(390, 100, 151, 21))
         self.passwordInput.setObjectName(_fromUtf8("passwordInput"))
-        self.horizontalLayout_2.addWidget(self.passwordInput)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.label = QtGui.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(390, 70, 151, 20))
+        self.label.setText(_fromUtf8(""))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.label_2 = QtGui.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(390, 130, 151, 20))
+        self.label_2.setText(_fromUtf8(""))
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.label_3 = QtGui.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(310, 20, 231, 20))
+        self.label_3.setText(_fromUtf8(""))
+        self.label_3.setObjectName(_fromUtf8("label_3"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 577, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 577, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
@@ -100,6 +96,8 @@ class Visitor_MainWindow(object):
         self.actionClose.setObjectName(_fromUtf8("actionClose"))
         self.menuFile.addAction(self.actionClose)
         self.menubar.addAction(self.menuFile.menuAction())
+
+
 
         self.retranslateUi(MainWindow)
 
@@ -128,31 +126,30 @@ class Visitor_MainWindow(object):
         password = self.passwordInput.text()
         user = None
         if not username:
-            self.warning.setText(_fromUtf8("username is required"))
+            self.label.setText(_fromUtf8("username is required"))
             print("username is required")
         if not password:
-            self.warning.setText(_fromUtf8("password is required"))
+            self.label_2.setText(_fromUtf8("password is required"))
             print("password is required")
         else:
-            for i in self.library.userData:
-                if str(username) == i.username:
-                    print("success user")
-                    if str(password) == i.password:
-                        print("login success")
-                        user = i
-                    else:
-                        print("password wrong")
-                    break
+                self.label.setText(_fromUtf8(""))
+                self.label_2.setText(_fromUtf8(""))
+                with open("userDatabase.txt",'r') as file_handle:
 
-            if user == None:
-                print("username is invalid")
-            else:
-                self.user = user
-                if self.user.superUser == True:
-                    self.UserPage = SuperUserPage(self.library, self.user)
-                    self.UserPage.show()
-                else:
-                    pass # need register Page
+                  #for i in self.library.userData:
+                   find = False
+                   for line in  file_handle:
+                        #print "".join(line[1:].split())
+
+                        if str(username + password) == "".join(line[1:].split()):
+                             print("success user")
+                             find = True
+                             self.label_3.setText(_fromUtf8(""))
+                             break
+                   if find == False:
+                       self.label_3.setText(_fromUtf8("username or password is incorrect"))
+                       print("username or password is incorrect")
+
 
 
 
