@@ -14,9 +14,9 @@ try:
 except AttributeError:
     _fromUtf8 = lambda s: s
 
-class registeredUser(QtGui.QMainWindow,QtGui.QDialog):
+class registeredUser(QtGui.QMainWindow):
     def __init__(self):
-        QtGui.QDialog.__init__(self)
+        QtGui.QMainWindow.__init__(self)
         self.setupUi(self)
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))

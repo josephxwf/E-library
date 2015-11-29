@@ -143,13 +143,21 @@ class Visitor_MainWindow(object):
                         #print "".join(line[1:].split())
 
                         if str(username + password) == "".join(line[1:].split()):
-                             print("success user")
-                            
-                             self.registeredUser= registeredUser()
-                             self.registeredUser.show()
-                             find = True
-                             self.label_3.setText(_fromUtf8(""))
-                             break
+                           print("success user")
+
+                           if line[0] == '0':
+
+                               self.registeredUser= registeredUser()
+                               self.registeredUser.show()
+                               find = True
+                               self.label_3.setText(_fromUtf8(""))
+                               break
+                           elif line[0] == '1':
+                               self.SuperUserPage= SuperUserPage()
+                               self.SuperUserPage.show()
+                               find = True
+                               self.label_3.setText(_fromUtf8(""))
+                               break
                    if find == False:
                        self.label_3.setText(_fromUtf8("username or password is incorrect"))
                        print("username or password is incorrect")
