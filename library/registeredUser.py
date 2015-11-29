@@ -15,10 +15,10 @@ except AttributeError:
     _fromUtf8 = lambda s: s
 
 class registeredUser(QtGui.QMainWindow):
-    def __init__(self):
-        QtGui.QMainWindow.__init__(self)
-        self.setupUi(self)
-    def setupUi(self, MainWindow):
+    def __init__(self,name,points):
+        super(registeredUser,self).__init__()
+        self.setupUi(self,name,points)
+    def setupUi(self,MainWindow,name,points):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(804, 550)
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -45,17 +45,20 @@ class registeredUser(QtGui.QMainWindow):
         self.userNameLaber = QtGui.QLabel(self.centralwidget)
         self.userNameLaber.setGeometry(QtCore.QRect(370, 60, 68, 29))
         self.userNameLaber.setObjectName(_fromUtf8("userNameLaber"))
-        self.label_4 = QtGui.QLabel(self.centralwidget)
-        self.label_4.setGeometry(QtCore.QRect(465, 59, 161, 31))
-        self.label_4.setText(_fromUtf8(""))
-        self.label_4.setObjectName(_fromUtf8("label_4"))
+        self.name = QtGui.QLabel(self.centralwidget)
+        self.name.setGeometry(QtCore.QRect(465, 59, 161, 31))
+        self.name.setText(_fromUtf8(name))
+        self.name.setObjectName(_fromUtf8("name"))
+
+
         self.passwordLabel_2 = QtGui.QLabel(self.centralwidget)
         self.passwordLabel_2.setGeometry(QtCore.QRect(370, 110, 81, 28))
         self.passwordLabel_2.setObjectName(_fromUtf8("passwordLabel_2"))
-        self.passwordLabel_3 = QtGui.QLabel(self.centralwidget)
-        self.passwordLabel_3.setGeometry(QtCore.QRect(470, 110, 101, 28))
-        self.passwordLabel_3.setText(_fromUtf8(""))
-        self.passwordLabel_3.setObjectName(_fromUtf8("passwordLabel_3"))
+        self.points = QtGui.QLabel(self.centralwidget)
+        self.points.setGeometry(QtCore.QRect(470, 110, 101, 28))
+        self.points.setText(_fromUtf8(points))
+        self.points.setObjectName(_fromUtf8("points"))
+
         self.passwordLabel_4 = QtGui.QLabel(self.centralwidget)
         self.passwordLabel_4.setGeometry(QtCore.QRect(370, 170, 91, 28))
         self.passwordLabel_4.setObjectName(_fromUtf8("passwordLabel_4"))
@@ -65,6 +68,8 @@ class registeredUser(QtGui.QMainWindow):
         self.label = QtGui.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(45, 323, 101, 20))
         self.label.setObjectName(_fromUtf8("label"))
+
+
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 804, 22))

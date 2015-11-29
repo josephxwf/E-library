@@ -127,10 +127,10 @@ class Visitor_MainWindow(object):
         password = self.passwordInput.text()
         user = None
         if not username:
-            self.label.setText(_fromUtf8("username is required"))
+            self.label.setText(_fromUtf8("Username is required!"))
             print("username is required")
         if not password:
-            self.label_2.setText(_fromUtf8("password is required"))
+            self.label_2.setText(_fromUtf8("Password is required!"))
             print("password is required")
         else:
                 self.label.setText(_fromUtf8(""))
@@ -142,24 +142,26 @@ class Visitor_MainWindow(object):
                    for line in  file_handle:
                         #print "".join(line[1:].split())
 
-                        if str(username + password) == "".join(line[1:].split()):
+                        #print line.split()[0:2]
+                        #print line.split()
+                        if (str(username + password)).lower() == ("".join((line.split())[2:])).lower():
                            print("success user")
 
-                           if line[0] == '0':
+                           if (line.split())[0] == '0':
 
-                               self.registeredUser= registeredUser()
+                               self.registeredUser= registeredUser(username,(line.split())[1])
                                self.registeredUser.show()
                                find = True
                                self.label_3.setText(_fromUtf8(""))
                                break
-                           elif line[0] == '1':
+                           elif (line.split())[0] == '1':
                                self.SuperUserPage= SuperUserPage()
                                self.SuperUserPage.show()
                                find = True
                                self.label_3.setText(_fromUtf8(""))
                                break
                    if find == False:
-                       self.label_3.setText(_fromUtf8("username or password is incorrect"))
+                       self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
                        print("username or password is incorrect")
 
 

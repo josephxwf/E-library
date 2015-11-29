@@ -58,7 +58,7 @@ class SignUp(QtGui.QDialog):
         self.label_5.setGeometry(QtCore.QRect(250, 100, 131, 20))
         self.label_5.setObjectName(_fromUtf8("label_5"))
         self.label_6 = QtGui.QLabel(Form)
-        self.label_6.setGeometry(QtCore.QRect(170, 180, 141, 20))
+        self.label_6.setGeometry(QtCore.QRect(170, 180, 250, 20))
         self.label_6.setObjectName(_fromUtf8("label_6"))
 
         self.retranslateUi(Form)
@@ -70,18 +70,22 @@ class SignUp(QtGui.QDialog):
 
 
     def signup(self):
-        username = self.lineEdit.text()
-        password = self.lineEdit_2.text()
+        username = self.lineEdit.text()  #get data from input
+        password1 = self.lineEdit_2.text()
+        password2 =  self.lineEdit_3.text()
         if not username:
-            self.label_4.setText(_fromUtf8("username is required"))
+            self.label_4.setText(_fromUtf8("Username is required!"))
             print("username is required")
-        if not password:
-            self.label_5.setText(_fromUtf8("password is required"))
+        if not password1:
+            self.label_5.setText(_fromUtf8("Password is required!"))
             print("password is required")
+        if password1 != password2:
+            self.label_6.setText(_fromUtf8("Password1 and Password2 are dfferent!"))
+            print("Password1 and Password2 are dfferent!")
         else:
           with open("userDatabase.txt",'a') as file_handle:
-             file_handle.write("0" + username + password + "\n")
-            
+             file_handle.write(str(0) + " " + str(0) + " " + username + " " + password1 + "\n")
+
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
