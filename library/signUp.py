@@ -76,15 +76,16 @@ class SignUp(QtGui.QDialog):
         if not username:
             self.label_4.setText(_fromUtf8("Username is required!"))
             print("username is required")
-        if not password1:
+        elif not password1:
             self.label_5.setText(_fromUtf8("Password is required!"))
             print("password is required")
-        if password1 != password2:
+        elif password1 != password2:
             self.label_6.setText(_fromUtf8("Password1 and Password2 are dfferent!"))
             print("Password1 and Password2 are dfferent!")
         else:
           with open("userDatabase.txt",'a') as file_handle:
              file_handle.write(str(0) + " " + str(0) + " " + username + " " + password1 + "\n")
+             self.hide()
 
 
     def retranslateUi(self, Form):

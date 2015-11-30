@@ -70,6 +70,7 @@ class Visitor_MainWindow(object):
         self.passwordLabel.setObjectName(_fromUtf8("passwordLabel"))
         self.passwordInput = QtGui.QLineEdit(self.centralwidget)
         self.passwordInput.setGeometry(QtCore.QRect(390, 100, 151, 21))
+        self.passwordInput.setEchoMode(QtGui.QLineEdit.Password)
         self.passwordInput.setObjectName(_fromUtf8("passwordInput"))
         self.label = QtGui.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(390, 70, 151, 20))
@@ -149,8 +150,11 @@ class Visitor_MainWindow(object):
 
                            if (line.split())[0] == '0':
 
+
                                self.registeredUser= registeredUser(username,(line.split())[1])
                                self.registeredUser.show()
+                               
+
                                find = True
                                self.label_3.setText(_fromUtf8(""))
                                break
@@ -171,8 +175,8 @@ class Visitor_MainWindow(object):
 
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.searchButton.setText(_translate("MainWindow", "Search", None))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        self.searchButton.setText(QtGui.QApplication.translate("MainWindow", "Search", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.top5List.isSortingEnabled()
 
         self.top5List.setSortingEnabled(False)
@@ -182,13 +186,14 @@ class Visitor_MainWindow(object):
             item.setText(_translate("MainWindow", books[i].title, None))
         self.top5List.setSortingEnabled(__sortingEnabled)
 
-        self.top5_label.setText(_translate("MainWindow", "Top5", None))
-        self.signinButton.setText(_translate("MainWindow", "sign in", None))
-        self.signUpButton.setText(_translate("MainWindow", "sign up", None))
-        self.userNameLaber.setText(_translate("MainWindow", "User name:", None))
-        self.passwordLabel.setText(_translate("MainWindow", "Password:", None))
-        self.menuFile.setTitle(_translate("MainWindow", "File", None))
-        self.actionClose.setText(_translate("MainWindow", "Close", None))
+
+        self.top5_label.setText(QtGui.QApplication.translate("MainWindow", "Top5", None, QtGui.QApplication.UnicodeUTF8))
+        self.signinButton.setText(QtGui.QApplication.translate("MainWindow", "sign in", None, QtGui.QApplication.UnicodeUTF8))
+        self.signUpButton.setText(QtGui.QApplication.translate("MainWindow", "sign up", None, QtGui.QApplication.UnicodeUTF8))
+        self.userNameLaber.setText(QtGui.QApplication.translate("MainWindow", "User name:", None, QtGui.QApplication.UnicodeUTF8))
+        self.passwordLabel.setText(QtGui.QApplication.translate("MainWindow", "Password:", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionClose.setText(QtGui.QApplication.translate("MainWindow", "Close", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":
