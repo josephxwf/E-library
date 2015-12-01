@@ -6,8 +6,9 @@
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
-
 from PyQt4 import QtCore, QtGui
+import os
+import shutil
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -26,7 +27,7 @@ except AttributeError:
 class registeredUser(QtGui.QMainWindow):
     def __init__(self,user):
         super(registeredUser,self).__init__()
-        self.setupUi(self,user)   
+        self.setupUi(self,user)
     def setupUi(self, MainWindow,user):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(804, 550)
@@ -124,13 +125,30 @@ class registeredUser(QtGui.QMainWindow):
         self.retranslateUi(MainWindow)
         QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        
+
+        #def makebooksdatabase(self):
+        #    os.mkdir('Database')
+        #    os.mkdir('PendingBooks')
+
     def selectFile(self):
         #searchInput.setText(QFileDialog.getOpenFileName(self))
         fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
                 '/home')
-        f = open(fname, 'r')
+        #f = open(fname, 'r')
+        if os.path.isdir('/Users/khadeeja/MyGitHub/E-library/library/PendingBooks'):
+           shutil.copy(str(fname), '/Users/khadeeja/MyGitHub/E-library/library/PendingBooks')
+        else:
+           os.mkdir('PendingBooks') #copy the path of this folder
+           shutil.copy(str(fname), '/Users/khadeeja/MyGitHub/E-library/library/PendingBooks')
         ##pushButton.clicked.connect(selectFile)
+
+    def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
+        iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+                '/home')
+
+    def uploadBookSummary(self):
+        sname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+                '/home')
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))

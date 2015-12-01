@@ -1,5 +1,6 @@
 from User import User
 from Book import Book
+#import os
 # from PyQt4 import QtCore, QtGui
 # from visitorGUI import Visitor_MainWindow
 # from bookpageGUI import BookpageGUI
@@ -29,7 +30,9 @@ class Library():
         print(self.bookData[0].title)
         self.top5Book = self.searchTop5()
 
-
+    #def makebooksdatabase(self):
+    #    os.mkdir('Database')
+    #    os.mkdir('PendingBooks')
 
     def loadUserData(self):
         fakeUserData = [User("a","a"),User("b","b") ]
