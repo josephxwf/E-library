@@ -159,8 +159,8 @@ class Visitor_MainWindow(object):
 
                               self.registeredUser= registeredUser(user)
                               self.registeredUser.show()
-
-
+                              self.SuperUserPage= SuperUserPage()
+                              self.SuperUserPage.show()
                               find = True
                               self.label_3.setText(_fromUtf8(""))
 
