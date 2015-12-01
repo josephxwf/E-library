@@ -29,7 +29,8 @@ class Library():
         print(self.bookData[0].title)
         self.top5Book = self.searchTop5()
 
-
+    def saveUserData(self):
+        pass
 
     def loadUserData(self):
         fakeUserData = [User("a","a"),User("b","b") ]

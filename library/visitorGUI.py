@@ -112,15 +112,14 @@ class Visitor_MainWindow(object):
         keyWord = str(self.searchInput.text())
         result = self.library.searchBook(keyWord)
         if len(result) == 0:
-            # QtGui.QMessageBox.warning(self, "Sorry", "we can't find any result.")
-            print("Sorry, we can't find any result.")
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
         else:
             for i in range(len(result)):
                 item = self.top5List.item(i)
                 item.setText(_translate("MainWindow", result[i].title, None))
 
     def signUp(self):
-        self.signUp = SignUp()
+        self.signUp = SignUp(self.library)
         self.signUp.show()
 
     def signIn(self):
@@ -129,25 +128,23 @@ class Visitor_MainWindow(object):
         user = None
         if not username:
             self.warning.setText(_fromUtf8("username is required"))
-            print("username is required")
         if not password:
             self.warning.setText(_fromUtf8("password is required"))
-            print("password is required")
         else:
             for i in self.library.userData:
                 if str(username) == i.username:
-                    print("success user")
                     if str(password) == i.password:
-                        print("login success")
+                        # login success
                         user = i
                     else:
-                        print("password wrong")
+                        self.warning.setText(_fromUtf8("password is wrong"))
                     break
 
             if user == None:
-                print("username is invalid")
+                self.warning.setText(_fromUtf8("username is invalid"))
             else:
                 self.user = user
+                # self.user.superUser = True
                 if self.user.superUser == True:
                     self.UserPage = SuperUserPage(self.library, self.user)
                     self.UserPage.show()

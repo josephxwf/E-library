@@ -32,8 +32,6 @@ if __name__ == '__main__':
     # visitorGUI.library = library
     visitorGUI.setupUi(MainWindow)
     MainWindow.show()
-    print("aaaa")
-    print(visitorGUI.user)
     # MainWindow.close()
     sys.exit(app.exec_())
 

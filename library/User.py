@@ -47,25 +47,25 @@ class User(object):
         self.userid = " "
 
 
-class SuperUser(User):
-
-    def __init__(self):
-        super().__init__()
-
-    def approve_new_user(self):
-        self.userid = ""
-
-    def book_approval(self):
-        self.bookcallnumber = ""
-
-    def book_updates(self):
-        self.bookcallnumber = ""
-
-    def process_complaints(self):
-        self.userid = ""
-
-    def setup_reading_points(self):
-        self.bookcallnumber = ""
+# class SuperUser(User):
+#
+#     def __init__(self):
+#         super().__init__()
+#
+#     def approve_new_user(self):
+#         self.userid = ""
+#
+#     def book_approval(self):
+#         self.bookcallnumber = ""
+#
+#     def book_updates(self):
+#         self.bookcallnumber = ""
+#
+#     def process_complaints(self):
+#         self.userid = ""
+#
+#     def setup_reading_points(self):
+#         self.bookcallnumber = ""
 
 
 

@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from User import User
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -23,9 +24,11 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class SignUp(QtGui.QDialog):
-    def __init__(self):
+    def __init__(self, library):
+        self.library = library
         QtGui.QDialog.__init__(self)
         self.setupUi(self)
+
 
     def setupUi(self, Dialog):
         Dialog.setObjectName(_fromUtf8("Sign Up"))
@@ -74,6 +77,34 @@ class SignUp(QtGui.QDialog):
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        QtCore.QObject.connect(self.signButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signUp)
+
+    def signUp(self):
+        username = self.usernameInput.text()
+        password = self.pwInput.text()
+        confirmPw = self.confirmPwInput.text()
+        if not username:
+            print("username is required")
+        elif not password:
+            print("password is required")
+        elif not confirmPw:
+            print("confirmPW required")
+        elif password != confirmPw:
+            print("two password not same")
+        else:
+            flag = False
+            for user in self.library.userData:
+                if username == user.username:
+                    print("username is already used")
+                    flag = True
+                    break
+            if flag == False:
+                self.library.userData.append(User(username, password))
+                print("success")
+                self.close()
+
+
+
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(_translate("Dialog", "Dialog", None))
