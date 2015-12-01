@@ -86,7 +86,16 @@ class registeredUser(QtGui.QMainWindow):
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
+
+        QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def selectFile(self):
+        #searchInput.setText(QFileDialog.getOpenFileName(self))
+        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+                '/home')
+        f = open(fname, 'r')
+        ##pushButton.clicked.connect(selectFile)
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
