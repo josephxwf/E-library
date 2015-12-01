@@ -5,7 +5,8 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
-
+from User import User
+import pickle
 from PyQt4 import QtCore, QtGui
 from signUp import SignUp
 from registeredUser import registeredUser
@@ -124,49 +125,48 @@ class Visitor_MainWindow(object):
         self.signUp.show()
 
     def signIn(self):
-        username = self.usernameInput.text()
-        password = self.passwordInput.text()
+        inputUsername = self.usernameInput.text()
+        inputPassword = self.passwordInput.text()
         user = None
-        if not username:
+        if not inputUsername:
             self.label.setText(_fromUtf8("Username is required!"))
             print("username is required")
-        if not password:
+        if not inputPassword:
             self.label_2.setText(_fromUtf8("Password is required!"))
             print("password is required")
         else:
                 self.label.setText(_fromUtf8(""))
                 self.label_2.setText(_fromUtf8(""))
-                with open("userDatabase.txt",'r') as file_handle:
+                with open('company_data.pkl', 'r') as input:
+
+                #with open("userDatabase.txt",'r') as file_handle:
 
                   #for i in self.library.userData:
                    find = False
-                   for line in  file_handle:
+                   #for line in  file_handle:
+                   while(not find):
                         #print "".join(line[1:].split())
+                        user = pickle.load(input)
 
                         #print line.split()[0:2]
                         #print line.split()
-                        if (str(username + password)).lower() == ("".join((line.split())[2:])).lower():
-                           print("success user")
+                        #if (str(username + password)).lower() == ("".join((line.split())[2:])).lower():
+                        if user.username == inputUsername and user.password == inputPassword :
+                              print("success user")
+                              find = True
 
-                           if (line.split())[0] == '0':
 
 
-                               self.registeredUser= registeredUser(username,(line.split())[1])
-                               self.registeredUser.show()
-                               
+                              self.registeredUser= registeredUser(user)
+                              self.registeredUser.show()
 
-                               find = True
-                               self.label_3.setText(_fromUtf8(""))
-                               break
-                           elif (line.split())[0] == '1':
-                               self.SuperUserPage= SuperUserPage()
-                               self.SuperUserPage.show()
-                               find = True
-                               self.label_3.setText(_fromUtf8(""))
-                               break
+
+                              find = True
+                              self.label_3.setText(_fromUtf8(""))
+
                    if find == False:
-                       self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
-                       print("username or password is incorrect")
+                      self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
+                      print("username or password is incorrect")
 
 
 

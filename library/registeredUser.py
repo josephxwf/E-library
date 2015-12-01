@@ -15,10 +15,10 @@ except AttributeError:
     _fromUtf8 = lambda s: s
 
 class registeredUser(QtGui.QMainWindow):
-    def __init__(self,name,points):
+    def __init__(self,user):
         super(registeredUser,self).__init__()
-        self.setupUi(self,name,points)
-    def setupUi(self,MainWindow,name,points):
+        self.setupUi(self,user)
+    def setupUi(self,MainWindow,user):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(804, 550)
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -47,7 +47,7 @@ class registeredUser(QtGui.QMainWindow):
         self.userNameLaber.setObjectName(_fromUtf8("userNameLaber"))
         self.name = QtGui.QLabel(self.centralwidget)
         self.name.setGeometry(QtCore.QRect(465, 59, 161, 31))
-        self.name.setText(_fromUtf8(name))
+        self.name.setText(_fromUtf8(user.username))
         self.name.setObjectName(_fromUtf8("name"))
 
 
@@ -56,7 +56,7 @@ class registeredUser(QtGui.QMainWindow):
         self.passwordLabel_2.setObjectName(_fromUtf8("passwordLabel_2"))
         self.points = QtGui.QLabel(self.centralwidget)
         self.points.setGeometry(QtCore.QRect(470, 110, 101, 28))
-        self.points.setText(_fromUtf8(points))
+        self.points.setText(_fromUtf8(str(user.point)))
         self.points.setObjectName(_fromUtf8("points"))
 
         self.passwordLabel_4 = QtGui.QLabel(self.centralwidget)
