@@ -5,9 +5,11 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
-
+from User import User
+import pickle
 from PyQt4 import QtCore, QtGui
 from signUp import SignUp
+from registeredUser import registeredUser
 from bookpageGUI import BookPageGUI
 from superuserGUI import SuperUserPage
 
@@ -53,42 +55,39 @@ class Visitor_MainWindow(object):
         self.top5_label.setGeometry(QtCore.QRect(40, 80, 54, 12))
         self.top5_label.setObjectName(_fromUtf8("top5_label"))
         self.signinButton = QtGui.QPushButton(self.centralwidget)
-        self.signinButton.setGeometry(QtCore.QRect(351, 121, 75, 23))
+        self.signinButton.setGeometry(QtCore.QRect(350, 170, 75, 23))
         self.signinButton.setObjectName(_fromUtf8("signinButton"))
         self.signUpButton = QtGui.QPushButton(self.centralwidget)
-        self.signUpButton.setGeometry(QtCore.QRect(432, 121, 75, 23))
+        self.signUpButton.setGeometry(QtCore.QRect(440, 170, 75, 23))
         self.signUpButton.setObjectName(_fromUtf8("signUpButton"))
-        self.widget = QtGui.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(330, 40, 203, 70))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.verticalLayout = QtGui.QVBoxLayout(self.widget)
-        self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
-        self.warning = QtGui.QLabel(self.widget)
-        self.warning.setEnabled(True)
-        self.warning.setText(_fromUtf8(""))
-        self.warning.setObjectName(_fromUtf8("warning"))
-        self.verticalLayout.addWidget(self.warning)
-        self.horizontalLayout = QtGui.QHBoxLayout()
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.userNameLaber = QtGui.QLabel(self.widget)
+        self.userNameLaber = QtGui.QLabel(self.centralwidget)
+        self.userNameLaber.setGeometry(QtCore.QRect(310, 50, 68, 29))
         self.userNameLaber.setObjectName(_fromUtf8("userNameLaber"))
-        self.horizontalLayout.addWidget(self.userNameLaber)
-        self.usernameInput = QtGui.QLineEdit(self.widget)
+        self.usernameInput = QtGui.QLineEdit(self.centralwidget)
+        self.usernameInput.setGeometry(QtCore.QRect(390, 50, 151, 21))
         self.usernameInput.setObjectName(_fromUtf8("usernameInput"))
-        self.horizontalLayout.addWidget(self.usernameInput)
-        self.verticalLayout.addLayout(self.horizontalLayout)
-        self.horizontalLayout_2 = QtGui.QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.passwordLabel = QtGui.QLabel(self.widget)
+        self.passwordLabel = QtGui.QLabel(self.centralwidget)
+        self.passwordLabel.setGeometry(QtCore.QRect(310, 100, 61, 28))
         self.passwordLabel.setObjectName(_fromUtf8("passwordLabel"))
-        self.horizontalLayout_2.addWidget(self.passwordLabel)
-        self.passwordInput = QtGui.QLineEdit(self.widget)
+        self.passwordInput = QtGui.QLineEdit(self.centralwidget)
+        self.passwordInput.setGeometry(QtCore.QRect(390, 100, 151, 21))
+        self.passwordInput.setEchoMode(QtGui.QLineEdit.Password)
         self.passwordInput.setObjectName(_fromUtf8("passwordInput"))
-        self.horizontalLayout_2.addWidget(self.passwordInput)
-        self.verticalLayout.addLayout(self.horizontalLayout_2)
+        self.label = QtGui.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(390, 70, 151, 20))
+        self.label.setText(_fromUtf8(""))
+        self.label.setObjectName(_fromUtf8("label"))
+        self.label_2 = QtGui.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(390, 130, 151, 20))
+        self.label_2.setText(_fromUtf8(""))
+        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.label_3 = QtGui.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(310, 20, 231, 20))
+        self.label_3.setText(_fromUtf8(""))
+        self.label_3.setObjectName(_fromUtf8("label_3"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 577, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 577, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuFile = QtGui.QMenu(self.menubar)
         self.menuFile.setObjectName(_fromUtf8("menuFile"))
@@ -100,6 +99,8 @@ class Visitor_MainWindow(object):
         self.actionClose.setObjectName(_fromUtf8("actionClose"))
         self.menuFile.addAction(self.actionClose)
         self.menubar.addAction(self.menuFile.menuAction())
+
+
 
         self.retranslateUi(MainWindow)
 
@@ -123,39 +124,85 @@ class Visitor_MainWindow(object):
         self.signUp.show()
 
     def signIn(self):
-        username = self.usernameInput.text()
-        password = self.passwordInput.text()
+        inputUsername = self.usernameInput.text()
+        inputPassword = self.passwordInput.text()
         user = None
-        if not username:
-            self.warning.setText(_fromUtf8("username is required"))
-        if not password:
-            self.warning.setText(_fromUtf8("password is required"))
+# <<<<<<< HEAD
+#         if not username:
+#             self.warning.setText(_fromUtf8("username is required"))
+#         if not password:
+#             self.warning.setText(_fromUtf8("password is required"))
+#         else:
+#             for i in self.library.userData:
+#                 if str(username) == i.username:
+#                     if str(password) == i.password:
+#                         # login success
+#                         user = i
+#                     else:
+#                         self.warning.setText(_fromUtf8("password is wrong"))
+#                     break
+#
+#             if user == None:
+#                 self.warning.setText(_fromUtf8("username is invalid"))
+#             else:
+#                 self.user = user
+#                 # self.user.superUser = True
+#                 if self.user.superUser == True:
+#                     self.UserPage = SuperUserPage(self.library, self.user)
+#                     self.UserPage.show()
+#                 else:
+#                     pass # need register Page
+# =======
+        if not inputUsername:
+            self.label.setText(_fromUtf8("Username is required!"))
+            print("username is required")
+        if not inputPassword:
+            self.label_2.setText(_fromUtf8("Password is required!"))
+            print("password is required")
         else:
-            for i in self.library.userData:
-                if str(username) == i.username:
-                    if str(password) == i.password:
-                        # login success
-                        user = i
-                    else:
-                        self.warning.setText(_fromUtf8("password is wrong"))
-                    break
+                self.label.setText(_fromUtf8(""))
+                self.label_2.setText(_fromUtf8(""))
+                with open('company_data.pkl', 'r') as input:
 
-            if user == None:
-                self.warning.setText(_fromUtf8("username is invalid"))
-            else:
-                self.user = user
-                # self.user.superUser = True
-                if self.user.superUser == True:
-                    self.UserPage = SuperUserPage(self.library, self.user)
-                    self.UserPage.show()
-                else:
-                    pass # need register Page
+                #with open("userDatabase.txt",'r') as file_handle:
+
+                  #for i in self.library.userData:
+                   find = False
+                   #for line in  file_handle:
+                   while(not find):
+                        #print "".join(line[1:].split())
+                        user = pickle.load(input)
+
+                        #print line.split()[0:2]
+                        #print line.split()
+                        #if (str(username + password)).lower() == ("".join((line.split())[2:])).lower():
+                        if user.username == inputUsername and user.password == inputPassword :
+                              print("success user")
+                              find = True
+
+
+
+                              self.registeredUser= registeredUser(user)
+                              self.registeredUser.show()
+
+
+                              find = True
+                              self.label_3.setText(_fromUtf8(""))
+
+                   if find == False:
+                      self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
+                      print("username or password is incorrect")
+
+
+
+
+# >>>>>>> 000b0d78377b02e9ef52c9b85616c9278a57275f
 
 
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.searchButton.setText(_translate("MainWindow", "Search", None))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        self.searchButton.setText(QtGui.QApplication.translate("MainWindow", "Search", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.top5List.isSortingEnabled()
 
         self.top5List.setSortingEnabled(False)
@@ -165,13 +212,14 @@ class Visitor_MainWindow(object):
             item.setText(_translate("MainWindow", books[i].title, None))
         self.top5List.setSortingEnabled(__sortingEnabled)
 
-        self.top5_label.setText(_translate("MainWindow", "Top5", None))
-        self.signinButton.setText(_translate("MainWindow", "sign in", None))
-        self.signUpButton.setText(_translate("MainWindow", "sign up", None))
-        self.userNameLaber.setText(_translate("MainWindow", "User name:", None))
-        self.passwordLabel.setText(_translate("MainWindow", "Password:", None))
-        self.menuFile.setTitle(_translate("MainWindow", "File", None))
-        self.actionClose.setText(_translate("MainWindow", "Close", None))
+
+        self.top5_label.setText(QtGui.QApplication.translate("MainWindow", "Top5", None, QtGui.QApplication.UnicodeUTF8))
+        self.signinButton.setText(QtGui.QApplication.translate("MainWindow", "sign in", None, QtGui.QApplication.UnicodeUTF8))
+        self.signUpButton.setText(QtGui.QApplication.translate("MainWindow", "sign up", None, QtGui.QApplication.UnicodeUTF8))
+        self.userNameLaber.setText(QtGui.QApplication.translate("MainWindow", "User name:", None, QtGui.QApplication.UnicodeUTF8))
+        self.passwordLabel.setText(QtGui.QApplication.translate("MainWindow", "Password:", None, QtGui.QApplication.UnicodeUTF8))
+        self.menuFile.setTitle(QtGui.QApplication.translate("MainWindow", "File", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionClose.setText(QtGui.QApplication.translate("MainWindow", "Close", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":
@@ -182,4 +230,3 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     sys.exit(app.exec_())
-

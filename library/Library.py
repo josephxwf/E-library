@@ -22,7 +22,7 @@ from Book import Book
 #
 
 class Library():
-    def __init__(self):
+    def __init__(self):    #constructor
         self.userData = self.loadUserData()
         print(self.userData[0].username)
         self.bookData = self.loadBookData()
