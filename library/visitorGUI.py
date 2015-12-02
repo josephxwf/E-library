@@ -107,7 +107,14 @@ class Visitor_MainWindow(object):
         QtCore.QObject.connect(self.signinButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signIn)
         QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signUp)
         QtCore.QObject.connect(self.searchButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
+        QtCore.QObject.connect(self.top5List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def open_book(self, item):
+        print("open........")
+        print(str(item.text()))
+
 
     def searchBook(self):
         keyWord = str(self.searchInput.text())
@@ -127,32 +134,7 @@ class Visitor_MainWindow(object):
         inputUsername = self.usernameInput.text()
         inputPassword = self.passwordInput.text()
         user = None
-# <<<<<<< HEAD
-#         if not username:
-#             self.warning.setText(_fromUtf8("username is required"))
-#         if not password:
-#             self.warning.setText(_fromUtf8("password is required"))
-#         else:
-#             for i in self.library.userData:
-#                 if str(username) == i.username:
-#                     if str(password) == i.password:
-#                         # login success
-#                         user = i
-#                     else:
-#                         self.warning.setText(_fromUtf8("password is wrong"))
-#                     break
-#
-#             if user == None:
-#                 self.warning.setText(_fromUtf8("username is invalid"))
-#             else:
-#                 self.user = user
-#                 # self.user.superUser = True
-#                 if self.user.superUser == True:
-#                     self.UserPage = SuperUserPage(self.library, self.user)
-#                     self.UserPage.show()
-#                 else:
-#                     pass # need register Page
-# =======
+
         if not inputUsername:
             self.label.setText(_fromUtf8("Username is required!"))
             print("username is required")
@@ -160,44 +142,28 @@ class Visitor_MainWindow(object):
             self.label_2.setText(_fromUtf8("Password is required!"))
             print("password is required")
         else:
-                self.label.setText(_fromUtf8(""))
-                self.label_2.setText(_fromUtf8(""))
-                with open('company_data.pkl', 'r') as input:
+            self.label.setText(_fromUtf8(""))
+            self.label_2.setText(_fromUtf8(""))
+            with open('user_data.pkl', 'r') as input:
+                find = False
+                #for line in  file_handle:
+                while(not find):
+                    user = pickle.load(input)
+                    if user.username == inputUsername and user.password == inputPassword :
+                        print("success user")
+                        find = True
+                        if user.superUser == True:
+                            self.SuperUserPage= SuperUserPage(user)
+                            self.SuperUserPage.show()
+                        else:
+                            self.registeredUser= registeredUser(user)
+                            self.registeredUser.show()
 
-                #with open("userDatabase.txt",'r') as file_handle:
+                        self.label_3.setText(_fromUtf8(""))
 
-                  #for i in self.library.userData:
-                   find = False
-                   #for line in  file_handle:
-                   while(not find):
-                        #print "".join(line[1:].split())
-                        user = pickle.load(input)
-
-                        #print line.split()[0:2]
-                        #print line.split()
-                        #if (str(username + password)).lower() == ("".join((line.split())[2:])).lower():
-                        if user.username == inputUsername and user.password == inputPassword :
-                              print("success user")
-                              find = True
-
-
-
-                              self.registeredUser= registeredUser(user)
-                              self.registeredUser.show()
-                              self.SuperUserPage= SuperUserPage()
-                              self.SuperUserPage.show()
-                              find = True
-                              self.label_3.setText(_fromUtf8(""))
-
-                   if find == False:
-                      self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
-                      print("username or password is incorrect")
-
-
-
-
-# >>>>>>> 000b0d78377b02e9ef52c9b85616c9278a57275f
-
+                if find == False:
+                  self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
+                  print("username or password is incorrect")
 
 
     def retranslateUi(self, MainWindow):

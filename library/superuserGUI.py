@@ -23,8 +23,9 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class SuperUserPage(QtGui.QWidget):
-    #def __init__(self, library, user):
-    def __init__(self):
+    def __init__(self, user):
+    # def __init__(self):
+        self.user = user
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
 

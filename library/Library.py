@@ -1,5 +1,6 @@
 from User import User
 from Book import Book
+import pickle
 #import os
 # from PyQt4 import QtCore, QtGui
 # from visitorGUI import Visitor_MainWindow
@@ -24,8 +25,8 @@ from Book import Book
 
 class Library():
     def __init__(self):    #constructor
-        self.userData = self.loadUserData()
-        print(self.userData[0].username)
+        self.userData = None
+        # print(self.userData[0].username)
         self.bookData = self.loadBookData()
         print(self.bookData[0].title)
         self.top5Book = self.searchTop5()
@@ -38,10 +39,16 @@ class Library():
 #     #    os.mkdir('Database')
 #     #    os.mkdir('PendingBooks')
 # >>>>>>> 8a0412333e7be461d43c0f98a57fad3889c12a70
-
-    def loadUserData(self):
-        fakeUserData = [User("a","a"),User("b","b") ]
-        return fakeUserData
+#
+#     def loadUserData(self):
+#         end = False
+#         user_list = []
+#         with open('user_data.pkl', 'r') as input:
+#             while(not end):
+#                 user = pickle.load(input)
+#                 user_list.append(user)
+#         # fakeUserData = [User("a","a"),User("b","b") ]
+#         return user_list
 
     def loadBookData(self):
         fakeBookData = []
