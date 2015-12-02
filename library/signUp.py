@@ -89,8 +89,7 @@ class SignUp(QtGui.QDialog):
             with open('company_data.pkl', 'a') as output:
                 user = User(username, password1)
                 pickle.dump(user, output)
-                user = User(username, 0)
-                pickle.dump(user,output)
+
 
 
                 del user
