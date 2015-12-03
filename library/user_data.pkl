@@ -19,7 +19,7 @@ p7
 p8
 S'QString'
 p9
-(Vcky
+(Vq
 p10
 tp11
 tp12
@@ -36,7 +36,7 @@ g7
 (g8
 S'QString'
 p18
-(V111111
+(V1
 p19
 tp20
 tp21

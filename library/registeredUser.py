@@ -1,36 +1,31 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'registeredUser.ui'
+# Form implementation generated from reading ui file 'RegisteredUser.ui'
 #
-# Created: Tue Dec  1 08:31:34 2015
-#      by: PyQt4 UI code generator 4.11.3
+# Created: Wed Dec  2 21:08:41 2015
+#      by: PyQt4 UI code generator 4.9.4
 #
 # WARNING! All changes made in this file will be lost!
+import pickle
 from PyQt4 import QtCore, QtGui
 import os
 import shutil
+from Book import Book
+from Library import Library
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
-        return s
-
-try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+    _fromUtf8 = lambda s: s
 
 class registeredUser(QtGui.QMainWindow):
     def __init__(self,user):
+        self.library = Library()
         super(registeredUser,self).__init__()
         self.setupUi(self,user)
     def setupUi(self, MainWindow,user):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(804, 550)
+        MainWindow.resize(800, 600)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         self.searchInput = QtGui.QLineEdit(self.centralwidget)
@@ -42,137 +37,155 @@ class registeredUser(QtGui.QMainWindow):
         self.top5List = QtGui.QListWidget(self.centralwidget)
         self.top5List.setGeometry(QtCore.QRect(30, 110, 256, 192))
         self.top5List.setObjectName(_fromUtf8("top5List"))
-        item = QtGui.QListWidgetItem()
-        self.top5List.addItem(item)
-        item = QtGui.QListWidgetItem()
-        self.top5List.addItem(item)
+        for i in range(5):
+            item = QtGui.QListWidgetItem()
+            self.top5List.addItem(item)
         self.top5_label = QtGui.QLabel(self.centralwidget)
         self.top5_label.setGeometry(QtCore.QRect(40, 80, 54, 12))
         self.top5_label.setObjectName(_fromUtf8("top5_label"))
-        self.passwordLabel_4 = QtGui.QLabel(self.centralwidget)
-        self.passwordLabel_4.setGeometry(QtCore.QRect(320, 90, 121, 28))
-        self.passwordLabel_4.setObjectName(_fromUtf8("passwordLabel_4"))
+        self.Name = QtGui.QLabel(self.centralwidget)
+        self.Name.setGeometry(QtCore.QRect(410, 30, 51, 20))
+        self.Name.setObjectName(_fromUtf8("Name"))
+        self.TotalPoints = QtGui.QLabel(self.centralwidget)
+        self.TotalPoints.setGeometry(QtCore.QRect(410, 70, 81, 31))
+        self.TotalPoints.setObjectName(_fromUtf8("TotalPoints"))
+        self.NameOutput = QtGui.QLabel(self.centralwidget)
+        self.NameOutput.setGeometry(QtCore.QRect(475, 22, 121, 31))
+        self.NameOutput.setText(_fromUtf8(user.username))
+        self.NameOutput.setObjectName(_fromUtf8("NameOutput"))
+        self.PointOutput = QtGui.QLabel(self.centralwidget)
+        self.PointOutput.setGeometry(QtCore.QRect(510, 70, 81, 31))
+        self.PointOutput.setText(_fromUtf8(str(user.point)))
+        self.PointOutput.setObjectName(_fromUtf8("PointOutput"))
+        self.ContributeBooks = QtGui.QLabel(self.centralwidget)
+        self.ContributeBooks.setGeometry(QtCore.QRect(470, 150, 111, 31))
+        self.ContributeBooks.setObjectName(_fromUtf8("ContributeBooks"))
+        self.BookTitile = QtGui.QLabel(self.centralwidget)
+        self.BookTitile.setGeometry(QtCore.QRect(410, 200, 81, 31))
+        self.BookTitile.setObjectName(_fromUtf8("BookTitile"))
+        self.PointsRequested = QtGui.QLabel(self.centralwidget)
+        self.PointsRequested.setGeometry(QtCore.QRect(410, 250, 111, 31))
+        self.PointsRequested.setObjectName(_fromUtf8("PointsRequested"))
+        self.BookTitileInput = QtGui.QLineEdit(self.centralwidget)
+        self.BookTitileInput.setGeometry(QtCore.QRect(530, 200, 101, 21))
+        self.BookTitileInput.setObjectName(_fromUtf8("BookTitileInput"))
+        self.pointsInput = QtGui.QLineEdit(self.centralwidget)
+        self.pointsInput.setGeometry(QtCore.QRect(530, 250, 61, 21))
+        self.pointsInput.setObjectName(_fromUtf8("pointsInput"))
+        self.BookSummary = QtGui.QLabel(self.centralwidget)
+        self.BookSummary.setGeometry(QtCore.QRect(410, 290, 101, 31))
+        self.BookSummary.setObjectName(_fromUtf8("BookSummary"))
+        self.bookSummaryInput = QtGui.QTextEdit(self.centralwidget)
+        self.bookSummaryInput.setGeometry(QtCore.QRect(530, 300, 211, 78))
+        self.bookSummaryInput.setObjectName(_fromUtf8("bookSummaryInput"))
+        self.Uploadbookbutton = QtGui.QPushButton(self.centralwidget)
+        self.Uploadbookbutton.setGeometry(QtCore.QRect(410, 450, 151, 32))
+        self.Uploadbookbutton.setObjectName(_fromUtf8("Uploadbookbutton"))
+        self.CoverPagebutton = QtGui.QPushButton(self.centralwidget)
+        self.CoverPagebutton.setGeometry(QtCore.QRect(410, 390, 110, 32))
+        self.CoverPagebutton.setObjectName(_fromUtf8("CoverPagebutton"))
+        self.label_9 = QtGui.QLabel(self.centralwidget)
+        self.label_9.setGeometry(QtCore.QRect(80, 340, 101, 31))
+        self.label_9.setObjectName(_fromUtf8("label_9"))
+        self.label_10 = QtGui.QLabel(self.centralwidget)
+        self.label_10.setGeometry(QtCore.QRect(540, 230, 241, 16))
+        self.label_10.setText(_fromUtf8(""))
+        self.label_10.setObjectName(_fromUtf8("label_10"))
+        self.label_11 = QtGui.QLabel(self.centralwidget)
+        self.label_11.setGeometry(QtCore.QRect(540, 280, 241, 16))
+        self.label_11.setText(_fromUtf8(""))
+        self.label_11.setObjectName(_fromUtf8("label_11"))
+        self.label_12 = QtGui.QLabel(self.centralwidget)
+        self.label_12.setGeometry(QtCore.QRect(550, 400, 231, 21))
+        self.label_12.setText(_fromUtf8(""))
+        self.label_12.setObjectName(_fromUtf8("label_12"))
         self.listWidget = QtGui.QListWidget(self.centralwidget)
-        self.listWidget.setGeometry(QtCore.QRect(30, 360, 256, 91))
+        self.listWidget.setGeometry(QtCore.QRect(30, 370, 256, 161))
         self.listWidget.setObjectName(_fromUtf8("listWidget"))
-        self.label = QtGui.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(30, 330, 101, 20))
-        self.label.setObjectName(_fromUtf8("label"))
-        self.pushButton = QtGui.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(310, 180, 141, 32))
-        self.pushButton.setObjectName(_fromUtf8("pushButton"))
-        self.listWidget_2 = QtGui.QListWidget(self.centralwidget)
-        self.listWidget_2.setGeometry(QtCore.QRect(320, 360, 231, 91))
-        self.listWidget_2.setObjectName(_fromUtf8("listWidget_2"))
-        self.splitter = QtGui.QSplitter(self.centralwidget)
-        self.splitter.setGeometry(QtCore.QRect(320, 20, 79, 32))
-        self.splitter.setOrientation(QtCore.Qt.Vertical)
-        self.splitter.setObjectName(_fromUtf8("splitter"))
-        self.userNameLaber = QtGui.QLabel(self.splitter)
-        self.userNameLaber.setObjectName(_fromUtf8("userNameLaber"))
-        self.passwordLabel_2 = QtGui.QLabel(self.splitter)
-        self.passwordLabel_2.setObjectName(_fromUtf8("passwordLabel_2"))
-        self.widget = QtGui.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(320, 220, 222, 23))
-        self.widget.setObjectName(_fromUtf8("widget"))
-        self.horizontalLayout_2 = QtGui.QHBoxLayout(self.widget)
-        self.horizontalLayout_2.setMargin(0)
-        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
-        self.label_2 = QtGui.QLabel(self.widget)
-        self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.horizontalLayout_2.addWidget(self.label_2)
-        self.lineEdit = QtGui.QLineEdit(self.widget)
-        self.lineEdit.setObjectName(_fromUtf8("lineEdit"))
-        self.horizontalLayout_2.addWidget(self.lineEdit)
-        self.widget1 = QtGui.QWidget(self.centralwidget)
-        self.widget1.setGeometry(QtCore.QRect(320, 260, 252, 23))
-        self.widget1.setObjectName(_fromUtf8("widget1"))
-        self.horizontalLayout = QtGui.QHBoxLayout(self.widget1)
-        self.horizontalLayout.setMargin(0)
-        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
-        self.label_3 = QtGui.QLabel(self.widget1)
-        self.label_3.setObjectName(_fromUtf8("label_3"))
-        self.horizontalLayout.addWidget(self.label_3)
-        self.lineEdit_2 = QtGui.QLineEdit(self.widget1)
-        self.lineEdit_2.setObjectName(_fromUtf8("lineEdit_2"))
-        self.horizontalLayout.addWidget(self.lineEdit_2)
-        self.splitter_2 = QtGui.QSplitter(self.centralwidget)
-        self.splitter_2.setGeometry(QtCore.QRect(310, 140, 308, 32))
-        self.splitter_2.setOrientation(QtCore.Qt.Horizontal)
-        self.splitter_2.setObjectName(_fromUtf8("splitter_2"))
-        self.signUpButton = QtGui.QPushButton(self.splitter_2)
-        self.signUpButton.setObjectName(_fromUtf8("signUpButton"))
-        self.pushButton_2 = QtGui.QPushButton(self.splitter_2)
-        self.pushButton_2.setObjectName(_fromUtf8("pushButton_2"))
-        self.label_5 = QtGui.QLabel(self.centralwidget)
-        self.label_5.setGeometry(QtCore.QRect(320, 330, 111, 16))
-        self.label_5.setObjectName(_fromUtf8("label_5"))
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 804, 22))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 800, 22))
         self.menubar.setObjectName(_fromUtf8("menubar"))
-        self.menuFile = QtGui.QMenu(self.menubar)
-        self.menuFile.setObjectName(_fromUtf8("menuFile"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
-        self.actionClose = QtGui.QAction(MainWindow)
-        self.actionClose.setObjectName(_fromUtf8("actionClose"))
-        self.menuFile.addAction(self.actionClose)
-        self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
-        QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
+
+
+
+
+        QtCore.QObject.connect(self.Uploadbookbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-        #def makebooksdatabase(self):
-        #    os.mkdir('Database')
-        #    os.mkdir('PendingBooks')
+    #def makebooksdatabase(self):
+    #    os.mkdir('Database')
+    #    os.mkdir('PendingBooks')
 
     def selectFile(self):
-        #searchInput.setText(QFileDialog.getOpenFileName(self))
-        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-                '/home')
-        #f = open(fname, 'r')
-        if os.path.isdir('/Users/khadeeja/MyGitHub/E-library/library/PendingBooks'):
-           shutil.copy(str(fname), '/Users/khadeeja/MyGitHub/E-library/library/PendingBooks')
+    #searchInput.setText(QFileDialog.getOpenFileName(self))
+        summary= self.bookSummaryInput.copy()  #get data from input
+        title = self.BookTitileInput.text()
+        points =  self.pointsInput.text()
+        if not summary:
+            self.label_10.setText(_fromUtf8("Summary is required!"))
+            print("Summary is required")
+        elif not title:
+            self.label_11.setText(_fromUtf8("Title is required!"))
+            print("Title is required")
+        elif not points:
+            self.label_12.setText(_fromUtf8("Points is required!!"))
+            print("Points is required!!")
         else:
-           os.mkdir('PendingBooks') #copy the path of this folder
-           shutil.copy(str(fname), '/Users/khadeeja/MyGitHub/E-library/library/PendingBooks')
-        ##pushButton.clicked.connect(selectFile)
+            with open('book_data.pkl', 'a') as output:
+                book = Book(title, points )
+                pickle.dump(book, output)
+                del book
+                self.close()
+
+        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+            '/home')
+
+        print fname
+    #f = open(fname, 'r')
+        if os.path.isdir('/Users/josephfan/SE/E-library/library/PendingBooks'):
+          shutil.copy(str(fname), '/Users/josephfan/SE/E-library/library/PendingBooks')
+        else:
+          os.mkdir('PendingBooks') #copy the path of this folder
+          shutil.copy(str(fname), '/Users/josephfan/SE/E-library/library/PendingBooks')
+    ##pushButton.clicked.connect(selectFile)
 
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
-        iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-                '/home')
+         iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+            '/home')
 
-    def uploadBookSummary(self):
-        sname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-                '/home')
+
 
     def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.searchButton.setText(_translate("MainWindow", "Search", None))
+        MainWindow.setWindowTitle(QtGui.QApplication.translate("MainWindow", "MainWindow", None, QtGui.QApplication.UnicodeUTF8))
+        self.searchButton.setText(QtGui.QApplication.translate("MainWindow", "Search", None, QtGui.QApplication.UnicodeUTF8))
         __sortingEnabled = self.top5List.isSortingEnabled()
+
         self.top5List.setSortingEnabled(False)
-        item = self.top5List.item(0)
-        item.setText(_translate("MainWindow", "book1", None))
-        item = self.top5List.item(1)
-        item.setText(_translate("MainWindow", "book2", None))
+        books = self.library.top5Book
+        for i in range(5):
+            item = self.top5List.item(i)
+            item.setText(QtGui.QApplication.translate("MainWindow", books[i].title, None))
         self.top5List.setSortingEnabled(__sortingEnabled)
-        self.top5_label.setText(_translate("MainWindow", "Top5", None))
-        self.passwordLabel_4.setText(_translate("MainWindow", "Contribute books:", None))
-        self.label.setText(_translate("MainWindow", "Reading history:", None))
-        self.pushButton.setText(_translate("MainWindow", "Upload cover page", None))
-        self.userNameLaber.setText(_translate("MainWindow", "User name:", None))
-        self.passwordLabel_2.setText(_translate("MainWindow", "Total Points:", None))
-        self.label_2.setText(_translate("MainWindow", "Book Title:", None))
-        self.label_3.setText(_translate("MainWindow", "Reading Points:", None))
-        self.signUpButton.setText(_translate("MainWindow", "Upload book", None))
-        self.pushButton_2.setText(_translate("MainWindow", "Upload book summary", None))
-        self.label_5.setText(_translate("MainWindow", "Pending books:", None))
-        self.menuFile.setTitle(_translate("MainWindow", "File", None))
-        self.actionClose.setText(_translate("MainWindow", "Close", None))
+
+
+        self.top5_label.setText(QtGui.QApplication.translate("MainWindow", "Top5", None, QtGui.QApplication.UnicodeUTF8))
+        self.Name.setText(QtGui.QApplication.translate("MainWindow", "Name:", None, QtGui.QApplication.UnicodeUTF8))
+        self.TotalPoints.setText(QtGui.QApplication.translate("MainWindow", "Total Points:", None, QtGui.QApplication.UnicodeUTF8))
+        self.ContributeBooks.setText(QtGui.QApplication.translate("MainWindow", "Contribute Books:", None, QtGui.QApplication.UnicodeUTF8))
+        self.BookTitile.setText(QtGui.QApplication.translate("MainWindow", "Book Titile:", None, QtGui.QApplication.UnicodeUTF8))
+        self.PointsRequested.setText(QtGui.QApplication.translate("MainWindow", "Points Requested:", None, QtGui.QApplication.UnicodeUTF8))
+        self.BookSummary.setText(QtGui.QApplication.translate("MainWindow", "Book Summary:", None, QtGui.QApplication.UnicodeUTF8))
+        self.Uploadbookbutton.setText(QtGui.QApplication.translate("MainWindow", "Upload This Book", None, QtGui.QApplication.UnicodeUTF8))
+        self.CoverPagebutton.setText(QtGui.QApplication.translate("MainWindow", "CoverPage", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Reading History:", None, QtGui.QApplication.UnicodeUTF8))
 
 
 if __name__ == "__main__":
