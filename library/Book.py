@@ -1,9 +1,10 @@
+import pickle
 
 class Book():
     def __init__(self):
         self.title = ""
         self.author = ""
-        self.description = ""
+        self.summary = ""
         self.requestPoint = 0
         self.type = ""
         self.NumOfRead = 0
@@ -11,10 +12,15 @@ class Book():
     def __init__(self, title, requestPoint):
         self.title = title
         self.author = ""
-        self.description = ""
+        self.summary = ""
         self.requestPoint = requestPoint
         self.type = ""
         self.NumOfRead = 0
+
+
+    def add_to_database(self):
+        with open('user_data.pkl', 'a') as output:
+            pickle.dump(self, output)
 
     def read(self):
         self.NumOfRead += 1

@@ -1,0 +1,131 @@
+(iBook
+Book
+p0
+(dp1
+S'NumOfRead'
+p2
+I18
+sS'author'
+p3
+S'Ralph Henry Barbour'
+p4
+sS'title'
+p5
+S'Four in Camp'
+p6
+sS'summary'
+p7
+S'A STORY OF SUMMER ADVENTURES IN THE NEW HAMPSHIRE WOODS'
+p8
+sS'requestPoint'
+p9
+I20
+sS'type'
+p10
+S'Adventures'
+p11
+sb.(iBook
+Book
+p0
+(dp1
+S'NumOfRead'
+p2
+I8
+sS'author'
+p3
+S'Franois Mauriac'
+p4
+sS'title'
+p5
+S'La chair et le sang'
+p6
+sS'summary'
+p7
+S'Since the introduction of the tungsten lamp some five years ago, the manufacturers have attempted continually to produce smaller and smaller units in the standard voltages.'
+p8
+sS'requestPoint'
+p9
+I5
+sS'type'
+p10
+S'Education'
+p11
+sb.(iBook
+Book
+p0
+(dp1
+S'NumOfRead'
+p2
+I22
+sS'author'
+p3
+S'Clair Elmore Anderson'
+p4
+sS'title'
+p5
+S'The Fifteen Watt Tungsten Lamp'
+p6
+sS'summary'
+p7
+S'Since the introduction of the tungsten lamp some five years ago, the manufacturers have attempted continually to produce smaller and smaller units in the standard voltages.'
+p8
+sS'requestPoint'
+p9
+I25
+sS'type'
+p10
+S'Education'
+p11
+sb.(iBook
+Book
+p0
+(dp1
+S'NumOfRead'
+p2
+I55
+sS'author'
+p3
+S'L. Frank Baum'
+p4
+sS'title'
+p5
+S'The Wonderful Wizard of Oz'
+p6
+sS'summary'
+p7
+S'Folklore, legends, myths and fairy tales have followed childhood through the ages, for every healthy youngster has a wholesome andinstinctive love for stories fantastic, marvelous and manifestly unreal.'
+p8
+sS'requestPoint'
+p9
+I35
+sS'type'
+p10
+S'Adventures'
+p11
+sb.(iBook
+Book
+p0
+(dp1
+S'NumOfRead'
+p2
+I3
+sS'author'
+p3
+S'Francis Chevassu'
+p4
+sS'title'
+p5
+S'Visages'
+p6
+sS'summary'
+p7
+S'IL est certain que la gloire a un ge. Jean-Jacques nous apparat  quarante ans, Voltaire  soixante, Musset  vingt-cinq, Hugo cinquante,'
+p8
+sS'requestPoint'
+p9
+I10
+sS'type'
+p10
+S'Education'
+p11
+sb.

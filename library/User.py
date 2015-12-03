@@ -4,18 +4,20 @@ class User(object):
         self.username = ""
         self.password = ""
         self.superUser = False
-        self.point = 0
+        self.point = 100
         self.readingHistory = []
+        self.own_book = []
 
     def __init__(self, username, password,):
         self.username = username
         self.password = password
         self.superUser = False
-        self.point = 0
+        self.point = 100
         self.readingHistory = []
+        self.own_book = []
 
 
-    def setReadingHistory(self,list):
+    def setReadingHistory(self, list):
         self.readingHistory = list
 
 

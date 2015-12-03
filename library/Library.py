@@ -25,10 +25,8 @@ import pickle
 
 class Library():
     def __init__(self):    #constructor
-        self.userData = None
-        # print(self.userData[0].username)
+        self.userData = self.loadUserData()
         self.bookData = self.loadBookData()
-        print(self.bookData[0].title)
         self.top5Book = self.searchTop5()
 
 # <<<<<<< HEAD
@@ -40,35 +38,29 @@ class Library():
 #     #    os.mkdir('PendingBooks')
 # >>>>>>> 8a0412333e7be461d43c0f98a57fad3889c12a70
 #
-#     def loadUserData(self):
-#         end = False
-#         user_list = []
-#         with open('user_data.pkl', 'r') as input:
-#             while(not end):
-#                 user = pickle.load(input)
-#                 user_list.append(user)
-#         # fakeUserData = [User("a","a"),User("b","b") ]
-#         return user_list
+    def loadUserData(self):
+        user_list = []
+        with open('user_data.pkl', 'r') as input:
+            user = pickle.load(input)
+            while(user):
+                user_list.append(user)
+                try:
+                    user = pickle.load(input)
+                except:
+                    user = None
+        return user_list
 
     def loadBookData(self):
-        fakeBookData = []
-        books = Book("a title 1",50)
-        books.NumOfRead = 10
-        fakeBookData.append(books)
-        books = Book("a title 2",110)
-        books.NumOfRead = 13
-        fakeBookData.append(books)
-        books = Book("a title 3",10)
-        books.NumOfRead = 5
-        fakeBookData.append(books)
-        books = Book("a title 4",10)
-        books.NumOfRead = 44
-        fakeBookData.append(books)
-        books = Book("a title 5",10)
-        books.NumOfRead = 1
-        fakeBookData.append(books)
-        # print(fakeBookData)
-        return fakeBookData
+        book_list = []
+        with open('book_data.pkl', 'r') as input:
+            book = pickle.load(input)
+            while(book):
+                book_list.append(book)
+                try:
+                    book = pickle.load(input)
+                except:
+                    book = None
+        return book_list
 
 
     def searchBook(self, keyword):
@@ -79,13 +71,16 @@ class Library():
         result = []
         resultNum = 5
         for book in self.bookData:
-            if keyword in book.title:
+            if keyword.lower() in book.title.lower():
                 result.append(book)
                 resultNum -=1
-            elif keyword in book.author:
+            elif keyword.lower() in book.author.lower():
                 result.append(book)
                 resultNum -=1
-            elif keyword in book.description:
+            elif keyword.lower() in book.type.lower():
+                result.append(book)
+                resultNum -=1
+            elif keyword.lower() in book.summary.lower():
                 result.append(book)
                 resultNum -=1
             if resultNum == 0:

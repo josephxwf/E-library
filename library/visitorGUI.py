@@ -117,6 +117,9 @@ class Visitor_MainWindow(object):
 
 
     def searchBook(self):
+        for i in range(5):
+            item = self.top5List.item(i)
+            item.setText(_translate("MainWindow", "", None))
         keyWord = str(self.searchInput.text())
         result = self.library.searchBook(keyWord)
         if len(result) == 0:
@@ -149,7 +152,7 @@ class Visitor_MainWindow(object):
                 #for line in  file_handle:
                 while(not find):
                     user = pickle.load(input)
-                    if user.username == inputUsername and user.password == inputPassword :
+                    if user.username == inputUsername and user.password == inputPassword:
                         print("success user")
                         find = True
                         if user.superUser == True:

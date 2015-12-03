@@ -24,7 +24,6 @@ except AttributeError:
 
 class SuperUserPage(QtGui.QWidget):
     def __init__(self, user):
-    # def __init__(self):
         self.user = user
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
