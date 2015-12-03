@@ -72,6 +72,7 @@ class Visitor_MainWindow(object):
         self.passwordInput = QtGui.QLineEdit(self.centralwidget)
         self.passwordInput.setGeometry(QtCore.QRect(390, 100, 151, 21))
         self.passwordInput.setEchoMode(QtGui.QLineEdit.Password)
+
         self.passwordInput.setObjectName(_fromUtf8("passwordInput"))
         self.label = QtGui.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(390, 70, 151, 20))
@@ -112,8 +113,11 @@ class Visitor_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def open_book(self, item):
-        print("open........")
-        print(str(item.text()))
+        #print("open........")
+        #print(str(item.text()))
+        self.bookitem = BookPageGUI()
+        self.bookitem.show()
+
 
 
     def searchBook(self):

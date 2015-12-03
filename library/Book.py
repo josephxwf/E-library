@@ -36,7 +36,7 @@ class Book():
         #timer for book reading durations
 
     def book_reviews(self, count):
-        self.count = count 
+        self.count = count
 
     def book_rating(self, rate):
         self.rate = 0 #initialize the rating to 0

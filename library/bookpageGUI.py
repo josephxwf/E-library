@@ -22,7 +22,10 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class BookPageGUI(object):
+class BookPageGUI(QtGui.QDialog):
+    def __init__(self):
+        super(BookPageGUI,self).__init__()
+        self.setupUi(self)
     def setupUi(self, Form):
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(611, 647)
