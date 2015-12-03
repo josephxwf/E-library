@@ -160,10 +160,10 @@ class Visitor_MainWindow(object):
                         print("success user")
                         find = True
                         if user.superUser == True:
-                            self.SuperUserPage= SuperUserPage(user)
+                            self.SuperUserPage= SuperUserPage(user, self.library)
                             self.SuperUserPage.show()
                         else:
-                            self.registeredUser= registeredUser(user)
+                            self.registeredUser= registeredUser(user, self.library)
                             self.registeredUser.show()
 
                         self.label_3.setText(_fromUtf8(""))
