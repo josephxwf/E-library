@@ -126,7 +126,7 @@ class registeredUser(QtGui.QMainWindow):
 
     def selectFile(self):
     #searchInput.setText(QFileDialog.getOpenFileName(self))
-        summary= self.bookSummaryInput.copy()  #get data from input
+        summary= self.bookSummaryInput.toPlainText()   #get data from input
         title = self.BookTitileInput.text()
         points =  self.pointsInput.text()
         if not summary:
