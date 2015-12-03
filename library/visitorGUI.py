@@ -115,8 +115,18 @@ class Visitor_MainWindow(object):
     def open_book(self, item):
         #print("open........")
         #print(str(item.text()))
-        self.bookitem = BookPageGUI()
-        self.bookitem.show()
+        with open('book_data.pkl', 'r') as input:
+            find = False
+            #for line in  file_handle:
+            while(not find):
+                book = pickle.load(input)
+                if book.title == str(item.text()):
+                    print("success upload book")
+                    find = True
+
+
+                    self.bookitem = BookPageGUI(book)
+                    self.bookitem.show()
 
 
 
