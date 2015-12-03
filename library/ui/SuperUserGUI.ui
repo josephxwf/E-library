@@ -6,197 +6,27 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>610</width>
-    <height>570</height>
+    <width>815</width>
+    <height>615</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QLabel" name="profileLabel">
+  <widget class="QLineEdit" name="search_Input">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>40</y>
-     <width>71</width>
-     <height>21</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Profile</string>
-   </property>
-  </widget>
-  <widget class="QWidget" name="layoutWidget_2">
-   <property name="geometry">
-    <rect>
-     <x>20</x>
-     <y>70</y>
-     <width>211</width>
-     <height>371</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout">
-    <item>
-     <widget class="QLabel" name="top5Label">
-      <property name="text">
-       <string>Top 5 Books:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QListWidget" name="top5List">
-      <item>
-       <property name="text">
-        <string>1. Book1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>2. Book2</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>3. Book3</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>4. Book4</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>5. Book5</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item>
-     <widget class="QLabel" name="historyLabel">
-      <property name="text">
-       <string>Reading History:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QListWidget" name="historyList">
-      <item>
-       <property name="text">
-        <string>1. Book1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>2. Book2</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>3. Book3</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>4. Book4</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>5. Book5</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QWidget" name="layoutWidget_3">
-   <property name="geometry">
-    <rect>
-     <x>271</x>
-     <y>231</y>
-     <width>321</width>
-     <height>161</height>
-    </rect>
-   </property>
-   <layout class="QVBoxLayout" name="verticalLayout_3">
-    <item>
-     <widget class="QLabel" name="requestListLabel">
-      <property name="text">
-       <string>Book donation request List:</string>
-      </property>
-     </widget>
-    </item>
-    <item>
-     <widget class="QTableWidget" name="requestTable">
-      <row>
-       <property name="text">
-        <string>1</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>2</string>
-       </property>
-      </row>
-      <row>
-       <property name="text">
-        <string>3</string>
-       </property>
-      </row>
-      <column>
-       <property name="text">
-        <string>User Name</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Book title</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>point requiest</string>
-       </property>
-      </column>
-      <item row="0" column="0">
-       <property name="text">
-        <string/>
-       </property>
-      </item>
-      <item row="0" column="1">
-       <property name="text">
-        <string/>
-       </property>
-      </item>
-      <item row="0" column="2">
-       <property name="text">
-        <string/>
-       </property>
-      </item>
-      <item row="1" column="0">
-       <property name="text">
-        <string/>
-       </property>
-      </item>
-     </widget>
-    </item>
-   </layout>
-  </widget>
-  <widget class="QLineEdit" name="searchInput">
-   <property name="geometry">
-    <rect>
-     <x>21</x>
+     <x>31</x>
      <y>32</y>
      <width>133</width>
      <height>20</height>
     </rect>
    </property>
   </widget>
-  <widget class="QPushButton" name="searchButton">
+  <widget class="QPushButton" name="search_Button">
    <property name="geometry">
     <rect>
-     <x>160</x>
+     <x>170</x>
      <y>31</y>
      <width>75</width>
      <height>23</height>
@@ -209,112 +39,344 @@
   <widget class="QLabel" name="contributLabel">
    <property name="geometry">
     <rect>
-     <x>272</x>
-     <y>163</y>
-     <width>96</width>
-     <height>16</height>
+     <x>450</x>
+     <y>130</y>
+     <width>111</width>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
     <string>Contribute Books:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lineEdit_2">
+  <widget class="QLabel" name="book_title_label">
    <property name="geometry">
     <rect>
-     <x>374</x>
-     <y>163</y>
+     <x>360</x>
+     <y>170</y>
      <width>71</width>
-     <height>20</height>
+     <height>21</height>
     </rect>
    </property>
    <property name="text">
-    <string>Input File</string>
+    <string>Book Title:</string>
    </property>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QLabel" name="point_requested_label">
    <property name="geometry">
     <rect>
-     <x>271</x>
-     <y>82</y>
-     <width>166</width>
-     <height>76</height>
+     <x>360</x>
+     <y>200</y>
+     <width>101</width>
+     <height>31</height>
     </rect>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_4">
-      <item>
-       <widget class="QLabel" name="usernameLabel">
-        <property name="text">
-         <string>Name:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="nameInLabel">
-        <property name="text">
-         <string>none</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_3">
-      <item>
-       <widget class="QLabel" name="numOfBookLabel">
-        <property name="text">
-         <string>Num of book contributed:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="numOfBookInLabel">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout_2">
-      <item>
-       <widget class="QLabel" name="pointLabel">
-        <property name="text">
-         <string>Total points:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="pointInLabel">
-        <property name="text">
-         <string>0</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-    <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="levelLabel">
-        <property name="text">
-         <string>level:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="levelInlabel">
-        <property name="text">
-         <string>register</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
-   </layout>
+   <property name="text">
+    <string>point Requested:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="book_summary_label">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>250</y>
+     <width>91</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Book Summary:</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="book_title_input">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>170</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="point_requested_input">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>210</y>
+     <width>113</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="book_summary_input">
+   <property name="geometry">
+    <rect>
+     <x>480</x>
+     <y>250</y>
+     <width>201</width>
+     <height>61</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="coverpage_button">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>330</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>CoverPage</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="upload_book_button">
+   <property name="geometry">
+    <rect>
+     <x>500</x>
+     <y>330</y>
+     <width>101</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Upload Book</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="submit_button">
+   <property name="geometry">
+    <rect>
+     <x>630</x>
+     <y>330</y>
+     <width>111</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Submit</string>
+   </property>
+  </widget>
+  <widget class="QTableWidget" name="request_Table">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>430</y>
+     <width>381</width>
+     <height>161</height>
+    </rect>
+   </property>
+   <row>
+    <property name="text">
+     <string>1</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>2</string>
+    </property>
+   </row>
+   <row>
+    <property name="text">
+     <string>3</string>
+    </property>
+   </row>
+   <column>
+    <property name="text">
+     <string>User Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Book title</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>point requiest</string>
+    </property>
+   </column>
+   <item row="0" column="0">
+    <property name="text">
+     <string>cky</string>
+    </property>
+   </item>
+   <item row="0" column="1">
+    <property name="text">
+     <string>test</string>
+    </property>
+   </item>
+   <item row="0" column="2">
+    <property name="text">
+     <string>10</string>
+    </property>
+   </item>
+   <item row="1" column="0">
+    <property name="text">
+     <string/>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="point_Label">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>90</y>
+     <width>78</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Total points:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="points_number_Label">
+   <property name="geometry">
+    <rect>
+     <x>470</x>
+     <y>90</y>
+     <width>16</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="username_Label">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>50</y>
+     <width>30</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Name:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="name_In_Label">
+   <property name="geometry">
+    <rect>
+     <x>410</x>
+     <y>50</y>
+     <width>24</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>none</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="top5_Label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>90</y>
+     <width>72</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Top 5 Books:</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="top5_List">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>130</y>
+     <width>209</width>
+     <height>163</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>1. Book1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2. Book2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3. Book3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4. Book4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5. Book5</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="history_Label">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>340</y>
+     <width>96</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Reading History:</string>
+   </property>
+  </widget>
+  <widget class="QListWidget" name="history_List">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>370</y>
+     <width>209</width>
+     <height>164</height>
+    </rect>
+   </property>
+   <item>
+    <property name="text">
+     <string>1. Book1</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>2. Book2</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>3. Book3</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>4. Book4</string>
+    </property>
+   </item>
+   <item>
+    <property name="text">
+     <string>5. Book5</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QLabel" name="request_List_Label">
+   <property name="geometry">
+    <rect>
+     <x>360</x>
+     <y>400</y>
+     <width>211</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Book contribute request List:</string>
+   </property>
   </widget>
  </widget>
  <resources/>
