@@ -10,7 +10,7 @@ import pickle
 from PyQt4 import QtCore, QtGui
 from signUp import SignUp
 from registeredUser import registeredUser
-from bookPageGUI import BookPageGUI
+from bookpageGUI import BookPageGUI
 from superuserGUI import SuperUserPage
 
 import sys
