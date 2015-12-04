@@ -8,6 +8,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+import os
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -18,7 +19,7 @@ class BookPageGUI(QtGui.QDialog):
     def __init__(self,book):
         super(BookPageGUI,self).__init__()
         self.setupUi(self,book)
-    def setupUi(self, Form,book):
+    def setupUi(self, Form, book):
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(611, 647)
         self.label = QtGui.QLabel(Form)
@@ -33,6 +34,7 @@ class BookPageGUI(QtGui.QDialog):
         self.label_9 = QtGui.QLabel(Form)
         self.label_9.setGeometry(QtCore.QRect(70, 70, 151, 191))
         self.label_9.setObjectName(_fromUtf8("label_9"))
+        self.label_9.setPixmap(QtGui.QPixmap(os.getcwd() + "/" + book.cover_page))
         self.textEdit = QtGui.QTextEdit(Form)
         self.textEdit.setGeometry(QtCore.QRect(50, 520, 481, 71))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
@@ -84,7 +86,6 @@ class BookPageGUI(QtGui.QDialog):
         self.label.setText(QtGui.QApplication.translate("Form", "BookTitle:", None, QtGui.QApplication.UnicodeUTF8))
         self.Ratelabel.setText(QtGui.QApplication.translate("Form", "Rate this book", None, QtGui.QApplication.UnicodeUTF8))
         self.readButton.setText(QtGui.QApplication.translate("Form", "read", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_9.setText(QtGui.QApplication.translate("Form", "covepage", None, QtGui.QApplication.UnicodeUTF8))
         self.submitButton.setText(QtGui.QApplication.translate("Form", "submit", None, QtGui.QApplication.UnicodeUTF8))
         self.commentslabel.setText(QtGui.QApplication.translate("Form", "comments", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("Form", "Author:", None, QtGui.QApplication.UnicodeUTF8))
@@ -92,11 +93,11 @@ class BookPageGUI(QtGui.QDialog):
         self.label_5.setText(QtGui.QApplication.translate("Form", "Points required to read this book:", None, QtGui.QApplication.UnicodeUTF8))
 
 
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    Form = QtGui.QWidget()
-    ui = Ui_Form()
-    ui.setupUi(Form)
-    Form.show()
-    sys.exit(app.exec_())
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     Form = QtGui.QWidget()
+#     ui = Ui_Form()
+#     ui.setupUi(Form)
+#     Form.show()
+#     sys.exit(app.exec_())

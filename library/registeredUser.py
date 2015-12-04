@@ -20,8 +20,8 @@ except AttributeError:
     _fromUtf8 = lambda s: s
 
 class registeredUser(QtGui.QMainWindow):
-    def __init__(self,user):
-        self.library = Library()
+    def __init__(self,user, library):
+        self.library = library
         super(registeredUser,self).__init__()
         self.setupUi(self,user)
     def setupUi(self, MainWindow,user):
@@ -116,7 +116,7 @@ class registeredUser(QtGui.QMainWindow):
 
 
 
-
+        QtCore.QObject.connect(self.searchButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
         QtCore.QObject.connect(self.Uploadbookbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
 
         QtCore.QObject.connect(self.top5List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
@@ -177,6 +177,7 @@ class registeredUser(QtGui.QMainWindow):
         #    os.chmod('pendingBooks', 0777)
         #    shutil.copy(str(fname), '/PendingBooks')
 
+<<<<<<< HEAD
 #This function is not being used currently
     def file_save(self):
         name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
@@ -184,6 +185,15 @@ class registeredUser(QtGui.QMainWindow):
         text = file.read()
         file.write(text)
         file.close()
+=======
+
+    # def file_save(self):
+    #     name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
+    #     file = open(fname, 'w')
+    #     text = file.read()
+    #     file.write(text)
+    #     file.close()
+>>>>>>> 67bf7f61e02872bc21cc028ca28444e56dfa67d8
 
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
          iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
@@ -215,12 +225,25 @@ class registeredUser(QtGui.QMainWindow):
         self.CoverPagebutton.setText(QtGui.QApplication.translate("MainWindow", "CoverPage", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Reading History:", None, QtGui.QApplication.UnicodeUTF8))
 
+    def searchBook(self):
+        for i in range(5):
+            item = self.top5List.item(i)
+            item.setText(QtGui.QApplication.translate("MainWindow", "", None))
+        keyWord = str(self.searchInput.text())
+        result = self.library.searchBook(keyWord)
+        if len(result) == 0:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
+        else:
+            for i in range(len(result)):
+                item = self.top5List.item(i)
+                item.setText(QtGui.QApplication.translate("MainWindow", result[i].title, None))
 
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+#
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     MainWindow = QtGui.QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(MainWindow)
+#     MainWindow.show()
+#     sys.exit(app.exec_())
