@@ -12,6 +12,7 @@ import os
 import shutil
 from Book import Book
 from Library import Library
+from bookpageGUI import BookPageGUI
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -118,7 +119,25 @@ class registeredUser(QtGui.QMainWindow):
 
         QtCore.QObject.connect(self.Uploadbookbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
 
+        QtCore.QObject.connect(self.top5List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
+
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def open_book(self, item):
+        #print("open........")
+        #print(str(item.text()))
+        with open('book_data.pkl', 'r') as input:
+            find = False
+            #for line in  file_handle:
+            while(not find):
+                book = pickle.load(input)
+                if book.title == str(item.text()):
+                    print("success upload book")
+                    find = True
+
+
+                    self.bookitem = BookPageGUI(book)
+                    self.bookitem.show()
 
     #def makebooksdatabase(self):
     #    os.mkdir('Database')
