@@ -35,7 +35,7 @@ class BookPageGUI(QtGui.QDialog):
         self.label_9 = QtGui.QLabel(Form)
         self.label_9.setGeometry(QtCore.QRect(70, 70, 151, 191))
         self.label_9.setObjectName(_fromUtf8("label_9"))
-        self.label_9.setPixmap(QtGui.QPixmap(os.getcwd() + "/"))
+        self.label_9.setPixmap(QtGui.QPixmap(os.getcwd() + "/" + book.cover_page))
         self.textEdit = QtGui.QTextEdit(Form)
         self.textEdit.setGeometry(QtCore.QRect(50, 520, 481, 71))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))

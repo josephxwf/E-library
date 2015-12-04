@@ -177,16 +177,6 @@ class registeredUser(QtGui.QMainWindow):
         #    os.chmod('pendingBooks', 0777)
         #    shutil.copy(str(fname), '/PendingBooks')
 
-
-#This function is not being used currently
-    # def file_save(self):
-    #     name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
-    #     file = open(fname, 'w')
-    #     text = file.read()
-    #     file.write(text)
-    #     file.close()
-
-
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
          iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
             '/home')
