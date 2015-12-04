@@ -51,7 +51,7 @@ p7
 p8
 S'QString'
 p9
-(Vqqqqqq
+(Vdin
 p10
 tp11
 tp12
@@ -74,7 +74,7 @@ g7
 (g8
 S'QString'
 p21
-(V111111
+(V1
 p22
 tp23
 tp24

@@ -29,15 +29,7 @@ class Library():
         self.bookData = self.loadBookData()
         self.top5Book = self.searchTop5()
 
-# <<<<<<< HEAD
-#     def saveUserData(self):
-#         pass
-# =======
-#     #def makebooksdatabase(self):
-#     #    os.mkdir('Database')
-#     #    os.mkdir('PendingBooks')
-# >>>>>>> 8a0412333e7be461d43c0f98a57fad3889c12a70
-#
+
     def loadUserData(self):
         user_list = []
         with open('user_data.pkl', 'r') as input:

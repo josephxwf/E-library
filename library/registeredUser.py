@@ -173,14 +173,10 @@ class registeredUser(QtGui.QMainWindow):
         #os.mkdir('PendingBooks')
         #os.chmod('PendingBooks', 0o777)
         shutil.copy(str(fname), 'PendingBooks')
-        #    os.mkdir('PendingBooks') #copy the path of this folder
-        #    os.chmod('pendingBooks', 0777)
-        #    shutil.copy(str(fname), '/PendingBooks')
 
-
-    def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
-         iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-            '/home')
+    #def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
+    #     iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+    #        '/home')
 
 
 
