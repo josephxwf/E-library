@@ -9,6 +9,7 @@
 
 from PyQt4 import QtCore, QtGui
 import os
+import popplerqt4
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -34,7 +35,7 @@ class BookPageGUI(QtGui.QDialog):
         self.label_9 = QtGui.QLabel(Form)
         self.label_9.setGeometry(QtCore.QRect(70, 70, 151, 191))
         self.label_9.setObjectName(_fromUtf8("label_9"))
-        self.label_9.setPixmap(QtGui.QPixmap(os.getcwd() + "/" + book.cover_page))
+        self.label_9.setPixmap(QtGui.QPixmap(os.getcwd() + "/"))
         self.textEdit = QtGui.QTextEdit(Form)
         self.textEdit.setGeometry(QtCore.QRect(50, 520, 481, 71))
         self.textEdit.setObjectName(_fromUtf8("textEdit"))
@@ -80,6 +81,9 @@ class BookPageGUI(QtGui.QDialog):
         self.textBrowser.setText(_fromUtf8(book.summary))
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+
+    def readBook(self):
+        d = popplerqt4.Poppler.Document.load('file.pdf')
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
