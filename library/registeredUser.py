@@ -178,6 +178,7 @@ class registeredUser(QtGui.QMainWindow):
         #    shutil.copy(str(fname), '/PendingBooks')
 
 
+
 #This function is not being used currently
     def file_save(self):
         name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
@@ -193,6 +194,7 @@ class registeredUser(QtGui.QMainWindow):
     #     text = file.read()
     #     file.write(text)
     #     file.close()
+
 
 
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
