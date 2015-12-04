@@ -168,16 +168,16 @@ class registeredUser(QtGui.QMainWindow):
         fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
             '/home')
         print fname
-    #f = open(fname, 'r')
+        #f = open(fname, 'r')
         #if os.path.isdir('/PendingBooks'):
-        #os.mkdir('Catalog')
-        #os.chmod('Catalog', 0o777)
-        shutil.copy(str(fname), 'Catalog')
+        #os.mkdir('PendingBooks')
+        #os.chmod('PendingBooks', 0o777)
+        shutil.copy(str(fname), 'PendingBooks')
         #    os.mkdir('PendingBooks') #copy the path of this folder
         #    os.chmod('pendingBooks', 0777)
         #    shutil.copy(str(fname), '/PendingBooks')
 
-
+#This function is not being used currently
     def file_save(self):
         name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
         file = open(fname, 'w')
