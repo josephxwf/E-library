@@ -168,15 +168,24 @@ class registeredUser(QtGui.QMainWindow):
         fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
             '/home')
         print fname
-    #f = open(fname, 'r')
+        #f = open(fname, 'r')
         #if os.path.isdir('/PendingBooks'):
-        #os.mkdir('Catalog')
-        #os.chmod('Catalog', 0o777)
-        shutil.copy(str(fname), 'Catalog')
+        #os.mkdir('PendingBooks')
+        #os.chmod('PendingBooks', 0o777)
+        shutil.copy(str(fname), 'PendingBooks')
         #    os.mkdir('PendingBooks') #copy the path of this folder
         #    os.chmod('pendingBooks', 0777)
         #    shutil.copy(str(fname), '/PendingBooks')
 
+<<<<<<< HEAD
+#This function is not being used currently
+    def file_save(self):
+        name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
+        file = open(fname, 'w')
+        text = file.read()
+        file.write(text)
+        file.close()
+=======
 
     # def file_save(self):
     #     name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
@@ -184,6 +193,7 @@ class registeredUser(QtGui.QMainWindow):
     #     text = file.read()
     #     file.write(text)
     #     file.close()
+>>>>>>> 67bf7f61e02872bc21cc028ca28444e56dfa67d8
 
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
          iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
