@@ -146,6 +146,9 @@ p7
 p8
 S'QString'
 p9
+<<<<<<< HEAD
+(Vkhadeeja
+=======
 (VJoe
 p10
 tp11
@@ -196,6 +199,7 @@ p8
 S'QString'
 p9
 (Vjoe
+>>>>>>> e9dcb53b01811b1af4c85eb535c40bbb3035640d
 p10
 tp11
 tp12

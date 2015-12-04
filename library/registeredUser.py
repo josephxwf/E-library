@@ -164,17 +164,26 @@ class registeredUser(QtGui.QMainWindow):
                 del book
                 self.close()
 
+
         fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
             '/home')
-
         print fname
     #f = open(fname, 'r')
-        if os.path.isdir('/Users/josephfan/SE/E-library/library/PendingBooks'):
-          shutil.copy(str(fname), '/Users/josephfan/SE/E-library/library/PendingBooks')
-        else:
-          os.mkdir('PendingBooks') #copy the path of this folder
-          shutil.copy(str(fname), '/Users/josephfan/SE/E-library/library/PendingBooks')
-    ##pushButton.clicked.connect(selectFile)
+        #if os.path.isdir('/PendingBooks'):
+        #os.mkdir('Catalog')
+        #os.chmod('Catalog', 0o777)
+        shutil.copy(str(fname), 'Catalog')
+        #    os.mkdir('PendingBooks') #copy the path of this folder
+        #    os.chmod('pendingBooks', 0777)
+        #    shutil.copy(str(fname), '/PendingBooks')
+
+
+    def file_save(self):
+        name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
+        file = open(fname, 'w')
+        text = file.read()
+        file.write(text)
+        file.close()
 
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
          iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
