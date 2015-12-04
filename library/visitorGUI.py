@@ -113,8 +113,6 @@ class Visitor_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def open_book(self, item):
-        #print("open........")
-        #print(str(item.text()))
         with open('book_data.pkl', 'r') as input:
             find = False
             #for line in  file_handle:
@@ -127,6 +125,12 @@ class Visitor_MainWindow(object):
 
                     self.bookitem = BookPageGUI(book)
                     self.bookitem.show()
+                    self.bookitem.Ratelabel.hide()
+                    self.bookitem.readButton.hide()
+                    self.bookitem.submitButton.hide()
+                    self.bookitem.commentslabel.hide()
+                    self.bookitem.textEdit.hide()
+                    self.bookitem.textBrowser_2.hide()
 
 
 
@@ -165,6 +169,7 @@ class Visitor_MainWindow(object):
                 find = False
                 #for line in  file_handle:
                 while(not find):
+                    print("aaaa")
                     user = pickle.load(input)
                     if user.username == inputUsername and user.password == inputPassword:
                         print("success user")

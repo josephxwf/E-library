@@ -1,13 +1,13 @@
 import pickle
 
 class Book():
-    def __init__(self):
-        self.title = ""
-        self.author = ""
-        self.summary = ""
-        self.requestPoint = 0
-        self.type = ""
-        self.NumOfRead = 0
+    # def __init__(self):
+    #     self.title = ""
+    #     self.author = ""
+    #     self.summary = ""
+    #     self.requestPoint = 0
+    #     self.type = ""
+    #     self.NumOfRead = 0
 
     def __init__(self, title, requestPoint):
         self.title = title
@@ -16,6 +16,7 @@ class Book():
         self.requestPoint = requestPoint
         self.type = ""
         self.NumOfRead = 0
+        self.cover_page = ""
 
 
     def add_to_database(self):
@@ -25,8 +26,8 @@ class Book():
     def read(self):
         self.NumOfRead += 1
 
-    def cover_page(self):
-        self.readcoverpage = ""
+    # def cover_page(self):
+    #     self.readcoverpage = ""
 
     def summary(self):
         self.readsummary = ""

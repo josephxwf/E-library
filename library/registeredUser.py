@@ -12,6 +12,7 @@ import os
 import shutil
 from Book import Book
 from Library import Library
+from bookpageGUI import BookPageGUI
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -118,8 +119,25 @@ class registeredUser(QtGui.QMainWindow):
         QtCore.QObject.connect(self.searchButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
         QtCore.QObject.connect(self.Uploadbookbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
 
+        QtCore.QObject.connect(self.top5List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def open_book(self, item):
+        #print("open........")
+        #print(str(item.text()))
+        with open('book_data.pkl', 'r') as input:
+            find = False
+            #for line in  file_handle:
+            while(not find):
+                book = pickle.load(input)
+                if book.title == str(item.text()):
+                    print("success upload book")
+                    find = True
+
+
+                    self.bookitem = BookPageGUI(book)
+                    self.bookitem.show()
 
     #def makebooksdatabase(self):
     #    os.mkdir('Database')
@@ -146,17 +164,26 @@ class registeredUser(QtGui.QMainWindow):
                 del book
                 self.close()
 
+
         fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
             '/home')
-
         print fname
     #f = open(fname, 'r')
-        if os.path.isdir('/Users/josephfan/SE/E-library/library/PendingBooks'):
-          shutil.copy(str(fname), '/Users/josephfan/SE/E-library/library/PendingBooks')
-        else:
-          os.mkdir('PendingBooks') #copy the path of this folder
-          shutil.copy(str(fname), '/Users/josephfan/SE/E-library/library/PendingBooks')
-    ##pushButton.clicked.connect(selectFile)
+        #if os.path.isdir('/PendingBooks'):
+        #os.mkdir('Catalog')
+        #os.chmod('Catalog', 0o777)
+        shutil.copy(str(fname), 'Catalog')
+        #    os.mkdir('PendingBooks') #copy the path of this folder
+        #    os.chmod('pendingBooks', 0777)
+        #    shutil.copy(str(fname), '/PendingBooks')
+
+
+    # def file_save(self):
+    #     name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
+    #     file = open(fname, 'w')
+    #     text = file.read()
+    #     file.write(text)
+    #     file.close()
 
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
          iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
@@ -201,12 +228,12 @@ class registeredUser(QtGui.QMainWindow):
                 item = self.top5List.item(i)
                 item.setText(QtGui.QApplication.translate("MainWindow", result[i].title, None))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+#
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     MainWindow = QtGui.QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(MainWindow)
+#     MainWindow.show()
+#     sys.exit(app.exec_())
