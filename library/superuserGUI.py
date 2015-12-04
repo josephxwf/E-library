@@ -8,6 +8,7 @@
 
 from PyQt4 import QtCore, QtGui
 from bookpageGUI import BookPageGUI
+import os
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -161,6 +162,8 @@ class SuperUserPage(QtGui.QWidget):
                 item = self.top5_List.item(i)
                 item.setText(_translate("MainWindow", result[i].title, None))
 
+    def approveBook(self):
+        os.listdir('PendingBooks')
 
     def retranslateUi(self, superUser):
         superUser.setWindowTitle(_translate("superUser", "Form", None))
@@ -221,4 +224,3 @@ class SuperUserPage(QtGui.QWidget):
         item.setText(_translate("superUser", "5. Book5", None))
         self.history_List.setSortingEnabled(__sortingEnabled)
         self.request_List_Label.setText(_translate("superUser", "Book contribute request List:", None))
-
