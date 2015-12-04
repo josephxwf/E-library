@@ -15,6 +15,7 @@ class User(object):
         self.point = 100
         self.readingHistory = []
         self.own_book = []
+        self.book_time
 
 
     def setReadingHistory(self, list):
