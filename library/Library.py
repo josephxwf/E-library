@@ -99,6 +99,7 @@ class Library():
         # print(data)
         for i in range(5):
             top5List.append(data[i])
+            #print i
         return top5List
 
 
