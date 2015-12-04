@@ -20,6 +20,8 @@ class BookPageGUI(QtGui.QDialog):
     def __init__(self,book):
         super(BookPageGUI,self).__init__()
         self.setupUi(self,book)
+        self.book = book
+
     def setupUi(self, Form, book):
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(611, 647)
@@ -81,9 +83,16 @@ class BookPageGUI(QtGui.QDialog):
         self.textBrowser.setText(_fromUtf8(book.summary))
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
+        QtCore.QObject.connect(self.readButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
 
     def readBook(self):
-        d = popplerqt4.Poppler.Document.load('file.pdf')
+        print(self.book.title + ".txt")
+        file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
+        file.open(QtCore.QIODevice.ReadOnly)
+        stream = QtCore.QTextStream(file)
+        self.textBrowser_2.setText(stream.readAll())
+        #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.title+ ".txt")
+
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
