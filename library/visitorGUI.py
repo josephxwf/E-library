@@ -10,7 +10,7 @@ import pickle
 from PyQt4 import QtCore, QtGui
 from signUp import SignUp
 from registeredUser import registeredUser
-from bookpageGUI import BookPageGUI
+from bookPageGUI import BookPageGUI
 from superuserGUI import SuperUserPage
 
 import sys
@@ -125,12 +125,12 @@ class Visitor_MainWindow(object):
 
                     self.bookitem = BookPageGUI(book)
                     self.bookitem.show()
-                    self.bookitem.Ratelabel.hide()
-                    self.bookitem.readButton.hide()
-                    self.bookitem.submitButton.hide()
-                    self.bookitem.commentslabel.hide()
-                    self.bookitem.textEdit.hide()
-                    self.bookitem.textBrowser_2.hide()
+                    self.bookitem.rate_label.hide()
+                    self.bookitem.read_button.hide()
+                    self.bookitem.submit_button.hide()
+                    self.bookitem.comments_label.hide()
+                    self.bookitem.comments_input.hide()
+                    self.bookitem.comments_text.hide()
 
 
 

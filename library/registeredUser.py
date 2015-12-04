@@ -12,7 +12,7 @@ import os
 import shutil
 from Book import Book
 from Library import Library
-from bookpageGUI import BookPageGUI
+from bookPageGUI import BookPageGUI
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
