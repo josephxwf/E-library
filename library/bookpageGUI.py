@@ -9,6 +9,8 @@ import os
 #import popplerqt4
 
 from PyQt4 import QtCore, QtGui
+from PyQt4.QtGui import *
+from PyQt4.QtCore import *
 
 #import popplerqt4    fot pdf file
 
@@ -31,6 +33,8 @@ class BookPageGUI(QtGui.QDialog):
 
     def __init__(self,book,user):
         self.user = user
+        #self.Form = QtGui.QWidget()
+        self.central = QWidget()
 
         super(BookPageGUI,self).__init__()
         self.setupUi(self,book,user)
@@ -109,7 +113,11 @@ class BookPageGUI(QtGui.QDialog):
         self.point_display_label.setObjectName(_fromUtf8(str(book.requestPoint)))
         self.Timer = QtGui.QTextBrowser(Form)
         self.Timer.setGeometry(QtCore.QRect(570, 20, 100, 20))
-        self.Timer.setObjectName(_fromUtf8("read_book_text"))
+        self.Timer.setObjectName(_fromUtf8("timer"))
+        self.TimeOutMessage = QtGui.QLabel(Form)
+        self.TimeOutMessage.setGeometry(QtCore.QRect(670, 20, 200, 20))
+        self.TimeOutMessage.setObjectName(_fromUtf8("TimeOutMessage"))
+
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -118,21 +126,63 @@ class BookPageGUI(QtGui.QDialog):
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
 
     def readBook(self):
-        print(self.book.title + ".txt")
+     print(self.book.title + ".txt")
+     if self.user.timelist[self.book.title] > 0:
         file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
         file.open(QtCore.QIODevice.ReadOnly)
         stream = QtCore.QTextStream(file)
         self.read_book_text.setText(stream.readAll())
-        #self.time1 = QtCore.QTime.currentTime()
-        self.lcd = QLCDNumber(self.central)
+
         self.timer = QTimer(self)
-        self.start_time = 20
+        print self.timer
+        self.start_time = self.user.timelist[self.book.title]
+        #self.timer.setInterval(1000)
+        self.timer.start(1000)
+        self.timer.timeout.connect(self.displayTime)
+
+
+     elif self.user.point > 0 :
+
+         self.user.point = self.user.point - self.book.requestPoint
+         self.user.timelist[self.book.title] = 10
+         file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
+         file.open(QtCore.QIODevice.ReadOnly)
+         stream = QtCore.QTextStream(file)
+         self.read_book_text.setText(stream.readAll())
+
+         self.timer = QTimer(self)
+         #print self.timer
+         self.start_time = self.user.timelist[self.book.title]
+         #self.timer.setInterval(1000)
+         self.timer.start(1000)
+         self.timer.timeout.connect(self.displayTime)
+     else:
+
+         self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
+
+
+
+
+    def displayTime(self):
+        self.start_time -= 1
+        self.user.timelist[self.book.title] -=1
+        print self.user.timelist[self.book.title]
+        if self.start_time >= 0:
+           self.Timer.setText(("%d:%02d" % (self.start_time/60,self.start_time % 60)))
+        else:
+           self.read_book_text.setText("")
+           print "Time is up!"
+
+           self.timer.stop()
+
+
+
+
+
     def closeBook(self):
-        self.time2= QtCore.QTime.currentTime()
-        self.totalTime= self.time1.secsTo(self.time2)
-        self.user.time = self.user.time - self.totalTime
-        print self.user.time
-        print self.totalTime
+        self.read_book_text.setText("")
+        print "Close the book!"
+        self.timer.stop()
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "Form", None))
