@@ -141,37 +141,26 @@ class registeredUser(QtGui.QMainWindow):
                     self.bookitem.show()
 
     def selectFile(self):
-        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-            '/home')
-        if fname:
-            print fname
-            shutil.copy(str(fname), 'PendingBooks')
-            self.upload_book.book_file = str(fname)
+        file_name = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+        if file_name:
+            file_name_cut_list = str(file_name).split('/')
+            print(file_name_cut_list)
+            # if not self.upload_book.book_file:
+            print file_name
+            shutil.copy(str(file_name), 'PendingBooks')
+            self.upload_book.book_file = file_name_cut_list[-1]
+            print(self.upload_book.book_file)
             self.Uploadbookbutton.setDisabled(True)
-        #f = open(fname, 'r')
-        #if os.path.isdir('/PendingBooks'):
-        #os.mkdir('PendingBooks')
-        #os.chmod('PendingBooks', 0o777)
 
-        summary = self.bookSummaryInput.toPlainText()   #get data from input
-        title = self.BookTitileInput.text()
-        points = self.pointsInput.text()
-        if not summary:
-            self.label_10.setText(_fromUtf8("Summary is required!"))
-            print("Summary is required")
-        if not title:
-            self.label_11.setText(_fromUtf8("Title is required!"))
-            print("Title is required")
-        if not points:
-            self.label_12.setText(_fromUtf8("Points is required!!"))
-            print("Points is required!!")
-        else:
-            with open('book_data.pkl', 'a') as output:
-                book = Book(title, points)
-                pickle.dump(book, output)
-                del book
-                self.close()
+    def selectCoverPage(self):
+        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+        if image:
+            file_name_cut_list = str(image).split('/')
+            shutil.copy(str(image), 'CoverPage')
+            self.upload_book.cover_page = file_name_cut_list[-1]
+            print(self.upload_book.cover_page)
 
+            self.coverpage_button.setDisabled(True)
 
     def selectCoverPage(self):
         image = QtGui.QFileDialog.getOpenFileName(self, 'Open file',

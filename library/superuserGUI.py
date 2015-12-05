@@ -165,7 +165,7 @@ class SuperUserPage(QtGui.QWidget):
             shutil.copy(str(file_name), 'PendingBooks')
             self.upload_book.book_file = file_name_cut_list[-1]
             print(self.upload_book.book_file)
-            self.Uploadbookbutton.setDisabled(True)
+            self.upload_book_button.setDisabled(True)
             # else:
             #     # path = os.getcwd()+"/PendingBooks"
             #     print(self.upload_book.book_file)
