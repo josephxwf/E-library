@@ -120,7 +120,7 @@ class registeredUser(QtGui.QMainWindow):
 
         QtCore.QObject.connect(self.searchButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
         QtCore.QObject.connect(self.Uploadbookbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
-
+        QtCore.QObject.connect(self.CoverPagebutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectCoverPage)
         QtCore.QObject.connect(self.top5List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -141,12 +141,15 @@ class registeredUser(QtGui.QMainWindow):
                     self.bookitem = BookPageGUI(book,self.user)
                     self.bookitem.show()
 
-    #def makebooksdatabase(self):
-    #    os.mkdir('Database')
-    #    os.mkdir('PendingBooks')
-
     def selectFile(self):
-    #searchInput.setText(QFileDialog.getOpenFileName(self))
+        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+            '/home')
+        print fname
+        #f = open(fname, 'r')
+        #if os.path.isdir('/PendingBooks'):
+        #os.mkdir('PendingBooks')
+        #os.chmod('PendingBooks', 0o777)
+        shutil.copy(str(fname), 'PendingBooks')
         summary= self.bookSummaryInput.toPlainText()   #get data from input
         title = self.BookTitileInput.text()
         points =  self.pointsInput.text()
@@ -167,43 +170,10 @@ class registeredUser(QtGui.QMainWindow):
                 self.close()
 
 
-        fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-            '/home')
-        print fname
-        #f = open(fname, 'r')
-        #if os.path.isdir('/PendingBooks'):
-        #os.mkdir('PendingBooks')
-        #os.chmod('PendingBooks', 0o777)
-        shutil.copy(str(fname), 'PendingBooks')
-
-
-
-
-#This function is not being used currently
-    def file_save(self):
-        name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
-        file = open(fname, 'w')
-        text = file.read()
-        file.write(text)
-        file.close()
-
-
-    # def file_save(self):
-    #     name = QtGui.QFileDialog.getSaveFileName(self, 'Add Book to Catalog')
-    #     file = open(fname, 'w')
-    #     text = file.read()
-    #     file.write(text)
-    #     file.close()
-
-
-
-    def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
-         iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-            '/home')
-
-    #def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
-    #     iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-    #        '/home')
+    def selectCoverPage(self):
+        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+          '/home')
+        shutil.copy(str(image), 'CoverPage')
 
 
 

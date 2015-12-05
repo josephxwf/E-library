@@ -127,13 +127,14 @@ class Visitor_MainWindow(object):
 
                     self.bookitem = BookPageGUI(book,None)
                     self.bookitem.show()
-                    self.bookitem.Ratelabel.hide()
-                    self.bookitem.readButton.hide()
-                    self.bookitem.closeBookButton.hide()
-                    self.bookitem.submitButton.hide()
-                    self.bookitem.commentslabel.hide()
-                    self.bookitem.textEdit.hide()
-                    self.bookitem.textBrowser_2.hide()
+
+                    self.bookitem.rate_label.hide()
+                    self.bookitem.read_button.hide()
+                    self.bookitem.submit_button.hide()
+                    self.bookitem.comments_label.hide()
+                    self.bookitem.comments_input.hide()
+                    self.bookitem.comments_text.hide()
+
 
 
 

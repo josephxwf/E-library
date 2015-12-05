@@ -9,7 +9,7 @@ class Book():
     #     self.type = ""
     #     self.NumOfRead = 0
 
-    def __init__(self, title, requestPoint):
+    def __init__(self, title, cover_page, requestPoint):
         self.title = title
         self.author = ""
         self.summary = ""

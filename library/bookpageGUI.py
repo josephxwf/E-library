@@ -2,140 +2,155 @@
 
 # Form implementation generated from reading ui file 'bookpage.ui'
 #
-# Created: Thu Dec  3 13:57:42 2015
-#      by: PyQt4 UI code generator 4.9.4
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
+import os
+#import popplerqt4
 
 from PyQt4 import QtCore, QtGui
-import os
+
 #import popplerqt4    fot pdf file
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    _fromUtf8 = lambda s: s
+    def _fromUtf8(s):
+        return s
+
+try:
+    _encoding = QtGui.QApplication.UnicodeUTF8
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+except AttributeError:
+    def _translate(context, text, disambig):
+        return QtGui.QApplication.translate(context, text, disambig)
 
 class BookPageGUI(QtGui.QDialog):
 
     def __init__(self,book,user):
         self.user = user
+
         super(BookPageGUI,self).__init__()
         self.setupUi(self,book,user)
         self.book = book
 
     def setupUi(self, Form, book,user):
         Form.setObjectName(_fromUtf8("Form"))
-        Form.resize(611, 647)
-        self.label = QtGui.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(270, 20, 61, 31))
-        self.label.setObjectName(_fromUtf8("label"))
-        self.Ratelabel = QtGui.QLabel(Form)
-        self.Ratelabel.setGeometry(QtCore.QRect(50, 280, 111, 31))
-        self.Ratelabel.setObjectName(_fromUtf8("label_3"))
 
-        self.readButton = QtGui.QPushButton(Form)
-        self.readButton.setGeometry(QtCore.QRect(270, 240, 75, 23))
-        self.readButton.setObjectName(_fromUtf8("pushButton"))
+        Form.resize(1065, 651)
+        self.book_title_label = QtGui.QLabel(Form)
+        self.book_title_label.setGeometry(QtCore.QRect(270, 30, 61, 31))
+        self.book_title_label.setObjectName(_fromUtf8("book_title_label"))
+        self.rate_label = QtGui.QLabel(Form)
+        self.rate_label.setGeometry(QtCore.QRect(50, 330, 111, 31))
+        self.rate_label.setObjectName(_fromUtf8("rate_label"))
+        self.read_button = QtGui.QPushButton(Form)
+        self.read_button.setGeometry(QtCore.QRect(270, 330, 75, 23))
+        self.read_button.setObjectName(_fromUtf8("read_button"))
 
         self.closeBookButton = QtGui.QPushButton(Form)
-        self.closeBookButton.setGeometry(QtCore.QRect(400, 240, 75, 23))
+        self.closeBookButton.setGeometry(QtCore.QRect(400, 330, 75, 23))
         self.closeBookButton.setObjectName(_fromUtf8("pushButton_3"))
 
-        self.label_9 = QtGui.QLabel(Form)
-        self.label_9.setGeometry(QtCore.QRect(70, 70, 151, 191))
-        self.label_9.setObjectName(_fromUtf8("label_9"))
-        # get coverage page
-        self.label_9.setPixmap(QtGui.QPixmap(os.getcwd() + "/" + book.cover_page))
-        self.textEdit = QtGui.QTextEdit(Form)
-        self.textEdit.setGeometry(QtCore.QRect(50, 520, 481, 71))
-        self.textEdit.setObjectName(_fromUtf8("textEdit"))
-        self.submitButton = QtGui.QPushButton(Form)
-        self.submitButton.setGeometry(QtCore.QRect(50, 600, 75, 23))
-        self.submitButton.setObjectName(_fromUtf8("pushButton_2"))
+        self.covepage_label = QtGui.QLabel(Form)
+        self.covepage_label.setGeometry(QtCore.QRect(50, 30, 181, 261))
+        self.covepage_label.setObjectName(_fromUtf8("covepage_label"))
+        self.covepage_label.setPixmap(QtGui.QPixmap('CoverPage/'+ book.title+ ".jpg"))
+        self.covepage_label.setScaledContents(True)
+        self.comments_input = QtGui.QTextEdit(Form)
+        self.comments_input.setGeometry(QtCore.QRect(50, 520, 491, 71))
+        self.comments_input.setObjectName(_fromUtf8("comments_input"))
+        self.submit_button = QtGui.QPushButton(Form)
+        self.submit_button.setGeometry(QtCore.QRect(50, 600, 75, 23))
+        self.submit_button.setObjectName(_fromUtf8("submit_button"))
+
         self.layoutWidget = QtGui.QWidget(Form)
-        self.layoutWidget.setGeometry(QtCore.QRect(50, 320, 481, 191))
+        self.layoutWidget.setGeometry(QtCore.QRect(50, 370, 491, 141))
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget)
-        self.verticalLayout_2.setMargin(0)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-        self.commentslabel = QtGui.QLabel(self.layoutWidget)
-        self.commentslabel.setObjectName(_fromUtf8("label_8"))
-        self.verticalLayout_2.addWidget(self.commentslabel)
-        self.textBrowser_2 = QtGui.QTextBrowser(self.layoutWidget)
-        self.textBrowser_2.setObjectName(_fromUtf8("textBrowser_2"))
-        self.verticalLayout_2.addWidget(self.textBrowser_2)
-        self.booktitle = QtGui.QLabel(Form)
-        self.booktitle.setGeometry(QtCore.QRect(350, 18, 170, 31))
-        self.booktitle.setText(_fromUtf8(book.title))
-        self.booktitle.setObjectName(_fromUtf8("label_10"))
-        self.label_2 = QtGui.QLabel(Form)
-        self.label_2.setGeometry(QtCore.QRect(270, 60, 61, 31))
-        self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.author = QtGui.QLabel(Form)
-        self.author.setGeometry(QtCore.QRect(350, 60, 151, 31))
-        self.author.setText(_fromUtf8(book.author))
-        self.author.setObjectName(_fromUtf8("label_6"))
-        self.label_4 = QtGui.QLabel(Form)
-        self.label_4.setGeometry(QtCore.QRect(270, 100, 61, 31))
-        self.label_4.setObjectName(_fromUtf8("label_4"))
-        self.label_5 = QtGui.QLabel(Form)
-        self.label_5.setGeometry(QtCore.QRect(270, 210, 201, 31))
-        self.label_5.setObjectName(_fromUtf8("label_5"))
 
-        self.currentUserTimelabel  = QtGui.QLabel(Form)
-        self.currentUserTimelabel.setGeometry(QtCore.QRect(270, 270, 201, 31))
-        self.currentUserTimelabel.setObjectName(_fromUtf8("label_5"))
-        self.currentUserTime = QtGui.QLabel(Form)
-        self.currentUserTime.setGeometry(QtCore.QRect(480, 270, 61, 21))
-        self.currentUserTime.setText(_fromUtf8(str(user.time)))
+        self.comments_label = QtGui.QLabel(self.layoutWidget)
+        self.comments_label.setObjectName(_fromUtf8("comments_label"))
+        self.verticalLayout_2.addWidget(self.comments_label)
+        self.comments_text = QtGui.QTextBrowser(self.layoutWidget)
+        self.comments_text.setObjectName(_fromUtf8("comments_text"))
+        self.verticalLayout_2.addWidget(self.comments_text)
+        self.book_title_display_label = QtGui.QLabel(Form)
+        self.book_title_display_label.setGeometry(QtCore.QRect(350, 20, 191, 31))
+        self.book_title_display_label.setText(_fromUtf8(book.title))
+        self.book_title_display_label.setObjectName(_fromUtf8("book_title_display_label"))
+        self.time_label = QtGui.QLabel(Form)
+        self.time_label.setGeometry(QtCore.QRect(410, 300, 111, 21))
+        self.time_label.setObjectName(_fromUtf8("time_label"))
+        self.read_book_text = QtGui.QTextBrowser(Form)
+        self.read_book_text.setGeometry(QtCore.QRect(570, 40, 489, 551))
+        self.read_book_text.setObjectName(_fromUtf8("read_book_text"))
+        self.author_label = QtGui.QLabel(Form)
+        self.author_label.setGeometry(QtCore.QRect(270, 70, 42, 16))
+        self.author_label.setObjectName(_fromUtf8("author_label"))
+        self.author_display_label = QtGui.QLabel(Form)
+        self.author_display_label.setGeometry(QtCore.QRect(330, 70, 111, 21))
+        self.author_display_label.setObjectName(_fromUtf8(book.author))
+        self.summary_label = QtGui.QLabel(Form)
+        self.summary_label.setGeometry(QtCore.QRect(271, 101, 48, 16))
+        self.summary_label.setObjectName(_fromUtf8("summary_label"))
+        self.summary_text = QtGui.QTextBrowser(Form)
+        self.summary_text.setGeometry(QtCore.QRect(271, 119, 271, 161))
+        self.summary_text.setObjectName(_fromUtf8("summary_text"))
+        self.summary_text.setText(_fromUtf8(book.summary))
+        self.point_label = QtGui.QLabel(Form)
+        self.point_label.setGeometry(QtCore.QRect(271, 301, 101, 16))
+        self.point_label.setObjectName(_fromUtf8("point_label"))
+        self.point_display_label = QtGui.QLabel(Form)
+        self.point_display_label.setGeometry(QtCore.QRect(380, 300, 21, 21))
+        self.point_display_label.setObjectName(_fromUtf8(str(book.requestPoint)))
+        self.Timer = QtGui.QTextBrowser(Form)
+        self.Timer.setGeometry(QtCore.QRect(570, 20, 100, 20))
+        self.Timer.setObjectName(_fromUtf8("read_book_text"))
 
-        self.requestPoint = QtGui.QLabel(Form)
-        self.requestPoint.setGeometry(QtCore.QRect(480, 215, 61, 21))
-        self.requestPoint.setText(_fromUtf8(str(book.requestPoint)))
-
-        self.requestPoint.setObjectName(_fromUtf8("label_7"))
-        self.textBrowser = QtGui.QTextBrowser(Form)
-        self.textBrowser.setGeometry(QtCore.QRect(270, 130, 291, 81))
-        self.textBrowser.setObjectName(_fromUtf8("textBrowser"))
-        self.textBrowser.setText(_fromUtf8(book.summary))
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
-        QtCore.QObject.connect(self.readButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
+
+        QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
 
     def readBook(self):
         print(self.book.title + ".txt")
-        if self.user.time > 0 :
-          file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
-          file.open(QtCore.QIODevice.ReadOnly)
-          stream = QtCore.QTextStream(file)
-          self.textBrowser_2.setText(stream.readAll())
-          self.time1 = QtCore.QTime.currentTime()
-    def  closeBook(self):
-          self.time2= QtCore.QTime.currentTime()
-          self.totalTime= self.time1.secsTo(self.time2)
-          self.user.time = self.user.time - self.totalTime
-          print self.user.time
-          print self.totalTime
-
-        #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.title+ ".txt")
-
+        file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
+        file.open(QtCore.QIODevice.ReadOnly)
+        stream = QtCore.QTextStream(file)
+        self.read_book_text.setText(stream.readAll())
+        #self.time1 = QtCore.QTime.currentTime()
+        self.lcd = QLCDNumber(self.central)
+        self.timer = QTimer(self)
+        self.start_time = 20
+    def closeBook(self):
+        self.time2= QtCore.QTime.currentTime()
+        self.totalTime= self.time1.secsTo(self.time2)
+        self.user.time = self.user.time - self.totalTime
+        print self.user.time
+        print self.totalTime
 
     def retranslateUi(self, Form):
-        Form.setWindowTitle(QtGui.QApplication.translate("Form", "Form", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("Form", "BookTitle:", None, QtGui.QApplication.UnicodeUTF8))
-        self.Ratelabel.setText(QtGui.QApplication.translate("Form", "Rate this book", None, QtGui.QApplication.UnicodeUTF8))
-        self.readButton.setText(QtGui.QApplication.translate("Form", "read", None, QtGui.QApplication.UnicodeUTF8))
-
+        Form.setWindowTitle(_translate("Form", "Form", None))
+        self.book_title_label.setText(_translate("Form", "BookTitle:", None))
+        self.rate_label.setText(_translate("Form", "Rate this book", None))
+        self.read_button.setText(_translate("Form", "read", None))
+        self.submit_button.setText(_translate("Form", "submit", None))
+        self.comments_label.setText(_translate("Form", "comments", None))
+        self.time_label.setText(_translate("Form", "point for 5 min", None))
+        self.author_label.setText(_translate("Form", "Author:", None))
+        self.author_display_label.setText(_translate("Form", "kaiying", None))
+        self.summary_label.setText(_translate("Form", "Summary:", None))
+        self.point_label.setText(_translate("Form", "Point required:", None))
+        self.point_display_label.setText(_translate("Form", "50", None))
         self.closeBookButton.setText(QtGui.QApplication.translate("Form", "close", None, QtGui.QApplication.UnicodeUTF8))
-        self.submitButton.setText(QtGui.QApplication.translate("Form", "submit", None, QtGui.QApplication.UnicodeUTF8))
-        self.commentslabel.setText(QtGui.QApplication.translate("Form", "comments", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_2.setText(QtGui.QApplication.translate("Form", "Author:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_4.setText(QtGui.QApplication.translate("Form", "Summary:", None, QtGui.QApplication.UnicodeUTF8))
-        self.label_5.setText(QtGui.QApplication.translate("Form", "Points required to read this book:", None, QtGui.QApplication.UnicodeUTF8))
-        self.currentUserTimelabel.setText(QtGui.QApplication.translate("Form", "Your Current Total Points:", None, QtGui.QApplication.UnicodeUTF8))
 
+
+#
 # if __name__ == "__main__":
 #     import sys
 #     app = QtGui.QApplication(sys.argv)

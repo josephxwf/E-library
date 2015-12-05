@@ -40,7 +40,7 @@ if __name__ == '__main__':
                       "instinctive love for stories fantastic, marvelous and manifestly unreal."
     my_book.type = "Adventures"
     my_book.NumOfRead = 55
-    my_book.cover_page = "QUINNEYS.jpg"
+    my_book.cover_page = "The Wonderful Wizard of Oz.jpg"
     with open('book_data.pkl', 'a') as output:
         pickle.dump(my_book, output)
 
