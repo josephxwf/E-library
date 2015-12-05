@@ -6,6 +6,7 @@ class User(object):
         self.password = password
         self.superUser = super_user
         self.point = point
+        self.timelist = {"Quinneys":10}
         self.readingHistory = []
         self.own_book = []
         # self.book_time
@@ -62,6 +63,3 @@ class User(object):
 #
 #     def setup_reading_points(self):
 #         self.bookcallnumber = ""
-
-
-
