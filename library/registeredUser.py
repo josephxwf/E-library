@@ -21,9 +21,11 @@ except AttributeError:
 
 class registeredUser(QtGui.QMainWindow):
     def __init__(self,user, library):
+        self.user = user
         self.library = library
         super(registeredUser,self).__init__()
         self.setupUi(self,user)
+
     def setupUi(self, MainWindow,user):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(800, 600)
@@ -136,7 +138,7 @@ class registeredUser(QtGui.QMainWindow):
                     find = True
 
 
-                    self.bookitem = BookPageGUI(book)
+                    self.bookitem = BookPageGUI(book,self.user)
                     self.bookitem.show()
 
     #def makebooksdatabase(self):
@@ -173,9 +175,7 @@ class registeredUser(QtGui.QMainWindow):
         #os.mkdir('PendingBooks')
         #os.chmod('PendingBooks', 0o777)
         shutil.copy(str(fname), 'PendingBooks')
-        #    os.mkdir('PendingBooks') #copy the path of this folder
-        #    os.chmod('pendingBooks', 0777)
-        #    shutil.copy(str(fname), '/PendingBooks')
+
 
 
 
@@ -200,6 +200,11 @@ class registeredUser(QtGui.QMainWindow):
     def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
          iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
             '/home')
+
+    #def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
+    #     iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+    #        '/home')
+
 
 
 

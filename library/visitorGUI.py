@@ -102,8 +102,10 @@ class Visitor_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
 
 
-
+        print QtCore.QTimer()
         self.retranslateUi(MainWindow)
+
+
 
         QtCore.QObject.connect(self.signinButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signIn)
         QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signUp)
@@ -123,10 +125,11 @@ class Visitor_MainWindow(object):
                     find = True
 
 
-                    self.bookitem = BookPageGUI(book)
+                    self.bookitem = BookPageGUI(book,None)
                     self.bookitem.show()
                     self.bookitem.Ratelabel.hide()
                     self.bookitem.readButton.hide()
+                    self.bookitem.closeBookButton.hide()
                     self.bookitem.submitButton.hide()
                     self.bookitem.commentslabel.hide()
                     self.bookitem.textEdit.hide()
