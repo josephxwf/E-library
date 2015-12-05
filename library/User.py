@@ -1,22 +1,15 @@
 
 class User(object):
-    def __init__(self):
-        self.username = ""
-        self.password = ""
-        self.superUser = False
-        self.point = 100
-        self.timelist = {"Quinneys":10}
-        self.readingHistory = []
-        self.own_book = []
 
-    def __init__(self, username, password,):
+    def __init__(self, username, password,super_user = False,point = 100):
         self.username = username
         self.password = password
-        self.superUser = False
-        self.point = 100
+        self.superUser = super_user
+        self.point = point
         self.timelist = {"Quinneys":10}
         self.readingHistory = []
         self.own_book = []
+        # self.book_time
 
 
     def setReadingHistory(self, list):

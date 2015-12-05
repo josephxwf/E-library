@@ -31,14 +31,16 @@ except AttributeError:
 
 class BookPageGUI(QtGui.QDialog):
 
+
     def __init__(self,book,user):
         self.user = user
+        self.book = book
         #self.Form = QtGui.QWidget()
         self.central = QWidget()
 
         super(BookPageGUI,self).__init__()
         self.setupUi(self,book,user)
-        self.book = book
+
 
     def setupUi(self, Form, book,user):
         Form.setObjectName(_fromUtf8("Form"))
@@ -97,7 +99,8 @@ class BookPageGUI(QtGui.QDialog):
         self.author_label.setObjectName(_fromUtf8("author_label"))
         self.author_display_label = QtGui.QLabel(Form)
         self.author_display_label.setGeometry(QtCore.QRect(330, 70, 111, 21))
-        self.author_display_label.setObjectName(_fromUtf8(book.author))
+        self.author_display_label.setObjectName(_fromUtf8("author_display_label"))
+        self.author_display_label.setText(_translate("Form", book.author, None))
         self.summary_label = QtGui.QLabel(Form)
         self.summary_label.setGeometry(QtCore.QRect(271, 101, 48, 16))
         self.summary_label.setObjectName(_fromUtf8("summary_label"))
@@ -165,9 +168,9 @@ class BookPageGUI(QtGui.QDialog):
             index = regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
-     print(self.book.title + ".txt")
+     print(self.book.book_file)
      if self.user.timelist[self.book.title] > 0:
-        file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
+        file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
         file.open(QtCore.QIODevice.ReadOnly)
         stream = QtCore.QTextStream(file)
         self.read_book_text.setText(stream.readAll())
@@ -184,7 +187,7 @@ class BookPageGUI(QtGui.QDialog):
 
          self.user.point = self.user.point - self.book.requestPoint
          self.user.timelist[self.book.title] = 10
-         file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
+         file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
          file.open(QtCore.QIODevice.ReadOnly)
          stream = QtCore.QTextStream(file)
          self.read_book_text.setText(stream.readAll())
@@ -233,7 +236,7 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_label.setText(_translate("Form", "comments", None))
         self.time_label.setText(_translate("Form", "point for 5 min", None))
         self.author_label.setText(_translate("Form", "Author:", None))
-        self.author_display_label.setText(_translate("Form", "kaiying", None))
+
         self.summary_label.setText(_translate("Form", "Summary:", None))
         self.point_label.setText(_translate("Form", "Point required:", None))
         self.point_display_label.setText(_translate("Form", "50", None))
