@@ -1,22 +1,16 @@
 import pickle
 
 class Book():
-    # def __init__(self):
-    #     self.title = ""
-    #     self.author = ""
-    #     self.summary = ""
-    #     self.requestPoint = 0
-    #     self.type = ""
-    #     self.NumOfRead = 0
 
-    def __init__(self, title, requestPoint):
+    def __init__(self, title, cover_page, requestPoint):
         self.title = title
         self.author = ""
         self.summary = ""
         self.requestPoint = requestPoint
         self.type = ""
         self.NumOfRead = 0
-        self.cover_page = ""
+        self.cover_page = cover_page
+        self.book_file = None
 
 
     def add_to_database(self):

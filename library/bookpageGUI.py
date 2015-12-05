@@ -6,7 +6,10 @@
 #
 # WARNING! All changes made in this file will be lost!
 import os
+#import popplerqt4
+
 from PyQt4 import QtCore, QtGui
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -24,9 +27,10 @@ except AttributeError:
 
 class BookPageGUI(QtGui.QDialog):
     def __init__(self, book):
-        super(BookPageGUI,self).__init__()
-        self.setupUi(self,book)
         self.book = book
+        super(BookPageGUI, self).__init__()
+        self.setupUi(self, book)
+
 
     def setupUi(self, Form, book):
         Form.setObjectName(_fromUtf8("Form"))
@@ -43,8 +47,8 @@ class BookPageGUI(QtGui.QDialog):
         self.covepage_label = QtGui.QLabel(Form)
         self.covepage_label.setGeometry(QtCore.QRect(50, 30, 181, 261))
         self.covepage_label.setObjectName(_fromUtf8("covepage_label"))
-        self.covepage_label.setPixmap(QtGui.QPixmap(os.getcwd() + "/" + book.cover_page))
-        print(os.getcwd() + "/coverpage/" + book.cover_page)
+        self.covepage_label.setPixmap(QtGui.QPixmap('CoverPage/'+ book.title+ ".jpg"))
+        self.covepage_label.setScaledContents(True)
         self.comments_input = QtGui.QTextEdit(Form)
         self.comments_input.setGeometry(QtCore.QRect(50, 520, 491, 71))
         self.comments_input.setObjectName(_fromUtf8("comments_input"))
@@ -113,7 +117,7 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_label.setText(_translate("Form", "comments", None))
         self.time_label.setText(_translate("Form", "point for 5 min", None))
         self.author_label.setText(_translate("Form", "Author:", None))
-        self.author_display_label.setText(_translate("Form", "kaiying", None))
+        self.author_display_label.setText(_translate("Form", self.book.author, None))
         self.summary_label.setText(_translate("Form", "Summary:", None))
         self.point_label.setText(_translate("Form", "Point required:", None))
         self.point_display_label.setText(_translate("Form", "50", None))
@@ -127,4 +131,3 @@ class BookPageGUI(QtGui.QDialog):
 #     ui.setupUi(Form)
 #     Form.show()
 #     sys.exit(app.exec_())
-

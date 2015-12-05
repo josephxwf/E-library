@@ -1,0 +1,35 @@
+(iBook
+Book
+p0
+(dp1
+S'NumOfRead'
+p2
+I55
+sS'author'
+p3
+S'Horace Annesley Vachell'
+p4
+sS'title'
+p5
+S'Quinneys'
+p6
+sS'cover_page'
+p7
+S'QUINNEYS.jpg'
+p8
+sS'summary'
+p9
+S"With his back to the man, Quinney smiled.  He could remember the day, not so long ago, when Pinker, the grocer, called him 'My lad.' "
+p10
+sS'book_file'
+p11
+S'Quinneys.txt'
+p12
+sS'requestPoint'
+p13
+I30
+sS'type'
+p14
+S'history'
+p15
+sb.

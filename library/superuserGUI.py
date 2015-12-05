@@ -7,7 +7,11 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
-from bookPageGUI import BookPageGUI
+import shutil
+from bookpageGUI import BookPageGUI
+from Book import Book
+import os
+import pickle
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -28,6 +32,7 @@ class SuperUserPage(QtGui.QWidget):
     def __init__(self, user, library):
         self.user = user
         self.library = library
+        self.upload_book = Book("","",0)
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
 
@@ -139,6 +144,9 @@ class SuperUserPage(QtGui.QWidget):
 
         QtCore.QObject.connect(self.search_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
         QtCore.QObject.connect(self.top5_List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
+        QtCore.QObject.connect(self.upload_book_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
+        QtCore.QObject.connect(self.coverpage_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectCoverPage)
+        QtCore.QObject.connect(self.submit_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.submit)
 
         QtCore.QMetaObject.connectSlotsByName(superUser)
 
@@ -147,6 +155,65 @@ class SuperUserPage(QtGui.QWidget):
         self.bookitem = BookPageGUI()
         self.bookitem.show()
 
+    def selectFile(self):
+        file_name = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+        if file_name:
+            file_name_cut_list = str(file_name).split('/')
+            print(file_name_cut_list)
+            # if not self.upload_book.book_file:
+            print file_name
+            shutil.copy(str(file_name), 'PendingBooks')
+            self.upload_book.book_file = file_name_cut_list[-1]
+            print(self.upload_book.book_file)
+            self.Uploadbookbutton.setDisabled(True)
+            # else:
+            #     # path = os.getcwd()+"/PendingBooks"
+            #     print(self.upload_book.book_file)
+            #     os.remove(self.upload_book.book_file)
+            #     shutil.copy(str(file_name), 'PendingBooks')
+            #     self.upload_book.book_file = file_name_cut_list[-1]
+
+
+    def selectCoverPage(self):
+        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+        if image:
+            file_name_cut_list = str(image).split('/')
+            shutil.copy(str(image), 'CoverPage')
+            self.upload_book.cover_page = file_name_cut_list[-1]
+            print(self.upload_book.cover_page)
+
+            self.coverpage_button.setDisabled(True)
+
+    def submit(self):
+        title = self.book_title_input.text()
+        summary = self.book_summary_input.toPlainText()   #get data from input
+        points = self.point_requested_input.text()
+        if not title:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Title is required')
+            print("Title is required")
+        else:
+            self.upload_book.title = title
+        if not summary:
+            print("Summary is required")
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'summary is required')
+        else:
+            self.upload_book.summary = summary
+        if not points:
+            print("Points is required!!")
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'points is required')
+        else:
+            self.upload_book.requestPoint = points
+        if not self.upload_book.cover_page:
+            print("cover page required!!")
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'cover page need uploaded!!')
+        if not self.upload_book.book_file:
+            print("book required!!")
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Book file need uploaded!!')
+        if title and summary and points and self.upload_book.book_file and self.upload_book.cover_page:
+            with open('pending_book_data.pkl', 'a') as output:
+                pickle.dump(self.upload_book, output)
+            self.submit_button.setDisabled(True)
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Congratulations', 'successful!!')
 
     def searchBook(self):
         for i in range(5):
@@ -161,6 +228,8 @@ class SuperUserPage(QtGui.QWidget):
                 item = self.top5_List.item(i)
                 item.setText(_translate("MainWindow", result[i].title, None))
 
+    def approveBook(self):
+        os.listdir('PendingBooks')
 
     def retranslateUi(self, superUser):
         superUser.setWindowTitle(_translate("superUser", "Form", None))
@@ -221,4 +290,3 @@ class SuperUserPage(QtGui.QWidget):
         item.setText(_translate("superUser", "5. Book5", None))
         self.history_List.setSortingEnabled(__sortingEnabled)
         self.request_List_Label.setText(_translate("superUser", "Book contribute request List:", None))
-

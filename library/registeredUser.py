@@ -12,7 +12,7 @@ import os
 import shutil
 from Book import Book
 from Library import Library
-from bookPageGUI import BookPageGUI
+from bookpageGUI import BookPageGUI
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -22,6 +22,7 @@ except AttributeError:
 class registeredUser(QtGui.QMainWindow):
     def __init__(self,user, library):
         self.library = library
+        self.upload_book = Book("","",0)
         super(registeredUser,self).__init__()
         self.setupUi(self,user)
     def setupUi(self, MainWindow,user):
@@ -118,7 +119,7 @@ class registeredUser(QtGui.QMainWindow):
 
         QtCore.QObject.connect(self.searchButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
         QtCore.QObject.connect(self.Uploadbookbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
-
+        QtCore.QObject.connect(self.CoverPagebutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectCoverPage)
         QtCore.QObject.connect(self.top5List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -132,52 +133,47 @@ class registeredUser(QtGui.QMainWindow):
             while(not find):
                 book = pickle.load(input)
                 if book.title == str(item.text()):
-                    print("success upload book")
                     find = True
-
-
                     self.bookitem = BookPageGUI(book)
                     self.bookitem.show()
 
-    #def makebooksdatabase(self):
-    #    os.mkdir('Database')
-    #    os.mkdir('PendingBooks')
-
     def selectFile(self):
-    #searchInput.setText(QFileDialog.getOpenFileName(self))
-        summary= self.bookSummaryInput.toPlainText()   #get data from input
-        title = self.BookTitileInput.text()
-        points =  self.pointsInput.text()
-        if not summary:
-            self.label_10.setText(_fromUtf8("Summary is required!"))
-            print("Summary is required")
-        elif not title:
-            self.label_11.setText(_fromUtf8("Title is required!"))
-            print("Title is required")
-        elif not points:
-            self.label_12.setText(_fromUtf8("Points is required!!"))
-            print("Points is required!!")
-        else:
-            with open('book_data.pkl', 'a') as output:
-                book = Book(title, points )
-                pickle.dump(book, output)
-                del book
-                self.close()
-
-
         fname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
             '/home')
-        print fname
+        if fname:
+            print fname
+            shutil.copy(str(fname), 'PendingBooks')
+            self.upload_book.book_file = str(fname)
+            self.Uploadbookbutton.setDisabled(True)
         #f = open(fname, 'r')
         #if os.path.isdir('/PendingBooks'):
         #os.mkdir('PendingBooks')
         #os.chmod('PendingBooks', 0o777)
-        shutil.copy(str(fname), 'PendingBooks')
 
-    #def uploadCoverPage(self): #either make a cover page directory or use 1st page of file as coverpage?
-    #     iname = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
-    #        '/home')
+        summary = self.bookSummaryInput.toPlainText()   #get data from input
+        title = self.BookTitileInput.text()
+        points = self.pointsInput.text()
+        if not summary:
+            self.label_10.setText(_fromUtf8("Summary is required!"))
+            print("Summary is required")
+        if not title:
+            self.label_11.setText(_fromUtf8("Title is required!"))
+            print("Title is required")
+        if not points:
+            self.label_12.setText(_fromUtf8("Points is required!!"))
+            print("Points is required!!")
+        else:
+            with open('book_data.pkl', 'a') as output:
+                book = Book(title, points)
+                pickle.dump(book, output)
+                del book
+                self.close()
 
+    def selectCoverPage(self):
+        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file',
+          '/home')
+        if image:
+            shutil.copy(str(image), 'CoverPage')
 
 
     def retranslateUi(self, MainWindow):
