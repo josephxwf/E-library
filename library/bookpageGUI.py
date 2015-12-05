@@ -119,11 +119,50 @@ class BookPageGUI(QtGui.QDialog):
         self.TimeOutMessage.setObjectName(_fromUtf8("TimeOutMessage"))
 
 
+
+        self.search_button = QtGui.QPushButton(Form)
+        self.search_button.setGeometry(QtCore.QRect(570, 592, 75, 23))
+        self.search_button.setObjectName(_fromUtf8("read_button"))
+
+        self.searchWordInput = QtGui.QLineEdit(Form)
+        self.searchWordInput.setGeometry(QtCore.QRect(646, 592, 151, 21))
+        self.searchWordInput.setObjectName(_fromUtf8("lineEdit"))
+
+
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
         QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
+        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchHighlight)
+
+
+
+    def searchHighlight(self):
+        # Setup the text editor
+        self.text = (self.read_book_text.toPlainText()).toUtf8()
+
+        self.searchWord = self.searchWordInput.text()
+        #self.setText(text)
+        cursor = self.read_book_text.textCursor()
+        # Setup the desired format for matches
+        format = QtGui.QTextCharFormat()
+        format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
+        # Setup the regex engine
+        pattern = self.searchWord
+        regex = QtCore.QRegExp(pattern)
+        # Process the displayed document
+        pos = 0
+        index = regex.indexIn(self.read_book_text.toPlainText(), pos)
+        while (index != -1):
+            # Select the matched text and apply the desired format
+            cursor.setPosition(index)
+            cursor.movePosition(QtGui.QTextCursor.EndOfWord, 1)
+            cursor.mergeCharFormat(format)
+            # Move to the next match
+            pos = index + regex.matchedLength()
+            index = regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
      print(self.book.title + ".txt")
@@ -189,6 +228,7 @@ class BookPageGUI(QtGui.QDialog):
         self.book_title_label.setText(_translate("Form", "BookTitle:", None))
         self.rate_label.setText(_translate("Form", "Rate this book", None))
         self.read_button.setText(_translate("Form", "read", None))
+        self.search_button.setText(_translate("Form", "search", None))
         self.submit_button.setText(_translate("Form", "submit", None))
         self.comments_label.setText(_translate("Form", "comments", None))
         self.time_label.setText(_translate("Form", "point for 5 min", None))

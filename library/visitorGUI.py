@@ -121,7 +121,7 @@ class Visitor_MainWindow(object):
             while(not find):
                 book = pickle.load(input)
                 if book.title == str(item.text()):
-                    print("success upload book")
+                    print("successfully open book")
                     find = True
 
 
