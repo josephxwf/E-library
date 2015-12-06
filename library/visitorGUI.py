@@ -115,13 +115,29 @@ class Visitor_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def open_book(self, item):
+        book_list = self.library.loadBookData()
+        for book in book_list:
+            if book.title == str(item.text()):
+                self.bookitem = BookPageGUI(book, None)
+                self.bookitem.show()
+                self.bookitem.closeBookButton.hide()
+                self.bookitem.rate_label.hide()
+                self.bookitem.read_button.hide()
+                self.bookitem.submit_button.hide()
+                self.bookitem.comments_label.hide()
+                self.bookitem.comments_input.hide()
+                self.bookitem.comments_text.hide()
+                break
+        else:
+            print("book not find")
+
         # with open('book_data.pkl', 'r') as input:
         #     find = False
         #     #for line in  file_handle:
         #     while(not find):
         #         book = pickle.load(input)
         #         if book.title == str(item.text()):
-        #             print("success upload book")
+        #             print("successfully open book")
         #             find = True
         #
         #
@@ -134,21 +150,7 @@ class Visitor_MainWindow(object):
         #             self.bookitem.comments_label.hide()
         #             self.bookitem.comments_input.hide()
         #             self.bookitem.comments_text.hide()
-        book_list = self.library.loadBookData()
-        for book in book_list:
-            if book.title == str(item.text()):
-                self.bookitem = BookPageGUI(book, self.user)
-                self.bookitem.show()
 
-                self.bookitem.rate_label.hide()
-                self.bookitem.read_button.hide()
-                self.bookitem.submit_button.hide()
-                self.bookitem.comments_label.hide()
-                self.bookitem.comments_input.hide()
-                self.bookitem.comments_text.hide()
-                break
-        else:
-            print("book not find")
 
 
 
