@@ -39,7 +39,7 @@ class SuperUserPage(QtGui.QWidget):
 
     def setupUi(self, superUser):
         superUser.setObjectName(_fromUtf8("superUser"))
-        superUser.resize(815, 615)
+        superUser.resize(850, 615)
         self.search_Input = QtGui.QLineEdit(superUser)
         self.search_Input.setGeometry(QtCore.QRect(31, 32, 133, 20))
         self.search_Input.setObjectName(_fromUtf8("search_Input"))
@@ -76,12 +76,15 @@ class SuperUserPage(QtGui.QWidget):
         self.submit_button = QtGui.QPushButton(superUser)
         self.submit_button.setGeometry(QtCore.QRect(630, 330, 111, 41))
         self.submit_button.setObjectName(_fromUtf8("submit_button"))
+        self.decide_button = QtGui.QPushButton(superUser)
+        self.decide_button.setGeometry(QtCore.QRect(700, 450, 71, 31))
+        self.decide_button.setObjectName(_fromUtf8("decide_button"))
         if self.user.superUser == True:
             self.request_List_Label = QtGui.QLabel(superUser)
             self.request_List_Label.setGeometry(QtCore.QRect(360, 400, 211, 16))
             self.request_List_Label.setObjectName(_fromUtf8("request_List_Label"))
             self.request_Table = QtGui.QTableWidget(superUser)
-            self.request_Table.setGeometry(QtCore.QRect(360, 430, 381, 161))
+            self.request_Table.setGeometry(QtCore.QRect(360, 430, 441, 161))
             self.request_Table.setObjectName(_fromUtf8("request_Table"))
             self.request_Table.setColumnCount(3)
             self.request_Table.setRowCount(3)
@@ -286,13 +289,25 @@ class SuperUserPage(QtGui.QWidget):
 
             pending_book = self.library.loadBookData("pending_book_data.pkl")
             if pending_book:
+                index = 0
                 for book in pending_book:
-                    item = self.request_Table.item(0, 0)
+                    item = QtGui.QTableWidgetItem()
+                    self.request_Table.setItem(index, 0, item)
+                    item = QtGui.QTableWidgetItem()
+                    self.request_Table.setItem(index, 1, item)
+                    item = QtGui.QTableWidgetItem()
+                    self.request_Table.setItem(index, 2, item)
+                    item = self.request_Table.item(index, 0)
                     item.setText(_translate("superUser", book.contribute_by, None))
-                    item = self.request_Table.item(0, 1)
+                    item = self.request_Table.item(index, 1)
                     item.setText(_translate("superUser", book.title, None))
-                    item = self.request_Table.item(0, 2)
+                    item = self.request_Table.item(index, 2)
                     item.setText(_translate("superUser", str(book.requestPoint), None))
+                    print(index)
+                    if index == 2:
+                        break
+                    else:
+                        index +=1
 
             self.request_Table.setSortingEnabled(__sortingEnabled)
             self.request_List_Label.setText(_translate("superUser", "Book contribute request List:", None))
