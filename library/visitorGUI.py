@@ -115,25 +115,41 @@ class Visitor_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def open_book(self, item):
-        with open('book_data.pkl', 'r') as input:
-            find = False
-            #for line in  file_handle:
-            while(not find):
-                book = pickle.load(input)
-                if book.title == str(item.text()):
-                    print("successfully open book")
-                    find = True
+        book_list = self.library.loadBookData()
+        for book in book_list:
+            if book.title == str(item.text()):
+                self.bookitem = BookPageGUI(book, None)
+                self.bookitem.show()
+                self.bookitem.closeBookButton.hide()
+                self.bookitem.rate_label.hide()
+                self.bookitem.read_button.hide()
+                self.bookitem.submit_button.hide()
+                self.bookitem.comments_label.hide()
+                self.bookitem.comments_input.hide()
+                self.bookitem.comments_text.hide()
+                break
+        else:
+            print("book not find")
 
-
-                    self.bookitem = BookPageGUI(book,None)
-                    self.bookitem.show()
-
-                    self.bookitem.rate_label.hide()
-                    self.bookitem.read_button.hide()
-                    self.bookitem.submit_button.hide()
-                    self.bookitem.comments_label.hide()
-                    self.bookitem.comments_input.hide()
-                    self.bookitem.comments_text.hide()
+        # with open('book_data.pkl', 'r') as input:
+        #     find = False
+        #     #for line in  file_handle:
+        #     while(not find):
+        #         book = pickle.load(input)
+        #         if book.title == str(item.text()):
+        #             print("successfully open book")
+        #             find = True
+        #
+        #
+        #             self.bookitem = BookPageGUI(book,None)
+        #             self.bookitem.show()
+        #
+        #             self.bookitem.rate_label.hide()
+        #             self.bookitem.read_button.hide()
+        #             self.bookitem.submit_button.hide()
+        #             self.bookitem.comments_label.hide()
+        #             self.bookitem.comments_input.hide()
+        #             self.bookitem.comments_text.hide()
 
 
 
@@ -169,27 +185,40 @@ class Visitor_MainWindow(object):
         else:
             self.label.setText(_fromUtf8(""))
             self.label_2.setText(_fromUtf8(""))
-            with open('user_data.pkl', 'r') as input:
-                find = False
-                #for line in  file_handle:
-                while(not find):
-                    print("aaaa")
-                    user = pickle.load(input)
-                    if user.username == inputUsername and user.password == inputPassword:
-                        print("success user")
-                        find = True
-                        if user.superUser == True:
-                            self.SuperUserPage= SuperUserPage(user, self.library)
-                            self.SuperUserPage.show()
-                        else:
-                            self.registeredUser= registeredUser(user, self.library)
-                            self.registeredUser.show()
+            user_list = self.library.loadUserData()
+            for user in user_list:
+                if user.username == inputUsername:
+                    if user.password == inputPassword:
+                        self.SuperUserPage= SuperUserPage(user, self.library)
+                        self.SuperUserPage.show()
+                        break
+                    else:
+                        QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
+            else:
+                QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'username is wrong!!')
 
-                        self.label_3.setText(_fromUtf8(""))
-
-                if find == False:
-                  self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
-                  print("username or password is incorrect")
+            #
+            # with open('user_data.pkl', 'r') as input:
+            #     find = False
+            #     #for line in  file_handle:
+            #     while(not find):
+            #         print("aaaa")
+            #         user = pickle.load(input)
+            #         if user.username == inputUsername and user.password == inputPassword:
+            #             print("success user")
+            #             find = True
+            #             # if user.superUser == True:
+            #             self.SuperUserPage= SuperUserPage(user, self.library)
+            #             self.SuperUserPage.show()
+            #             # else:
+            #             #     self.registeredUser= registeredUser(user, self.library)
+            #             #     self.registeredUser.show()
+            #
+            #             self.label_3.setText(_fromUtf8(""))
+            #
+            #     if find == False:
+            #       self.label_3.setText(_fromUtf8("Username or Password is incorrect!"))
+            #       print("username or password is incorrect")
 
 
     def retranslateUi(self, MainWindow):
@@ -199,9 +228,10 @@ class Visitor_MainWindow(object):
 
         self.top5List.setSortingEnabled(False)
         books = self.library.top5Book
-        for i in range(5):
-            item = self.top5List.item(i)
-            item.setText(_translate("MainWindow", books[i].title, None))
+        if books:
+            for i in range(5):
+                item = self.top5List.item(i)
+                item.setText(_translate("MainWindow", books[i].title, None))
         self.top5List.setSortingEnabled(__sortingEnabled)
 
 

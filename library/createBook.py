@@ -2,6 +2,8 @@ from Book import Book
 import pickle
 
 if __name__ == '__main__':
+    book_list = []
+
     my_book = Book("Four in Camp","QUINNEYS.jpg", 20)
     my_book.author = "Ralph Henry Barbour"
     my_book.summary = "A STORY OF SUMMER ADVENTURES IN THE NEW HAMPSHIRE WOODS"
@@ -9,20 +11,20 @@ if __name__ == '__main__':
     my_book.NumOfRead = 18
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Four in Camp.txt"
-    with open('book_data.pkl', 'a') as output:
-        pickle.dump(my_book, output)
+    my_book.contribute_by = "kaiying"
+    book_list.append(my_book)
 
-    my_book = Book("La chair et le sang","QUINNEYS.jpg", 5)
-    my_book.author = "Franois Mauriac"
-    my_book.summary = "Since the introduction of the tungsten lamp some five years ago," \
+    my_book2 = Book("La chair et le sang","QUINNEYS.jpg", 5)
+    my_book2.author = "Franois Mauriac"
+    my_book2.summary = "Since the introduction of the tungsten lamp some five years ago," \
                       " the manufacturers have attempted continually to produce smaller " \
                       "and smaller units in the standard voltages."
-    my_book.type = "Education"
-    my_book.book_file = "La chair et le sang.txt"
-    my_book.NumOfRead = 8
-    my_book.cover_page = "QUINNEYS.jpg"
-    with open('book_data.pkl', 'a') as output:
-        pickle.dump(my_book, output)
+    my_book2.type = "Education"
+    my_book2.book_file = "La chair et le sang.txt"
+    my_book2.NumOfRead = 8
+    my_book2.cover_page = "QUINNEYS.jpg"
+    my_book2.contribute_by = "kaiying"
+    book_list.append(my_book2)
 
     my_book = Book("The Fifteen Watt Tungsten Lamp","QUINNEYS.jpg",25)
     my_book.author = "Clair Elmore Anderson"
@@ -33,8 +35,8 @@ if __name__ == '__main__':
     my_book.book_file = "The Fifteen Watt Tungsten Lamp.txt"
     my_book.NumOfRead = 22
     my_book.cover_page = "QUINNEYS.jpg"
-    with open('book_data.pkl', 'a') as output:
-        pickle.dump(my_book, output)
+    my_book.contribute_by = "kaiying"
+    book_list.append(my_book)
 
     my_book = Book("The Wonderful Wizard of Oz","QUINNEYS.jpg",35)
     my_book.author = "L. Frank Baum"
@@ -45,8 +47,9 @@ if __name__ == '__main__':
     my_book.book_file = "The Wonderful Wizard of Oz.txt"
     my_book.NumOfRead = 55
     my_book.cover_page = "The Wonderful Wizard of Oz.jpg"
-    with open('book_data.pkl', 'a') as output:
-        pickle.dump(my_book, output)
+    my_book.contribute_by = "kaiying"
+    book_list.append(my_book)
+
 
     my_book = Book("Visages","QUINNEYS.jpg",10)
     my_book.author = "Francis Chevassu"
@@ -56,8 +59,8 @@ if __name__ == '__main__':
     my_book.NumOfRead = 3
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Visages.txt"
-    with open('book_data.pkl', 'a') as output:
-        pickle.dump(my_book, output)
+    my_book.contribute_by = "kaiying"
+    book_list.append(my_book)
 
     my_book = Book("Quinneys","QUINNEYS.jpg", 30)
     my_book.author = "Horace Annesley Vachell"
@@ -67,5 +70,8 @@ if __name__ == '__main__':
     my_book.NumOfRead = 55
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Quinneys.txt"
-    with open('book_data.pkl', 'a') as output:
-        pickle.dump(my_book, output)
+    my_book.contribute_by = "kaiying"
+    book_list.append(my_book)
+
+    with open('pending_book_data.pkl', 'w') as output:
+        pickle.dump(book_list, output)

@@ -168,41 +168,38 @@ class BookPageGUI(QtGui.QDialog):
             index = self.regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
-     print(self.book.book_file)
-     if self.user.timelist[self.book.title] > 0:
-        file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
-        file.open(QtCore.QIODevice.ReadOnly)
-        stream = QtCore.QTextStream(file)
-        self.read_book_text.setText(stream.readAll())
+        print(self.book.book_file)
+        if self.user.timelist[self.book.title] > 0:
+            file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
+            file.open(QtCore.QIODevice.ReadOnly)
+            stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
 
-        self.timer = QTimer(self)
-        print self.timer
-        self.start_time = self.user.timelist[self.book.title]
-        #self.timer.setInterval(1000)
-        self.timer.start(1000)
-        self.timer.timeout.connect(self.displayTime)
-
-
-     elif self.user.point > 0 :
-
-         self.user.point = self.user.point - self.book.requestPoint
-         self.user.timelist[self.book.title] = 10
-         file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
-         file.open(QtCore.QIODevice.ReadOnly)
-         stream = QtCore.QTextStream(file)
-         self.read_book_text.setText(stream.readAll())
-
-         self.timer = QTimer(self)
-         #print self.timer
-         self.start_time = self.user.timelist[self.book.title]
-         #self.timer.setInterval(1000)
-         self.timer.start(1000)
-         self.timer.timeout.connect(self.displayTime)
-     else:
-
-         self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
+            self.timer = QTimer(self)
+            print self.timer
+            self.start_time = self.user.timelist[self.book.title]
+            #self.timer.setInterval(1000)
+            self.timer.start(1000)
+            self.timer.timeout.connect(self.displayTime)
 
 
+        elif self.user.point > 0 :
+
+            self.user.point = self.user.point - self.book.requestPoint
+            self.user.timelist[self.book.title] = 10
+            file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
+            file.open(QtCore.QIODevice.ReadOnly)
+            stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
+
+            self.timer = QTimer(self)
+            #print self.timer
+            self.start_time = self.user.timelist[self.book.title]
+            #self.timer.setInterval(1000)
+            self.timer.start(1000)
+            self.timer.timeout.connect(self.displayTime)
+        else:
+            self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
 
 
     def displayTime(self):
@@ -216,9 +213,6 @@ class BookPageGUI(QtGui.QDialog):
            print "Time is up!"
 
            self.timer.stop()
-
-
-
 
 
     def closeBook(self):

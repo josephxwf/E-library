@@ -86,11 +86,21 @@ class SignUp(QtGui.QDialog):
             self.label_6.setText(_fromUtf8("Password1 and Password2 are dfferent!"))
             print("Password1 and Password2 are dfferent!")
         else:
-            with open('user_data.pkl', 'a') as output:
-                user = User(username, password1)
-                pickle.dump(user, output)
-                del user
-                self.close()
+            # with open('user_data.pkl', 'a') as output:
+            #     user = User(username, password1)
+            #     pickle.dump(user, output)
+            #     del user
+            #     self.close()
+            user_list = self.library.loadUserData()
+            for user in user_list:
+                if username == user.username:
+                    self.label_4.setText(_fromUtf8("Username is used!"))
+                else:
+                    user = User(username, password1)
+                    self.library.update_user_data(user)
+                    self.close()
+
+
           #with open("userDatabase.txt",'a') as file_handle:
         #     file_handle.write(str(0) + " " + str(0) + " " + username + " " + password1 + "\n")
         #
