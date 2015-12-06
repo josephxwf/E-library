@@ -138,34 +138,34 @@ class BookPageGUI(QtGui.QDialog):
 
         QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
-        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchHighlight)
+        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_Highlight)
 
 
 
-    def searchHighlight(self):
+    def search_Highlight(self):
         # Setup the text editor
         self.text = (self.read_book_text.toPlainText()).toUtf8()
 
         self.searchWord = self.searchWordInput.text()
 
-        self.cursor = self.read_book_text.textCursor()
+        cursor = self.read_book_text.textCursor()
         # Setup the desired format for matches
         format = QtGui.QTextCharFormat()
         format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
         # Setup the regex engine
-        self.pattern = self.searchWord
-        self.regex = QtCore.QRegExp(self.pattern)
+        pattern = self.searchWord
+        regex = QtCore.QRegExp(pattern)
         # Process the displayed document
         pos = 0
         index = regex.indexIn(self.read_book_text.toPlainText(), pos)
         while (index != -1):
             # Select the matched text and apply the desired format
-            self.cursor.setPosition(index)
-            self.cursor.movePosition(QtGui.QTextCursor.EndOfWord, 1)
-            self.cursor.mergeCharFormat(format)
+            cursor.setPosition(index)
+            cursor.movePosition(QtGui.QTextCursor.EndOfWord, 1)
+            cursor.mergeCharFormat(format)
             # Move to the next match
-            pos = index + self.regex.matchedLength()
-            index = self.regex.indexIn(self.read_book_text.toPlainText(), pos)
+            pos = index + regex.matchedLength()
+            index = regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
         print(self.book.book_file)
