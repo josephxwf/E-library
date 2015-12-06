@@ -33,6 +33,7 @@ class SuperUserPage(QtGui.QWidget):
         self.user = user
         self.library = library
         self.upload_book = Book("","",0)
+        self.upload_book.contribute_by = self.user
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
 
@@ -75,31 +76,35 @@ class SuperUserPage(QtGui.QWidget):
         self.submit_button = QtGui.QPushButton(superUser)
         self.submit_button.setGeometry(QtCore.QRect(630, 330, 111, 41))
         self.submit_button.setObjectName(_fromUtf8("submit_button"))
-        self.request_Table = QtGui.QTableWidget(superUser)
-        self.request_Table.setGeometry(QtCore.QRect(360, 430, 381, 161))
-        self.request_Table.setObjectName(_fromUtf8("request_Table"))
-        self.request_Table.setColumnCount(3)
-        self.request_Table.setRowCount(3)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setVerticalHeaderItem(0, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setVerticalHeaderItem(1, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setVerticalHeaderItem(2, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setHorizontalHeaderItem(0, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setHorizontalHeaderItem(1, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setHorizontalHeaderItem(2, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setItem(0, 0, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setItem(0, 1, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setItem(0, 2, item)
-        item = QtGui.QTableWidgetItem()
-        self.request_Table.setItem(1, 0, item)
+        if self.user.superUser == True:
+            self.request_List_Label = QtGui.QLabel(superUser)
+            self.request_List_Label.setGeometry(QtCore.QRect(360, 400, 211, 16))
+            self.request_List_Label.setObjectName(_fromUtf8("request_List_Label"))
+            self.request_Table = QtGui.QTableWidget(superUser)
+            self.request_Table.setGeometry(QtCore.QRect(360, 430, 381, 161))
+            self.request_Table.setObjectName(_fromUtf8("request_Table"))
+            self.request_Table.setColumnCount(3)
+            self.request_Table.setRowCount(3)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setVerticalHeaderItem(0, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setVerticalHeaderItem(1, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setVerticalHeaderItem(2, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setHorizontalHeaderItem(0, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setHorizontalHeaderItem(1, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setHorizontalHeaderItem(2, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setItem(0, 0, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setItem(0, 1, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setItem(0, 2, item)
+            item = QtGui.QTableWidgetItem()
+            self.request_Table.setItem(1, 0, item)
         self.point_Label = QtGui.QLabel(superUser)
         self.point_Label.setGeometry(QtCore.QRect(360, 90, 78, 16))
         self.point_Label.setObjectName(_fromUtf8("point_Label"))
@@ -137,9 +142,7 @@ class SuperUserPage(QtGui.QWidget):
         self.history_List.addItem(item)
         item = QtGui.QListWidgetItem()
         self.history_List.addItem(item)
-        self.request_List_Label = QtGui.QLabel(superUser)
-        self.request_List_Label.setGeometry(QtCore.QRect(360, 400, 211, 16))
-        self.request_List_Label.setObjectName(_fromUtf8("request_List_Label"))
+
         self.retranslateUi(superUser)
 
         QtCore.QObject.connect(self.search_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
@@ -152,8 +155,25 @@ class SuperUserPage(QtGui.QWidget):
 
 
     def open_book(self, item):
-        self.bookitem = BookPageGUI()
-        self.bookitem.show()
+        book_list = self.library.loadBookData()
+        for book in book_list:
+            if book.title == str(item.text()):
+                self.bookitem = BookPageGUI(book, self.user)
+                self.bookitem.show()
+                break
+        else:
+            print("book not find")
+
+        # with open('book_data.pkl', 'r') as input:
+        #     find = False
+        #     #for line in  file_handle:
+        #     while(not find):
+        #         book = pickle.load(input)
+        #         if book.title == str(item.text()):
+        #             find = True
+        #
+        #             self.bookitem = BookPageGUI(book,self.user)
+        #             self.bookitem.show()
 
     def selectFile(self):
         file_name = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
@@ -210,10 +230,11 @@ class SuperUserPage(QtGui.QWidget):
             print("book required!!")
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Book file need uploaded!!')
         if title and summary and points and self.upload_book.book_file and self.upload_book.cover_page:
-            with open('pending_book_data.pkl', 'a') as output:
-                pickle.dump(self.upload_book, output)
-            self.submit_button.setDisabled(True)
+            self.library.update_book_data(self.upload_book, "pending_book_data.pkl")
+            self.user.own_book.append(self.upload_book)
+            self.library.update_user_data(self.user)
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Congratulations', 'successful!!')
+            self.submit_button.setDisabled(True)
 
     def searchBook(self):
         for i in range(5):
@@ -241,27 +262,42 @@ class SuperUserPage(QtGui.QWidget):
         self.coverpage_button.setText(_translate("superUser", "CoverPage", None))
         self.upload_book_button.setText(_translate("superUser", "Upload Book", None))
         self.submit_button.setText(_translate("superUser", "Submit", None))
-        item = self.request_Table.verticalHeaderItem(0)
-        item.setText(_translate("superUser", "1", None))
-        item = self.request_Table.verticalHeaderItem(1)
-        item.setText(_translate("superUser", "2", None))
-        item = self.request_Table.verticalHeaderItem(2)
-        item.setText(_translate("superUser", "3", None))
-        item = self.request_Table.horizontalHeaderItem(0)
-        item.setText(_translate("superUser", "User Name", None))
-        item = self.request_Table.horizontalHeaderItem(1)
-        item.setText(_translate("superUser", "Book title", None))
-        item = self.request_Table.horizontalHeaderItem(2)
-        item.setText(_translate("superUser", "point requiest", None))
-        __sortingEnabled = self.request_Table.isSortingEnabled()
-        self.request_Table.setSortingEnabled(False)
-        item = self.request_Table.item(0, 0)
-        item.setText(_translate("superUser", "cky", None))
-        item = self.request_Table.item(0, 1)
-        item.setText(_translate("superUser", "test", None))
-        item = self.request_Table.item(0, 2)
-        item.setText(_translate("superUser", "10", None))
-        self.request_Table.setSortingEnabled(__sortingEnabled)
+        if self.user.superUser == True:
+            item = self.request_Table.verticalHeaderItem(0)
+            item.setText(_translate("superUser", "1", None))
+            item = self.request_Table.verticalHeaderItem(1)
+            item.setText(_translate("superUser", "2", None))
+            item = self.request_Table.verticalHeaderItem(2)
+            item.setText(_translate("superUser", "3", None))
+            item = self.request_Table.horizontalHeaderItem(0)
+            item.setText(_translate("superUser", "User Name", None))
+            item = self.request_Table.horizontalHeaderItem(1)
+            item.setText(_translate("superUser", "Book title", None))
+            item = self.request_Table.horizontalHeaderItem(2)
+            item.setText(_translate("superUser", "point requiest", None))
+            __sortingEnabled = self.request_Table.isSortingEnabled()
+            self.request_Table.setSortingEnabled(False)
+            # item = self.request_Table.item(0, 0)
+            # item.setText(_translate("superUser", "cky", None))
+            # item = self.request_Table.item(0, 1)
+            # item.setText(_translate("superUser", "test", None))
+            # item = self.request_Table.item(0, 2)
+            # item.setText(_translate("superUser", "10", None))
+
+            pending_book = self.library.loadBookData("pending_book_data.pkl")
+            if pending_book:
+                for book in pending_book:
+                    item = self.request_Table.item(0, 0)
+                    item.setText(_translate("superUser", book.contribute_by, None))
+                    item = self.request_Table.item(0, 1)
+                    item.setText(_translate("superUser", book.title, None))
+                    item = self.request_Table.item(0, 2)
+                    item.setText(_translate("superUser", str(book.requestPoint), None))
+
+            self.request_Table.setSortingEnabled(__sortingEnabled)
+            self.request_List_Label.setText(_translate("superUser", "Book contribute request List:", None))
+
+
         self.point_Label.setText(_translate("superUser", "Total points:", None))
         self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
         self.username_Label.setText(_translate("superUser", "Name:", None))
@@ -289,4 +325,4 @@ class SuperUserPage(QtGui.QWidget):
         item = self.history_List.item(4)
         item.setText(_translate("superUser", "5. Book5", None))
         self.history_List.setSortingEnabled(__sortingEnabled)
-        self.request_List_Label.setText(_translate("superUser", "Book contribute request List:", None))
+

@@ -11,7 +11,7 @@ class Book():
         self.NumOfRead = 0
         self.cover_page = cover_page
         self.book_file = None
-
+        self.contribute_by = ""
 
     def add_to_database(self):
         with open('user_data.pkl', 'a') as output:

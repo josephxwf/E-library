@@ -20,7 +20,7 @@ except AttributeError:
     _fromUtf8 = lambda s: s
 
 class registeredUser(QtGui.QMainWindow):
-    def __init__(self,user, library):
+    def __init__(self, user, library):
         self.user = user
         self.library = library
         self.upload_book = Book("","",0)
@@ -85,6 +85,9 @@ class registeredUser(QtGui.QMainWindow):
         self.Uploadbookbutton = QtGui.QPushButton(self.centralwidget)
         self.Uploadbookbutton.setGeometry(QtCore.QRect(410, 450, 151, 32))
         self.Uploadbookbutton.setObjectName(_fromUtf8("Uploadbookbutton"))
+        self.submit_button = QtGui.QPushButton(self.centralwidget)
+        self.submit_button.setGeometry(QtCore.QRect(410, 500, 110, 32))
+        self.submit_button.setObjectName(_fromUtf8("submit_button"))
         self.CoverPagebutton = QtGui.QPushButton(self.centralwidget)
         self.CoverPagebutton.setGeometry(QtCore.QRect(410, 390, 110, 32))
         self.CoverPagebutton.setObjectName(_fromUtf8("CoverPagebutton"))
@@ -123,6 +126,7 @@ class registeredUser(QtGui.QMainWindow):
         QtCore.QObject.connect(self.Uploadbookbutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
         QtCore.QObject.connect(self.CoverPagebutton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectCoverPage)
         QtCore.QObject.connect(self.top5List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
+        QtCore.QObject.connect(self.submit_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.submit)
 
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -192,6 +196,7 @@ class registeredUser(QtGui.QMainWindow):
         self.PointsRequested.setText(QtGui.QApplication.translate("MainWindow", "Points Requested:", None, QtGui.QApplication.UnicodeUTF8))
         self.BookSummary.setText(QtGui.QApplication.translate("MainWindow", "Book Summary:", None, QtGui.QApplication.UnicodeUTF8))
         self.Uploadbookbutton.setText(QtGui.QApplication.translate("MainWindow", "Upload This Book", None, QtGui.QApplication.UnicodeUTF8))
+        self.submit_button.setText(QtGui.QApplication.translate("MainWindow", "Submit", None, QtGui.QApplication.UnicodeUTF8))
         self.CoverPagebutton.setText(QtGui.QApplication.translate("MainWindow", "CoverPage", None, QtGui.QApplication.UnicodeUTF8))
         self.label_9.setText(QtGui.QApplication.translate("MainWindow", "Reading History:", None, QtGui.QApplication.UnicodeUTF8))
 
