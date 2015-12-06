@@ -147,25 +147,25 @@ class BookPageGUI(QtGui.QDialog):
         self.text = (self.read_book_text.toPlainText()).toUtf8()
 
         self.searchWord = self.searchWordInput.text()
-        #self.setText(text)
-        cursor = self.read_book_text.textCursor()
+
+        self.cursor = self.read_book_text.textCursor()
         # Setup the desired format for matches
         format = QtGui.QTextCharFormat()
         format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
         # Setup the regex engine
-        pattern = self.searchWord
-        regex = QtCore.QRegExp(pattern)
+        self.pattern = self.searchWord
+        self.regex = QtCore.QRegExp(self.pattern)
         # Process the displayed document
         pos = 0
         index = regex.indexIn(self.read_book_text.toPlainText(), pos)
         while (index != -1):
             # Select the matched text and apply the desired format
-            cursor.setPosition(index)
-            cursor.movePosition(QtGui.QTextCursor.EndOfWord, 1)
-            cursor.mergeCharFormat(format)
+            self.cursor.setPosition(index)
+            self.cursor.movePosition(QtGui.QTextCursor.EndOfWord, 1)
+            self.cursor.mergeCharFormat(format)
             # Move to the next match
-            pos = index + regex.matchedLength()
-            index = regex.indexIn(self.read_book_text.toPlainText(), pos)
+            pos = index + self.regex.matchedLength()
+            index = self.regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
      print(self.book.book_file)
