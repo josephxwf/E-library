@@ -9,7 +9,9 @@ class User(object):
         self.timelist = {"Quinneys":10}
         self.readingHistory = []
         self.own_book = []
+        self.activity = False
         # self.book_time
+
 
 
     def setReadingHistory(self, list):

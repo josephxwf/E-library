@@ -7,7 +7,6 @@
 # WARNING! All changes made in this file will be lost!
 import os
 #import popplerqt4
-
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
@@ -173,8 +172,7 @@ class BookPageGUI(QtGui.QDialog):
             file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
-            self.read_book_text.setText(stream.readAll())
-
+            #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
             self.start_time = self.user.timelist[self.book.title]

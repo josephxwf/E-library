@@ -33,6 +33,7 @@ class Visitor_MainWindow(object):
     def __init__(self, library):
         self.library = library
         self.user =None
+        self.apply = User("", "")
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
@@ -171,10 +172,10 @@ class Visitor_MainWindow(object):
         self.labelL.setGeometry(QtCore.QRect(690, 350, 201, 16))
         self.labelL.setObjectName(_fromUtf8("labelL"))
         self.labelsu = QtGui.QLabel(self.centralwidget)
-        self.labelsu.setGeometry(QtCore.QRect(690, 360, 62, 16))
+        self.labelsu.setGeometry(QtCore.QRect(690, 360, 201, 16))
         self.labelsu.setObjectName(_fromUtf8("labelsu"))
         self.labelsp = QtGui.QLabel(self.centralwidget)
-        self.labelsp.setGeometry(QtCore.QRect(690, 360, 62, 16))
+        self.labelsp.setGeometry(QtCore.QRect(690, 360, 201, 16))
         self.labelsp.setObjectName(_fromUtf8("labelsp"))
 ##
         MainWindow.setCentralWidget(self.centralwidget)
@@ -218,9 +219,9 @@ class Visitor_MainWindow(object):
                     self.bookitem.rate_label.hide()
                     self.bookitem.read_button.hide()
                     self.bookitem.submit_button.hide()
-                    self.bookitem.comments_label.hide()
+                    #self.bookitem.comments_label.hide()
                     self.bookitem.comments_input.hide()
-                    self.bookitem.comments_text.hide()
+                    #self.bookitem.comments_text.hide()
                     break
             else:
                 print("book not find")
@@ -239,8 +240,32 @@ class Visitor_MainWindow(object):
                 item.setText(_translate("MainWindow", result[i].title, None))
 
     def signUp(self):
-        self.signUp = SignUp(self.library)
-        self.signUp.show()
+        #self.signUp = SignUp(self.library)
+        #self.signUp.show()
+        firstname = str(self.Firstname_input.text())
+        lastname = str(self.Lastname_input.text())
+        username = str(self.SignupUsername_input.text())
+        password = str(self.SignupPassword_input.text())
+        if not username:
+            self.labelsu.setText(_fromUtf8("Username is required!"))
+            print("username is required")
+        elif not password:
+            self.labelsp.setText(_fromUtf8("Password is required!"))
+            print("password is required")
+        else:
+            user_list = self.library.loadUserData()
+            for user in user_list:
+                if username == user.username:
+                    self.label.setText(_fromUtf8("Username is used!"))
+                else:
+                    self.apply.username = username
+                    self.apply.password = password
+                    self.apply.activity = False
+                    self.library.update_user_data(self.apply)
+                    self.Firstname_input.setText("")
+                    self.Lastname_input.setText("")
+                    self.SignupUsername_input.setText("")
+                    self.SignupPassword_input.setText("")
 
     def signIn(self):
         inputUsername = self.usernameInput.text()
@@ -273,12 +298,12 @@ class Visitor_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ebook Library", None))
         self.signinButton.setText(_translate("MainWindow", "sign in", None))
-        self.signUpButton.setText(_translate("MainWindow", "sign up", None))
+        self.signUpButton.setText(_translate("MainWindow", "apply", None))
         self.userNameLaber.setText(_translate("MainWindow", "User name:", None))
         self.passwordLabel.setText(_translate("MainWindow", "Password:", None))
         self.EbookLibraryTitle_label.setText(_translate("MainWindow", "Ebook Library", None))
         self.EbookLibraryDescription_label.setText(_translate("MainWindow", "An Innovative Ebook Library that lets you share books and earn reading points", None))
-        self.Createaccount_label.setText(_translate("MainWindow", "Create an account", None))
+        self.Createaccount_label.setText(_translate("MainWindow", "Apply to be a User", None))
         self.searchButton.setText(_translate("MainWindow", "Search", None))
         __sortingEnabled = self.BookCatalog.isSortingEnabled()
 

@@ -452,4 +452,3 @@ class SuperUserPage(QtGui.QWidget):
         item = self.history_List.item(4)
         item.setText(_translate("superUser", "5. Book5", None))
         self.history_List.setSortingEnabled(__sortingEnabled)
-
