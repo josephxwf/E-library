@@ -74,14 +74,14 @@ class Visitor_MainWindow(object):
         self.passwordInput.setEchoMode(QtGui.QLineEdit.Password)
 
         self.passwordInput.setObjectName(_fromUtf8("passwordInput"))
-        self.label = QtGui.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(390, 70, 151, 20))
-        self.label.setText(_fromUtf8(""))
-        self.label.setObjectName(_fromUtf8("label"))
-        self.label_2 = QtGui.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(390, 130, 151, 20))
-        self.label_2.setText(_fromUtf8(""))
-        self.label_2.setObjectName(_fromUtf8("label_2"))
+        self.username_warning_label = QtGui.QLabel(self.centralwidget)
+        self.username_warning_label.setGeometry(QtCore.QRect(390, 70, 151, 20))
+        self.username_warning_label.setText(_fromUtf8(""))
+        self.username_warning_label.setObjectName(_fromUtf8("username_warning_label"))
+        self.password_warning_label = QtGui.QLabel(self.centralwidget)
+        self.password_warning_label.setGeometry(QtCore.QRect(390, 130, 151, 20))
+        self.password_warning_label.setText(_fromUtf8(""))
+        self.password_warning_label.setObjectName(_fromUtf8("password_warning_label"))
         self.label_3 = QtGui.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(310, 20, 231, 20))
         self.label_3.setText(_fromUtf8(""))
@@ -116,20 +116,21 @@ class Visitor_MainWindow(object):
 
     def open_book(self, item):
         book_list = self.library.loadBookData()
-        for book in book_list:
-            if book.title == str(item.text()):
-                self.bookitem = BookPageGUI(book, None)
-                self.bookitem.show()
-                self.bookitem.closeBookButton.hide()
-                self.bookitem.rate_label.hide()
-                self.bookitem.read_button.hide()
-                self.bookitem.submit_button.hide()
-                self.bookitem.comments_label.hide()
-                self.bookitem.comments_input.hide()
-                self.bookitem.comments_text.hide()
-                break
-        else:
-            print("book not find")
+        if book_list:
+            for book in book_list:
+                if book.title == str(item.text()):
+                    self.bookitem = BookPageGUI(book, None)
+                    self.bookitem.show()
+                    self.bookitem.closeBookButton.hide()
+                    self.bookitem.rate_label.hide()
+                    self.bookitem.read_button.hide()
+                    self.bookitem.submit_button.hide()
+                    self.bookitem.comments_label.hide()
+                    self.bookitem.comments_input.hide()
+                    self.bookitem.comments_text.hide()
+                    break
+            else:
+                print("book not find")
 
         # with open('book_data.pkl', 'r') as input:
         #     find = False
@@ -177,14 +178,14 @@ class Visitor_MainWindow(object):
         user = None
 
         if not inputUsername:
-            self.label.setText(_fromUtf8("Username is required!"))
+            self.username_warning_label.setText(_fromUtf8("Username is required!"))
             print("username is required")
-        if not inputPassword:
-            self.label_2.setText(_fromUtf8("Password is required!"))
+        elif not inputPassword:
+            self.password_warning_label.setText(_fromUtf8("Password is required!"))
             print("password is required")
         else:
-            self.label.setText(_fromUtf8(""))
-            self.label_2.setText(_fromUtf8(""))
+            self.username_warning_label.setText(_fromUtf8(""))
+            self.password_warning_label.setText(_fromUtf8(""))
             user_list = self.library.loadUserData()
             for user in user_list:
                 if user.username == inputUsername:
@@ -193,9 +194,11 @@ class Visitor_MainWindow(object):
                         self.SuperUserPage.show()
                         break
                     else:
-                        QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
+                        self.password_warning_label.setText(_fromUtf8("Password is wrong!!"))
+                        # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
             else:
-                QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'username is wrong!!')
+                self.username_warning_label.setText(_fromUtf8("username is wrong!!"))
+                # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'username is wrong!!')
 
             #
             # with open('user_data.pkl', 'r') as input:
@@ -227,9 +230,9 @@ class Visitor_MainWindow(object):
         __sortingEnabled = self.top5List.isSortingEnabled()
 
         self.top5List.setSortingEnabled(False)
-        books = self.library.top5Book
+        books = self.library.searchTop5()
         if books:
-            for i in range(5):
+            for i in range(len(books)):
                 item = self.top5List.item(i)
                 item.setText(_translate("MainWindow", books[i].title, None))
         self.top5List.setSortingEnabled(__sortingEnabled)

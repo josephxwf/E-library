@@ -63,7 +63,7 @@ class BookPageGUI(QtGui.QDialog):
         self.covepage_label = QtGui.QLabel(Form)
         self.covepage_label.setGeometry(QtCore.QRect(50, 30, 181, 261))
         self.covepage_label.setObjectName(_fromUtf8("covepage_label"))
-        self.covepage_label.setPixmap(QtGui.QPixmap('CoverPage/'+ book.title+ ".jpg"))
+        self.covepage_label.setPixmap(QtGui.QPixmap('CoverPage/'+ book.cover_page))
         self.covepage_label.setScaledContents(True)
         self.comments_input = QtGui.QTextEdit(Form)
         self.comments_input.setGeometry(QtCore.QRect(50, 520, 491, 71))
