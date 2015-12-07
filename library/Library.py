@@ -27,8 +27,6 @@ class Library():
     def __init__(self):    #constructor
         self.userData = self.loadUserData()
         self.bookData = self.loadBookData()
-        self.top5Book = self.searchTop5()
-        self.allbooks = self.Catalog()
 
     def update_user_data(self, new_user):
         userData = self.loadUserData()
@@ -47,33 +45,47 @@ class Library():
             pickle.dump(newData, output)
 
     def loadUserData(self):
-        with open('user_data.pkl', 'r') as input:
-            try:
-                user = pickle.load(input)
-            except:
-                user = None
+        try:
+            with open('user_data.pkl', 'r') as input:
+                try:
+                    user = pickle.load(input)
+                except:
+                    user = None
+        except:
+            user=None
+            with open('user_data.pkl', 'w') as output:
+                pass
         return user
 
     def loadBookData(self, path='book_data.pkl'):
-        with open(path, 'r') as input:
-            try:
-                book = pickle.load(input)
-            except:
-                book = None
+        try:
+            with open(path, 'r') as input:
+                try:
+                    book = pickle.load(input)
+                except:
+                    book = None
+        except:
+            book = None
+            with open(path, 'w') as output:
+                pass
 
         return book
 
-    def update_book_data(self, new_book, path='book_data.pkl'):
-        book_data = self.loadBookData()
+    def update_book_data(self, new_book, path='book_data.pkl',delete=False):
+        book_data = self.loadBookData(path)
         new_data = []
         find = False
-        for book in book_data:
-            if book.title == new_book.title:
-                new_data.append(new_data)
-                find = True
-            else:
-                new_data.append(book)
-        if find is False:
+        if book_data:
+            for book in book_data:
+                if book.title == new_book.title:
+                    if delete == False:
+                        new_data.append(new_book)
+                    find = True
+                else:
+                    new_data.append(book)
+            if find is False:
+                new_data.append(new_book)
+        else:
             new_data.append(new_book)
 
         with open(path,'w') as output:
@@ -89,7 +101,7 @@ class Library():
         resultNum = 5
         if self.bookData:
             for book in self.bookData:
-                if keyword.lower() in book.title.lower():
+                if keyword.lower() in book.title.lower(): #maybe need to convert keyword to str(keyword)
                     result.append(book)
                     resultNum -=1
                 elif keyword.lower() in book.author.lower():
@@ -113,18 +125,21 @@ class Library():
 
     def searchTop5(self):
         top5List = []
-        data = sorted(self.bookData, key=lambda book: book.NumOfRead, reverse=True)
-        # print(data)
-        for i in range(5):
-            top5List.append(data[i])
-            #print i
+        book_data = self.loadBookData()
+        if book_data:
+            data = sorted(book_data, key=lambda book: book.NumOfRead, reverse=True)
+            for i in range(len(data)):
+                top5List.append(data[i])
+                #print i
         return top5List
 
     def Catalog(self):
         BookList = []
-        bookdata = sorted(self.bookData, key=lambda book: book.title, reverse=True)
-        for i in range(5):  #need to make the range equal total number of books in self.bookData
-            BookList.append(bookdata[i])
+        book_data = self.loadBookData()
+        if book_data:
+            bookdata = sorted(book_data, key=lambda book: book.title, reverse=True)
+            for i in range(len(bookdata)):  #need to make the range equal total number of books in self.bookData
+                BookList.append(bookdata[i])
         return BookList
 # if __name__ == '__main__':
 #     mylibrary = Library()

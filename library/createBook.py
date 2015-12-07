@@ -12,19 +12,21 @@ if __name__ == '__main__':
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Four in Camp.txt"
     my_book.contribute_by = "kaiying"
+    my_book.superuser_set_point = 0
     book_list.append(my_book)
 
-    my_book2 = Book("La chair et le sang","QUINNEYS.jpg", 5)
-    my_book2.author = "Franois Mauriac"
-    my_book2.summary = "Since the introduction of the tungsten lamp some five years ago," \
+    my_book = Book("La chair et le sang","QUINNEYS.jpg", 5)
+    my_book.author = "Franois Mauriac"
+    my_book.summary = "Since the introduction of the tungsten lamp some five years ago," \
                       " the manufacturers have attempted continually to produce smaller " \
                       "and smaller units in the standard voltages."
-    my_book2.type = "Education"
-    my_book2.book_file = "La chair et le sang.txt"
-    my_book2.NumOfRead = 8
-    my_book2.cover_page = "QUINNEYS.jpg"
-    my_book2.contribute_by = "kaiying"
-    book_list.append(my_book2)
+    my_book.type = "Education"
+    my_book.book_file = "La chair et le sang.txt"
+    my_book.NumOfRead = 8
+    my_book.cover_page = "QUINNEYS.jpg"
+    my_book.contribute_by = "kaiying"
+    my_book.superuser_set_point = 0
+    book_list.append(my_book)
 
     my_book = Book("The Fifteen Watt Tungsten Lamp","QUINNEYS.jpg",25)
     my_book.author = "Clair Elmore Anderson"
@@ -34,6 +36,7 @@ if __name__ == '__main__':
     my_book.type = "Education"
     my_book.book_file = "The Fifteen Watt Tungsten Lamp.txt"
     my_book.NumOfRead = 22
+    my_book.superuser_set_point = 0
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.contribute_by = "kaiying"
     book_list.append(my_book)
@@ -46,6 +49,7 @@ if __name__ == '__main__':
     my_book.type = "Adventures"
     my_book.book_file = "The Wonderful Wizard of Oz.txt"
     my_book.NumOfRead = 55
+    my_book.superuser_set_point = 0
     my_book.cover_page = "The Wonderful Wizard of Oz.jpg"
     my_book.contribute_by = "kaiying"
     book_list.append(my_book)
@@ -59,6 +63,7 @@ if __name__ == '__main__':
     my_book.NumOfRead = 3
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Visages.txt"
+    my_book.superuser_set_point = 0
     my_book.contribute_by = "kaiying"
     book_list.append(my_book)
 
@@ -68,6 +73,7 @@ if __name__ == '__main__':
                       "not so long ago, when Pinker, the grocer, called him 'My lad.' "
     my_book.type = "history"
     my_book.NumOfRead = 55
+    my_book.superuser_set_point = 0
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Quinneys.txt"
     my_book.contribute_by = "kaiying"
