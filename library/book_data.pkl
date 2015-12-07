@@ -12,15 +12,15 @@ S''
 p5
 sS'title'
 p6
-S'ascasc'
+S'afasf'
 p7
 sS'cover_page'
 p8
-S'char3.png'
+S'char2.png'
 p9
 sS'summary'
 p10
-S'afevafcasfafas'
+S'asfadfaf'
 p11
 sS'book_file'
 p12
@@ -28,7 +28,7 @@ S'Fall 2015 Final Exam Schedule.pdf'
 p13
 sS'requestPoint'
 p14
-I111
+I11
 sS'contribute_by'
 p15
 csip

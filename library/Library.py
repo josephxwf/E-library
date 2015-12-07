@@ -28,7 +28,6 @@ class Library():
         self.userData = self.loadUserData()
         self.bookData = self.loadBookData()
 
-
     def update_user_data(self, new_user):
         userData = self.loadUserData()
         newData = []
@@ -100,9 +99,10 @@ class Library():
         '''
         result = []
         resultNum = 5
-        if self.bookData:
-            for book in self.bookData:
-                if keyword.lower() in book.title.lower():
+        bookData = self.loadBookData()
+        if bookData:
+            for book in bookData:
+                if keyword.lower() in book.title.lower(): #maybe need to convert keyword to str(keyword)
                     result.append(book)
                     resultNum -=1
                 elif keyword.lower() in book.author.lower():
@@ -134,7 +134,14 @@ class Library():
                 #print i
         return top5List
 
-
+    def Catalog(self):
+        BookList = []
+        book_data = self.loadBookData()
+        if book_data:
+            bookdata = sorted(book_data, key=lambda book: book.title, reverse=True)
+            for i in range(len(bookdata)):  #need to make the range equal total number of books in self.bookData
+                BookList.append(bookdata[i])
+        return BookList
 # if __name__ == '__main__':
 #     mylibrary = Library()
 #     top5 = mylibrary.searchTop5()
