@@ -29,30 +29,54 @@ class Library():
         self.bookData = self.loadBookData()
         self.top5Book = self.searchTop5()
 
+    def update_user_data(self, new_user):
+        userData = self.loadUserData()
+        newData = []
+        find = False
+        for user in userData:
+            if user.username == new_user.username:
+                newData.append(new_user)
+                find = True
+            else:
+                newData.append(user)
+        if find is False:
+            newData.append(new_user)
+
+        with open('user_data.pkl', 'w') as output:
+            pickle.dump(newData, output)
 
     def loadUserData(self):
-        user_list = []
         with open('user_data.pkl', 'r') as input:
-            user = pickle.load(input)
-            while(user):
-                user_list.append(user)
-                try:
-                    user = pickle.load(input)
-                except:
-                    user = None
-        return user_list
+            try:
+                user = pickle.load(input)
+            except:
+                user = None
+        return user
 
-    def loadBookData(self):
-        book_list = []
-        with open('book_data.pkl', 'r') as input:
-            book = pickle.load(input)
-            while(book):
-                book_list.append(book)
-                try:
-                    book = pickle.load(input)
-                except:
-                    book = None
-        return book_list
+    def loadBookData(self, path='book_data.pkl'):
+        with open(path, 'r') as input:
+            try:
+                book = pickle.load(input)
+            except:
+                book = None
+
+        return book
+
+    def update_book_data(self, new_book, path='book_data.pkl'):
+        book_data = self.loadBookData()
+        new_data = []
+        find = False
+        for book in book_data:
+            if book.title == new_book.title:
+                new_data.append(new_data)
+                find = True
+            else:
+                new_data.append(book)
+        if find is False:
+            new_data.append(new_book)
+
+        with open(path,'w') as output:
+            pickle.dump(new_data, output)
 
 
     def searchBook(self, keyword):
@@ -62,21 +86,22 @@ class Library():
         '''
         result = []
         resultNum = 5
-        for book in self.bookData:
-            if keyword.lower() in book.title.lower():
-                result.append(book)
-                resultNum -=1
-            elif keyword.lower() in book.author.lower():
-                result.append(book)
-                resultNum -=1
-            elif keyword.lower() in book.type.lower():
-                result.append(book)
-                resultNum -=1
-            elif keyword.lower() in book.summary.lower():
-                result.append(book)
-                resultNum -=1
-            if resultNum == 0:
-                break
+        if self.bookData:
+            for book in self.bookData:
+                if keyword.lower() in book.title.lower():
+                    result.append(book)
+                    resultNum -=1
+                elif keyword.lower() in book.author.lower():
+                    result.append(book)
+                    resultNum -=1
+                elif keyword.lower() in book.type.lower():
+                    result.append(book)
+                    resultNum -=1
+                elif keyword.lower() in book.summary.lower():
+                    result.append(book)
+                    resultNum -=1
+                if resultNum == 0:
+                    break
         return result
 
     def searchUser(self, name):

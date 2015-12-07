@@ -31,14 +31,16 @@ except AttributeError:
 
 class BookPageGUI(QtGui.QDialog):
 
+
     def __init__(self,book,user):
         self.user = user
+        self.book = book
         #self.Form = QtGui.QWidget()
         self.central = QWidget()
 
         super(BookPageGUI,self).__init__()
         self.setupUi(self,book,user)
-        self.book = book
+
 
     def setupUi(self, Form, book,user):
         Form.setObjectName(_fromUtf8("Form"))
@@ -97,7 +99,8 @@ class BookPageGUI(QtGui.QDialog):
         self.author_label.setObjectName(_fromUtf8("author_label"))
         self.author_display_label = QtGui.QLabel(Form)
         self.author_display_label.setGeometry(QtCore.QRect(330, 70, 111, 21))
-        self.author_display_label.setObjectName(_fromUtf8(book.author))
+        self.author_display_label.setObjectName(_fromUtf8("author_display_label"))
+        self.author_display_label.setText(_translate("Form", book.author, None))
         self.summary_label = QtGui.QLabel(Form)
         self.summary_label.setGeometry(QtCore.QRect(271, 101, 48, 16))
         self.summary_label.setObjectName(_fromUtf8("summary_label"))
@@ -119,48 +122,84 @@ class BookPageGUI(QtGui.QDialog):
         self.TimeOutMessage.setObjectName(_fromUtf8("TimeOutMessage"))
 
 
+
+        self.search_button = QtGui.QPushButton(Form)
+        self.search_button.setGeometry(QtCore.QRect(570, 592, 75, 23))
+        self.search_button.setObjectName(_fromUtf8("read_button"))
+
+        self.searchWordInput = QtGui.QLineEdit(Form)
+        self.searchWordInput.setGeometry(QtCore.QRect(646, 592, 151, 21))
+        self.searchWordInput.setObjectName(_fromUtf8("lineEdit"))
+
+
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
         QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
+        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_Highlight)
+
+
+
+    def search_Highlight(self):
+        # Setup the text editor
+        self.text = (self.read_book_text.toPlainText()).toUtf8()
+
+        self.searchWord = self.searchWordInput.text()
+
+        cursor = self.read_book_text.textCursor()
+        # Setup the desired format for matches
+        format = QtGui.QTextCharFormat()
+        format.setBackground(QtGui.QBrush(QtGui.QColor("red")))
+        # Setup the regex engine
+        pattern = self.searchWord
+        regex = QtCore.QRegExp(pattern)
+        # Process the displayed document
+        pos = 0
+        index = regex.indexIn(self.read_book_text.toPlainText(), pos)
+        while (index != -1):
+            # Select the matched text and apply the desired format
+            cursor.setPosition(index)
+            cursor.movePosition(QtGui.QTextCursor.EndOfWord, 1)
+            cursor.mergeCharFormat(format)
+            # Move to the next match
+            pos = index + regex.matchedLength()
+            index = regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
-     print(self.book.title + ".txt")
-     if self.user.timelist[self.book.title] > 0:
-        file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
-        file.open(QtCore.QIODevice.ReadOnly)
-        stream = QtCore.QTextStream(file)
-        self.read_book_text.setText(stream.readAll())
+        print(self.book.book_file)
+        if self.user.timelist[self.book.title] > 0:
+            file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
+            file.open(QtCore.QIODevice.ReadOnly)
+            stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
 
-        self.timer = QTimer(self)
-        print self.timer
-        self.start_time = self.user.timelist[self.book.title]
-        #self.timer.setInterval(1000)
-        self.timer.start(1000)
-        self.timer.timeout.connect(self.displayTime)
-
-
-     elif self.user.point > 0 :
-
-         self.user.point = self.user.point - self.book.requestPoint
-         self.user.timelist[self.book.title] = 10
-         file = QtCore.QFile('PendingBooks/'+ self.book.title+ ".txt")
-         file.open(QtCore.QIODevice.ReadOnly)
-         stream = QtCore.QTextStream(file)
-         self.read_book_text.setText(stream.readAll())
-
-         self.timer = QTimer(self)
-         #print self.timer
-         self.start_time = self.user.timelist[self.book.title]
-         #self.timer.setInterval(1000)
-         self.timer.start(1000)
-         self.timer.timeout.connect(self.displayTime)
-     else:
-
-         self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
+            self.timer = QTimer(self)
+            print self.timer
+            self.start_time = self.user.timelist[self.book.title]
+            #self.timer.setInterval(1000)
+            self.timer.start(1000)
+            self.timer.timeout.connect(self.displayTime)
 
 
+        elif self.user.point > 0 :
+
+            self.user.point = self.user.point - self.book.requestPoint
+            self.user.timelist[self.book.title] = 10
+            file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
+            file.open(QtCore.QIODevice.ReadOnly)
+            stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
+
+            self.timer = QTimer(self)
+            #print self.timer
+            self.start_time = self.user.timelist[self.book.title]
+            #self.timer.setInterval(1000)
+            self.timer.start(1000)
+            self.timer.timeout.connect(self.displayTime)
+        else:
+            self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
 
 
     def displayTime(self):
@@ -176,9 +215,6 @@ class BookPageGUI(QtGui.QDialog):
            self.timer.stop()
 
 
-
-
-
     def closeBook(self):
         self.read_book_text.setText("")
         print "Close the book!"
@@ -189,11 +225,12 @@ class BookPageGUI(QtGui.QDialog):
         self.book_title_label.setText(_translate("Form", "BookTitle:", None))
         self.rate_label.setText(_translate("Form", "Rate this book", None))
         self.read_button.setText(_translate("Form", "read", None))
+        self.search_button.setText(_translate("Form", "search", None))
         self.submit_button.setText(_translate("Form", "submit", None))
         self.comments_label.setText(_translate("Form", "comments", None))
         self.time_label.setText(_translate("Form", "point for 5 min", None))
         self.author_label.setText(_translate("Form", "Author:", None))
-        self.author_display_label.setText(_translate("Form", "kaiying", None))
+
         self.summary_label.setText(_translate("Form", "Summary:", None))
         self.point_label.setText(_translate("Form", "Point required:", None))
         self.point_display_label.setText(_translate("Form", "50", None))

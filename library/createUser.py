@@ -1,3 +1,4 @@
+__author__ = 'Administrator'
 import pickle
 from User import User
 
