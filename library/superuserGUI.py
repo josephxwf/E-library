@@ -322,9 +322,9 @@ class SuperUserPage(QtGui.QWidget):
             self.coverpage_button.setDisabled(True)
 
     def submit(self):
-        title = self.book_title_input.text()
-        summary = self.book_summary_input.toPlainText()   #get data from input
-        points = self.point_requested_input.text()
+        title = str(self.book_title_input.text())
+        summary = str(self.book_summary_input.toPlainText())   #get data from input
+        points = int(self.point_requested_input.text())
         self.upload_book.contribute_by = self.user.username
         if not title:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Title is required')
