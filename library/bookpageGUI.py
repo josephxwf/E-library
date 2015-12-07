@@ -138,16 +138,16 @@ class BookPageGUI(QtGui.QDialog):
 
         QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
-        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchHighlight)
+        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_Highlight)
 
 
 
-    def searchHighlight(self):
+    def search_Highlight(self):
         # Setup the text editor
         self.text = (self.read_book_text.toPlainText()).toUtf8()
 
         self.searchWord = self.searchWordInput.text()
-        #self.setText(text)
+
         cursor = self.read_book_text.textCursor()
         # Setup the desired format for matches
         format = QtGui.QTextCharFormat()
