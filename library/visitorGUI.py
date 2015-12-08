@@ -34,6 +34,7 @@ class Visitor_MainWindow(object):
         self.library = library
         self.user =None
         self.apply = User("", "")
+        self.catalog = self.library.Catalog()
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
@@ -152,7 +153,7 @@ class Visitor_MainWindow(object):
         font.setPointSize(13)
         self.BookCatalog.setFont(font)
         self.BookCatalog.setObjectName(_fromUtf8("BookCatalog"))
-        for i in range(5):
+        for i in range(len(self.catalog)):
             item = QtGui.QListWidgetItem()
             self.BookCatalog.addItem(item)
         self.verticalScrollBar = QtGui.QScrollBar(self.centralwidget)
@@ -227,11 +228,11 @@ class Visitor_MainWindow(object):
                 print("book not find")
 
     def searchBook(self):
-        for i in range(5):
+        for i in range(len(self.catalog)):
             item = self.BookCatalog.item(i)
             item.setText(_translate("MainWindow", "", None))
-        keyWord = str(self.searchInput.text())
-        result = self.library.searchBook(keyWord)
+        keyWord = self.searchInput.text()
+        result = self.library.searchBook(str(keyWord))
         if len(result) == 0:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
         else:

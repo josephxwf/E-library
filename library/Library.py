@@ -101,16 +101,16 @@ class Library():
         resultNum = 5
         if self.bookData:
             for book in self.bookData:
-                if keyword.lower() in book.title.lower(): #maybe need to convert keyword to str(keyword)
+                if keyword.lower() in str(book.title).lower(): #maybe need to convert keyword to str(keyword)
                     result.append(book)
                     resultNum -=1
-                elif keyword.lower() in book.author.lower():
+                elif keyword.lower() in str(book.author).lower():
                     result.append(book)
                     resultNum -=1
-                elif keyword.lower() in book.type.lower():
+                elif keyword.lower() in str(book.type).lower():
                     result.append(book)
                     resultNum -=1
-                elif keyword.lower() in book.summary.lower():
+                elif keyword.lower() in str(book.summary).lower():
                     result.append(book)
                     resultNum -=1
                 if resultNum == 0:

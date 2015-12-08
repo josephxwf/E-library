@@ -358,8 +358,8 @@ class SuperUserPage(QtGui.QWidget):
         for i in range(5):
             item = self.top5_List.item(i)
             item.setText(_translate("MainWindow", "", None))
-        keyWord = str(self.search_Input.text())
-        result = self.library.searchBook(keyWord)
+        keyWord = self.search_Input.text()
+        result = self.library.searchBook(str(keyWord))
         if len(result) == 0:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
         else:
