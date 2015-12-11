@@ -10,6 +10,7 @@ import os
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
+from Library import Library
 
 #import popplerqt4    fot pdf file
 
@@ -34,6 +35,7 @@ class BookPageGUI(QtGui.QDialog):
     def __init__(self,book,user):
         self.user = user
         self.book = book
+
         #self.Form = QtGui.QWidget()
         self.central = QWidget()
 
@@ -167,8 +169,12 @@ class BookPageGUI(QtGui.QDialog):
             index = regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
-        print(self.book.book_file)
-        if self.user.timelist[str(self.book.title)] > 0:
+        if str(self.book.title) not in self.user.timelist.keys():
+            self.user.point = self.user.point - int(self.book.requestPoint)
+            # update data in database
+            library = Library()
+            library.update_user_data(self.user)
+            self.user.timelist[str(self.book.title)] = 10
             file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
@@ -176,16 +182,33 @@ class BookPageGUI(QtGui.QDialog):
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
-            self.start_time = self.user.timelist[self.book.title]
+            self.start_time = self.user.timelist[str(self.book.title)]
+            #self.timer.setInterval(1000)
+            self.timer.start(1000)
+            self.timer.timeout.connect(self.displayTime)
+
+        if str(self.book.title) in self.user.timelist.keys() and self.user.timelist[str(self.book.title)] > 0:
+
+            file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
+            file.open(QtCore.QIODevice.ReadOnly)
+            stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
+            #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
+            self.timer = QTimer(self)
+            print self.timer
+            self.start_time = self.user.timelist[str(self.book.title)]
             #self.timer.setInterval(1000)
             self.timer.start(1000)
             self.timer.timeout.connect(self.displayTime)
 
 
-        elif self.user.point > 0 :
+        elif str(self.book.title) in self.user.timelist.keys() and self.user.point > 0 :
 
-            self.user.point = self.user.point - self.book.requestPoint
-            self.user.timelist[self.book.title] = 10
+            self.user.point = self.user.point - int(self.book.requestPoint)
+            self.user.timelist[str(self.book.title)] = 10
+            #update database
+            library = Library()
+            library.update_user_data(self.user)
             file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
@@ -193,7 +216,7 @@ class BookPageGUI(QtGui.QDialog):
 
             self.timer = QTimer(self)
             #print self.timer
-            self.start_time = self.user.timelist[self.book.title]
+            self.start_time = self.user.timelist[str(self.book.title)]
             #self.timer.setInterval(1000)
             self.timer.start(1000)
             self.timer.timeout.connect(self.displayTime)
@@ -203,8 +226,11 @@ class BookPageGUI(QtGui.QDialog):
 
     def displayTime(self):
         self.start_time -= 1
-        self.user.timelist[self.book.title] -=1
-        print self.user.timelist[self.book.title]
+        self.user.timelist[str(self.book.title)] -=1
+        #update database
+        library = Library()
+        library.update_user_data(self.user)
+        print self.user.timelist[str(self.book.title)]
         if self.start_time >= 0:
            self.Timer.setText(("%d:%02d" % (self.start_time/60,self.start_time % 60)))
         else:
