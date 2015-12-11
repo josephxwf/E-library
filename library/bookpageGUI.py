@@ -168,10 +168,11 @@ class BookPageGUI(QtGui.QDialog):
 
     def readBook(self):
         print(self.book.book_file)
-        if self.user.timelist[self.book.title] > 0:
+        if self.user.timelist[str(self.book.title)] > 0:
             file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
