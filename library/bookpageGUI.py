@@ -211,7 +211,7 @@ class BookPageGUI(QtGui.QDialog):
         elif str(self.book.title) in self.user.readingHistory.keys() and self.user.point > 0 :
             print self.book.requestPoint
             self.user.point = self.user.point - int(self.book.requestPoint)
-            self.user.timelist[str(self.book.title)] = 10
+            self.user.readingHistory[str(self.book.title)] = 10
             #update database
             library = Library()
             library.update_user_data(self.user)
