@@ -444,7 +444,7 @@ class SuperUserPage(QtGui.QWidget):
         for key, value in self.user.readingHistory.items():
         #for i in range(len(self.user.readingHistory)):
             item = self.history_List.item(i)
-            item.setText(_translate("superUser", key + " Status:You have "+ str(value) + " mins remained!" , None))
+            item.setText(_translate("superUser", key + "    Status:You have "+ str(value) + " mins remained!" , None))
             i +=1
 
 
