@@ -139,11 +139,11 @@ class BookPageGUI(QtGui.QDialog):
 
         QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
-        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_Highlight)
+        QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_and_Highlight)
 
 
 
-    def search_Highlight(self):
+    def search_and_Highlight(self):
         # Setup the text editor
         self.text = (self.read_book_text.toPlainText()).toUtf8()
 
@@ -169,12 +169,14 @@ class BookPageGUI(QtGui.QDialog):
             index = regex.indexIn(self.read_book_text.toPlainText(), pos)
 
     def readBook(self):
-        if str(self.book.title) not in self.user.timelist.keys():
+        if str(self.book.title) not in self.user.readingHistory.keys() and self.user.point > 0:
             self.user.point = self.user.point - int(self.book.requestPoint)
+
             # update data in database
             library = Library()
             library.update_user_data(self.user)
-            self.user.timelist[str(self.book.title)] = 10
+
+            self.user.readingHistory[str(self.book.title)] = 10
             file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
@@ -182,13 +184,13 @@ class BookPageGUI(QtGui.QDialog):
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
-            self.start_time = self.user.timelist[str(self.book.title)]
+            self.start_time = self.user.readingHistory[str(self.book.title)]
             #self.timer.setInterval(1000)
             self.timer.start(1000)
             self.timer.timeout.connect(self.displayTime)
 
-        if str(self.book.title) in self.user.timelist.keys() and self.user.timelist[str(self.book.title)] > 0:
-
+        elif str(self.book.title) in self.user.readingHistory.keys() and self.user.readingHistory[str(self.book.title)] > 0:
+            print self.book.requestPoint
             file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
@@ -196,14 +198,14 @@ class BookPageGUI(QtGui.QDialog):
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
-            self.start_time = self.user.timelist[str(self.book.title)]
+            self.start_time = self.user.readingHistory[str(self.book.title)]
             #self.timer.setInterval(1000)
             self.timer.start(1000)
             self.timer.timeout.connect(self.displayTime)
 
 
-        elif str(self.book.title) in self.user.timelist.keys() and self.user.point > 0 :
-
+        elif str(self.book.title) in self.user.readingHistory.keys() and self.user.point > 0 :
+            print self.book.requestPoint
             self.user.point = self.user.point - int(self.book.requestPoint)
             self.user.timelist[str(self.book.title)] = 10
             #update database
@@ -216,21 +218,21 @@ class BookPageGUI(QtGui.QDialog):
 
             self.timer = QTimer(self)
             #print self.timer
-            self.start_time = self.user.timelist[str(self.book.title)]
+            self.start_time = self.user.readingHistory[str(self.book.title)]
             #self.timer.setInterval(1000)
             self.timer.start(1000)
-            self.timer.timeout.connect(self.displayTime)
+            self.timer.timeout.connect(self.displayTime)  #call function diaplayTime continuely
         else:
             self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
 
-
+     # update time by 1 second
     def displayTime(self):
         self.start_time -= 1
-        self.user.timelist[str(self.book.title)] -=1
+        self.user.readingHistory[str(self.book.title)] -=1
         #update database
         library = Library()
         library.update_user_data(self.user)
-        print self.user.timelist[str(self.book.title)]
+
         if self.start_time >= 0:
            self.Timer.setText(("%d:%02d" % (self.start_time/60,self.start_time % 60)))
         else:
