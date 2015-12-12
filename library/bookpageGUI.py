@@ -6,6 +6,7 @@
 #
 # WARNING! All changes made in this file will be lost!
 import os
+
 #import popplerqt4
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
@@ -35,7 +36,6 @@ class BookPageGUI(QtGui.QDialog):
     def __init__(self,book,user):
         self.user = user
         self.book = book
-
         #self.Form = QtGui.QWidget()
         self.central = QWidget()
 
@@ -69,9 +69,6 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_input = QtGui.QTextEdit(Form)
         self.comments_input.setGeometry(QtCore.QRect(50, 520, 491, 71))
         self.comments_input.setObjectName(_fromUtf8("comments_input"))
-        self.submit_button = QtGui.QPushButton(Form)
-        self.submit_button.setGeometry(QtCore.QRect(50, 600, 75, 23))
-        self.submit_button.setObjectName(_fromUtf8("submit_button"))
 
         self.layoutWidget = QtGui.QWidget(Form)
         self.layoutWidget.setGeometry(QtCore.QRect(50, 370, 491, 141))
@@ -132,6 +129,10 @@ class BookPageGUI(QtGui.QDialog):
         self.searchWordInput.setGeometry(QtCore.QRect(646, 592, 151, 21))
         self.searchWordInput.setObjectName(_fromUtf8("lineEdit"))
 
+        self.SubmitButton = QtGui.QPushButton(Form)
+        self.SubmitButton.setGeometry(QtCore.QRect(50, 600, 114, 32))
+        self.SubmitButton.setObjectName(_fromUtf8("SubmitButton"))
+
 
 
         self.retranslateUi(Form)
@@ -141,6 +142,9 @@ class BookPageGUI(QtGui.QDialog):
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
         QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_and_Highlight)
 
+        QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("copyAvailable(bool)")), self.comments_text.copy)
+        QtCore.QObject.connect(self.SubmitButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.comments_text.paste)
+        #QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("textChanged()")), self.comments_text.copy)
 
 
     def search_and_Highlight(self):
@@ -167,6 +171,7 @@ class BookPageGUI(QtGui.QDialog):
             # Move to the next match
             pos = index + regex.matchedLength()
             index = regex.indexIn(self.read_book_text.toPlainText(), pos)
+
 
     def readBook(self):
         if str(self.book.title) not in self.user.readingHistory.keys() and self.user.point > 0:
@@ -242,6 +247,7 @@ class BookPageGUI(QtGui.QDialog):
            self.timer.stop()
 
 
+
     def closeBook(self):
         self.read_book_text.setText("")
         print "Close the book!"
@@ -253,7 +259,13 @@ class BookPageGUI(QtGui.QDialog):
         self.rate_label.setText(_translate("Form", "Rate this book", None))
         self.read_button.setText(_translate("Form", "read", None))
         self.search_button.setText(_translate("Form", "search", None))
-        self.submit_button.setText(_translate("Form", "submit", None))
+        self.comments_input.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'.Lucida Grande UI\'; font-size:13pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>", None))
+
+
         self.comments_label.setText(_translate("Form", "comments", None))
         self.time_label.setText(_translate("Form", "point for 5 min", None))
         self.author_label.setText(_translate("Form", "Author:", None))
@@ -262,7 +274,7 @@ class BookPageGUI(QtGui.QDialog):
         self.point_label.setText(_translate("Form", "Point required:", None))
         self.point_display_label.setText(_translate("Form", "50", None))
         self.closeBookButton.setText(QtGui.QApplication.translate("Form", "close", None, QtGui.QApplication.UnicodeUTF8))
-
+        self.SubmitButton.setText(_translate("Form", "Submit", None))
 
 #
 # if __name__ == "__main__":

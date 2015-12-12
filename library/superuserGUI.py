@@ -174,6 +174,8 @@ class SuperUserPage(QtGui.QWidget):
             self.library.update_user_data(self.user)
 
             self.set_pending_book_table_for_register()
+
+
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not book need approve!')
 
