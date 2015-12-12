@@ -146,6 +146,11 @@ class BookPageGUI(QtGui.QDialog):
         QtCore.QObject.connect(self.SubmitButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.writecomments)
         #QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("textChanged()")), self.comments_text.copy)
 
+    def writecomments(self):
+        keyWord = self.comments_input.toPlainText()
+        self.comments_text.setText(keyWord)
+
+
     def search_and_Highlight(self):
         # Setup the text editor
         self.text = (self.read_book_text.toPlainText()).toUtf8()
