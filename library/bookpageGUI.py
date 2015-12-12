@@ -233,7 +233,11 @@ class BookPageGUI(QtGui.QDialog):
      # update time by 1 second
     def displayTime(self):
         self.start_time -= 1
+
         self.user.readingHistory[str(self.book.title)] -=1
+        if self.user.readingHistory[str(self.book.title)] < 0:
+            self.user.readingHistory[str(self.book.title)]=0
+
         #update database
         library = Library()
         library.update_user_data(self.user)
