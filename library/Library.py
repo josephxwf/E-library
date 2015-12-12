@@ -1,6 +1,7 @@
 from User import User
 from Book import Book
 import pickle
+import time
 #import os
 # from PyQt4 import QtCore, QtGui
 # from visitorGUI import Visitor_MainWindow
@@ -173,6 +174,26 @@ class Library():
             for i in range(len(bookdata)):  #need to make the range equal total number of books in self.bookData
                 BookList.append(bookdata[i])
         return BookList
+
+
+    def remove_book_with_nobody_read(self):
+        books = self.loadBookData()
+        time_for_now = time.time()
+        book_owners = []
+        if books:
+            for book in books:
+                if time_for_now - book.last_time_read >= 120:
+                    self.update_book_data(book,delete=True)  # remove book from book database
+                    book_owners.append(book.contribute_by)
+
+        if book_owners:
+            for username in book_owners:
+                user = self.searchUser(username)   # search user by username, get user object
+                if user:
+                    user.point -= 5                     # 5 points are deducted from the contributing RU
+                    self.update_user_data(user)  # update user information on user database
+
+
 # if __name__ == '__main__':
 #     mylibrary = Library()
 #     top5 = mylibrary.searchTop5()

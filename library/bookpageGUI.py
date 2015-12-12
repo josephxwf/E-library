@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from Library import Library
-from time import time
+import time
 
 #import popplerqt4    fot pdf file
 

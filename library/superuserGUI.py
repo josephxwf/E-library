@@ -33,6 +33,7 @@ class SuperUserPage(QtGui.QWidget):
     def __init__(self, user, library):
         self.user = user
         self.library = library
+        self.library.remove_book_with_nobody_read()
         self.upload_book = Book("","",0)
         self.upload_book.contribute_by = self.user
         QtGui.QWidget.__init__(self)
