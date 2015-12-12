@@ -29,6 +29,11 @@ class Library():
         self.bookData = self.loadBookData()
 
     def update_user_data(self, new_user):
+        """
+        This function will updata user object in user database
+        :param new_user: user object which need update
+        :return:
+        """
         userData = self.loadUserData()
         newData = []
         find = False
@@ -45,6 +50,11 @@ class Library():
             pickle.dump(newData, output)
 
     def loadUserData(self):
+        """
+        This function will load all user object from user database.
+
+        :return: user object list
+        """
         try:
             with open('user_data.pkl', 'r') as input:
                 try:
@@ -58,6 +68,12 @@ class Library():
         return user
 
     def loadBookData(self, path='book_data.pkl'):
+        """
+        This function will load all book object from book database.
+
+        :param path: string type, path of database
+        :return: book object list
+        """
         try:
             with open(path, 'r') as input:
                 try:
@@ -71,7 +87,14 @@ class Library():
 
         return book
 
-    def update_book_data(self, new_book, path='book_data.pkl',delete=False):
+    def update_book_data(self, new_book, path='book_data.pkl', delete=False):
+        """
+        this function will updata book database
+        :param new_book: book object which need update
+        :param path: string type, path of book database
+        :param delete: boolean, if true, it will delete book object
+        :return:
+        """
         book_data = self.loadBookData(path)
         new_data = []
         find = False
@@ -120,10 +143,17 @@ class Library():
         return result
 
     def searchUser(self, name):
-        '''
-        :param name:
-        :return: user
-        '''
+        """
+        This function will return user object by input string type username
+
+        :param string (username)
+        :return: user object
+        """
+        users = self.loadUserData() # load all users from database
+        for user in users:
+            if user.username == name:
+                return user
+        return None
 
     def searchTop5(self):
         top5List = []

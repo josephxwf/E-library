@@ -12,6 +12,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from Library import Library
+from time import time
 
 #import popplerqt4    fot pdf file
 
@@ -186,6 +187,7 @@ class BookPageGUI(QtGui.QDialog):
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
             self.read_book_text.setText(stream.readAll())
+            self.book.last_time_read = time.time()
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
@@ -200,6 +202,7 @@ class BookPageGUI(QtGui.QDialog):
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
             self.read_book_text.setText(stream.readAll())
+            self.book.last_time_read = time.time()
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
@@ -219,7 +222,7 @@ class BookPageGUI(QtGui.QDialog):
             file.open(QtCore.QIODevice.ReadOnly)
             stream = QtCore.QTextStream(file)
             self.read_book_text.setText(stream.readAll())
-
+            self.book.last_time_read = time.time()
             self.timer = QTimer(self)
             #print self.timer
             self.start_time = self.user.readingHistory[str(self.book.title)]
@@ -233,16 +236,16 @@ class BookPageGUI(QtGui.QDialog):
     def displayTime(self):
         self.start_time -= 1
 
-        self.user.readingHistory[str(self.book.title)] -=1
+        self.user.readingHistory[str(self.book.title)] -= 1
         if self.user.readingHistory[str(self.book.title)] < 0:
-            self.user.readingHistory[str(self.book.title)]=0
+            self.user.readingHistory[str(self.book.title)] = 0
 
         #update database
         library = Library()
         library.update_user_data(self.user)
 
         if self.start_time >= 0:
-           self.Timer.setText(("%d:%02d" % (self.start_time/60,self.start_time % 60)))
+           self.Timer.setText(("%d:%02d" % (self.start_time/60, self.start_time % 60)))
         else:
            self.read_book_text.setText("")
            print "Time is up!"
@@ -275,7 +278,7 @@ class BookPageGUI(QtGui.QDialog):
 
         self.summary_label.setText(_translate("Form", "Summary:", None))
         self.point_label.setText(_translate("Form", "Point required:", None))
-        self.point_display_label.setText(_translate("Form", "50", None))
+        self.point_display_label.setText(_translate("Form", str(self.book.requestPoint), None))
         self.closeBookButton.setText(QtGui.QApplication.translate("Form", "close", None, QtGui.QApplication.UnicodeUTF8))
         self.SubmitButton.setText(_translate("Form", "Submit", None))
 

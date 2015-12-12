@@ -10,6 +10,7 @@ from PyQt4 import QtCore, QtGui
 import shutil
 from bookpageGUI import BookPageGUI
 from Book import Book
+import time
 import os
 import pickle
 
@@ -64,6 +65,14 @@ class SuperUserPage(QtGui.QWidget):
         self.book_title_input = QtGui.QLineEdit(superUser)
         self.book_title_input.setGeometry(QtCore.QRect(480, 170, 113, 20))
         self.book_title_input.setObjectName(_fromUtf8("book_title_input"))
+
+        self.book_type_label = QtGui.QLabel(superUser)
+        self.book_type_label.setGeometry(QtCore.QRect(630, 180, 71, 21))
+        self.book_type_label.setObjectName(_fromUtf8("book_type_label"))
+        self.book_type_input = QtGui.QLineEdit(superUser)
+        self.book_type_input.setGeometry(QtCore.QRect(630, 210, 113, 20))
+        self.book_type_input.setObjectName(_fromUtf8("book_type_input"))
+
         self.point_requested_input = QtGui.QLineEdit(superUser)
         self.point_requested_input.setGeometry(QtCore.QRect(480, 210, 113, 20))
         self.point_requested_input.setObjectName(_fromUtf8("point_requested_input"))
@@ -235,6 +244,8 @@ class SuperUserPage(QtGui.QWidget):
         if self.user_need_activate is not None:
             self.user_need_activate.activate = True
             self.library.update_user_data(self.user_need_activate)
+            self.user_need_activate = None
+            self.set_user_active_table()
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not new user need activate!')
 
@@ -362,16 +373,16 @@ class SuperUserPage(QtGui.QWidget):
     def set_user_active_table(self):
         for index in range(3):
             item = QtGui.QTableWidgetItem()
-            self.request_Table.setItem(index, 0, item)
+            self.user_active_table.setItem(index, 0, item)
             item = QtGui.QTableWidgetItem()
-            self.request_Table.setItem(index, 1, item)
+            self.user_active_table.setItem(index, 1, item)
             item = QtGui.QTableWidgetItem()
-            self.request_Table.setItem(index, 2, item)
-            item = self.request_Table.item(index, 0)
+            self.user_active_table.setItem(index, 2, item)
+            item = self.user_active_table.item(index, 0)
             item.setText(_translate("superUser", "", None))
-            item = self.request_Table.item(index, 1)
+            item = self.user_active_table.item(index, 1)
             item.setText(_translate("superUser", "", None))
-            item = self.request_Table.item(index, 2)
+            item = self.user_active_table.item(index, 2)
             item.setText(_translate("superUser", "", None))
         # self.approve_book = None
         user_data = self.library.loadUserData()
@@ -398,26 +409,6 @@ class SuperUserPage(QtGui.QWidget):
                     else:
                         index += 1
 
-                # if book.superuser_set_point != 0 and book.contribute_by == self.user.username:        # check if super user set point
-                #     if index == 0:
-                #         self.approve_book = book
-                #     item = QtGui.QTableWidgetItem()
-                #     self.request_Table.setItem(index, 0, item)
-                #     item = QtGui.QTableWidgetItem()
-                #     self.request_Table.setItem(index, 1, item)
-                #     item = QtGui.QTableWidgetItem()
-                #     self.request_Table.setItem(index, 2, item)
-                #     item = self.request_Table.item(index, 0)
-                #     item.setText(_translate("superUser", book.title, None))
-                #     item = self.request_Table.item(index, 1)
-                #     item.setText(_translate("superUser", str(book.requestPoint), None))
-                #     item = self.request_Table.item(index, 2)
-                #     item.setText(_translate("superUser", str(book.superuser_set_point), None))
-                #     print(index)
-                #     if index == 2:
-                #         break
-                #     else:
-                #         index += 1
 
     def open_book(self, item):
         book_list = self.library.loadBookData()
@@ -486,6 +477,7 @@ class SuperUserPage(QtGui.QWidget):
             print("book required!!")
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Book file need uploaded!!')
         if title and summary and points and self.upload_book.book_file and self.upload_book.cover_page:
+            self.upload_book.last_time_read = time.time()
             self.library.update_book_data(self.upload_book, "pending_book_data.pkl")
             # self.user.own_book.append(self.upload_book)
             # self.library.update_user_data(self.user)
@@ -524,6 +516,7 @@ class SuperUserPage(QtGui.QWidget):
 
         self.contributLabel.setText(_translate("superUser", "Contribute Books:", None))
         self.book_title_label.setText(_translate("superUser", "Book Title:", None))
+        self.book_type_label.setText(_translate("superUser", "Book Type:", None))
         self.point_requested_label.setText(_translate("superUser", "point Requested:", None))
         self.book_summary_label.setText(_translate("superUser", "Book Summary:", None))
         self.coverpage_button.setText(_translate("superUser", "CoverPage", None))

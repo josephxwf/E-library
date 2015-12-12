@@ -13,6 +13,7 @@ from signUp import SignUp
 from registeredUser import registeredUser
 from bookpageGUI import BookPageGUI
 from superuserGUI import SuperUserPage
+import time
 import sys
 
 try:
@@ -32,6 +33,7 @@ except AttributeError:
 class Visitor_MainWindow(object):
     def __init__(self, library):
         self.library = library
+        self.remove_book_with_nobody_read()  # remove book with no one read for 2 min
         self.user =None
         self.apply = User("", "")
         self.catalog = self.library.Catalog()
@@ -209,6 +211,24 @@ class Visitor_MainWindow(object):
         QtCore.QObject.connect(self.verticalScrollBar, QtCore.SIGNAL(_fromUtf8("sliderMoved(int)")), self.BookCatalog.scrollToBottom)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+
+    def remove_book_with_nobody_read(self):
+        books = self.library.loadBookData()
+        time_for_now = time.time()
+        book_owners = []
+        if books:
+            for book in books:
+                if time_for_now - book.last_time_read >= 120:
+                    self.library.update_book_data(book,delete=True)  # remove book from book database
+                    book_owners.append(book.contribute_by)
+
+        if book_owners:
+            for username in book_owners:
+                user = self.library.searchUser(username)   # search user by username, get user object
+                if user:
+                    user.point -= 5                     # 5 points are deducted from the contributing RU
+                    self.library.update_user_data(user)  # update user information on user database
+
     def open_book(self, item):
         book_list = self.library.loadBookData()
         if book_list:
@@ -258,16 +278,17 @@ class Visitor_MainWindow(object):
             for user in user_list:
                 if username == user.username:
                     self.label.setText(_fromUtf8("Username is used!"))
-                else:
-                    self.apply.username = username
-                    self.apply.password = password
-                    self.apply.activate = False
-                    self.library.update_user_data(self.apply)
-                    self.Firstname_input.setText("")
-                    self.Lastname_input.setText("")
-                    self.SignupUsername_input.setText("")
-                    self.SignupPassword_input.setText("")
-                    QtGui.QMessageBox.warning(QtGui.QDialog(), 'congratulate', 'apply successful, please waiting for superuser activate account!')
+                    break
+            else:
+                self.apply.username = username
+                self.apply.password = password
+                self.apply.activate = False
+                self.library.update_user_data(self.apply)
+                self.Firstname_input.setText("")
+                self.Lastname_input.setText("")
+                self.SignupUsername_input.setText("")
+                self.SignupPassword_input.setText("")
+                QtGui.QMessageBox.warning(QtGui.QDialog(), 'congratulate', 'apply successful, please waiting for superuser activate account!')
 
     def signIn(self):
         inputUsername = self.usernameInput.text()
@@ -304,7 +325,7 @@ class Visitor_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ebook Library", None))
         self.signinButton.setText(_translate("MainWindow", "sign in", None))
-        self.signUpButton.setText(_translate("MainWindow", "apply", None))
+        self.signUpButton.setText(_translate("MainWindow", "Apply", None))
         self.userNameLaber.setText(_translate("MainWindow", "User name:", None))
         self.passwordLabel.setText(_translate("MainWindow", "Password:", None))
         self.EbookLibraryTitle_label.setText(_translate("MainWindow", "Ebook Library", None))
