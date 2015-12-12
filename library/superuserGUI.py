@@ -162,6 +162,9 @@ class SuperUserPage(QtGui.QWidget):
     def approve(self):
         if self.decide_book is not None:
             self.library.update_book_data(self.decide_book, "pending_book_data.pkl", delete=True)
+            #self.decide_book.UploadBookDate  = QDateTime.currentDateTime();
+            #print self.decide_book.UploadBookDate
+
             self.library.update_book_data(self.decide_book)
             self.user.point += self.decide_book.superuser_set_point
             self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
@@ -193,7 +196,10 @@ class SuperUserPage(QtGui.QWidget):
             # self.library.update_book_data(self.decide_book, "pending_book_data.pkl", delete=True)
             self.library.update_book_data(self.decide_book, "pending_book_data.pkl")
 
+
+
             self.set_pending_book_table()
+
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not book need decide!')
 
