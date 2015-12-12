@@ -261,12 +261,13 @@ class Visitor_MainWindow(object):
                 else:
                     self.apply.username = username
                     self.apply.password = password
-                    self.apply.activity = False
+                    self.apply.activate = False
                     self.library.update_user_data(self.apply)
                     self.Firstname_input.setText("")
                     self.Lastname_input.setText("")
                     self.SignupUsername_input.setText("")
                     self.SignupPassword_input.setText("")
+                    QtGui.QMessageBox.warning(QtGui.QDialog(), 'congratulate', 'apply successful, please waiting for superuser activate account!')
 
     def signIn(self):
         inputUsername = self.usernameInput.text()
@@ -286,9 +287,13 @@ class Visitor_MainWindow(object):
             for user in user_list:
                 if user.username == inputUsername:
                     if user.password == inputPassword:
-                        self.SuperUserPage= SuperUserPage(user, self.library)
-                        self.SuperUserPage.show()
-                        break
+                        if user.activate is True:
+                            self.SuperUserPage= SuperUserPage(user, self.library)
+                            self.SuperUserPage.show()
+                            break
+                        else:
+                            self.password_warning_label.setText(_fromUtf8("user is not activity!!"))
+                            break
                     else:
                         self.password_warning_label.setText(_fromUtf8("Password is wrong!!"))
                         # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
@@ -323,12 +328,12 @@ class Visitor_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionClose.setText(_translate("MainWindow", "Close", None))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+#
+# if __name__ == "__main__":
+#     import sys
+#     app = QtGui.QApplication(sys.argv)
+#     MainWindow = QtGui.QMainWindow()
+#     ui = Ui_MainWindow()
+#     ui.setupUi(MainWindow)
+#     MainWindow.show()
+#     sys.exit(app.exec_())

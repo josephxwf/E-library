@@ -1,7 +1,7 @@
 
 class User(object):
 
-    def __init__(self, username, password,super_user = False,point = 100):
+    def __init__(self, username, password,super_user=False, point=100, activate=False):
         self.username = username
         self.password = password
         self.superUser = super_user
@@ -9,7 +9,7 @@ class User(object):
         self.timelist = {"Quinneys":10}
         self.readingHistory = []
         self.own_book = []
-        self.activity = False
+        self.activate = activate
         # self.book_time
 
 

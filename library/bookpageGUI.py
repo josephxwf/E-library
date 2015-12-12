@@ -181,7 +181,7 @@ class BookPageGUI(QtGui.QDialog):
             self.timer.timeout.connect(self.displayTime)
 
 
-        elif self.user.point > 0 :
+        elif self.user.point > 0:
 
             self.user.point = self.user.point - self.book.requestPoint
             self.user.timelist[self.book.title] = 10

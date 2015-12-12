@@ -13,6 +13,7 @@ class Book():
         self.book_file = None
         self.contribute_by = ""
         self.superuser_set_point = 0
+        self.complain = []
 
     def add_to_database(self):
         with open('user_data.pkl', 'a') as output:

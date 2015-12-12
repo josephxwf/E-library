@@ -88,7 +88,7 @@ class Library():
         else:
             new_data.append(new_book)
 
-        with open(path,'w') as output:
+        with open(path, 'w') as output:
             pickle.dump(new_data, output)
 
 
