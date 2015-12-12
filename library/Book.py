@@ -14,6 +14,7 @@ class Book():
         self.contribute_by = ""
         self.superuser_set_point = 0
         self.NumOfRead = 0
+        self.comments = ""
 
     def add_to_database(self):
         with open('user_data.pkl', 'a') as output:
