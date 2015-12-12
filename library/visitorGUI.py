@@ -231,8 +231,8 @@ class Visitor_MainWindow(object):
         for i in range(len(self.catalog)):
             item = self.BookCatalog.item(i)
             item.setText(_translate("MainWindow", "", None))
-        keyWord = self.searchInput.text()
-        result = self.library.searchBook(str(keyWord))
+        keyWord = str(self.searchInput.text())
+        result = self.library.searchBook(keyWord)
         if len(result) == 0:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
         else:

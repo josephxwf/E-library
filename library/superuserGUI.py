@@ -206,18 +206,14 @@ class SuperUserPage(QtGui.QWidget):
         self.history_Label.setGeometry(QtCore.QRect(30, 340, 96, 16))
         self.history_Label.setObjectName(_fromUtf8("history_Label"))
         self.history_List = QtGui.QListWidget(superUser)
-        self.history_List.setGeometry(QtCore.QRect(30, 370, 209, 164))
+        self.history_List.setGeometry(QtCore.QRect(30, 370, 280, 164))
         self.history_List.setObjectName(_fromUtf8("history_List"))
-        item = QtGui.QListWidgetItem()
-        self.history_List.addItem(item)
-        item = QtGui.QListWidgetItem()
-        self.history_List.addItem(item)
-        item = QtGui.QListWidgetItem()
-        self.history_List.addItem(item)
-        item = QtGui.QListWidgetItem()
-        self.history_List.addItem(item)
-        item = QtGui.QListWidgetItem()
-        self.history_List.addItem(item)
+
+
+        for i in range(len(self.user.readingHistory)):
+            item = QtGui.QListWidgetItem()
+            self.history_List.addItem(item)
+
 
         self.retranslateUi(superUser)
 
@@ -248,11 +244,12 @@ class SuperUserPage(QtGui.QWidget):
             self.library.update_book_data(self.approve_book, "pending_book_data.pkl", delete=True)
             self.library.update_book_data(self.approve_book)
             self.user.point += self.approve_book.superuser_set_point
-            self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
 
+            #self.decide_book.UploadBookDate  = QDateTime.currentDateTime();
+            #print self.decide_book.UploadBookDate
+            self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
             self.user.own_book.append(self.approve_book)
             self.library.update_user_data(self.user)
-
             self.set_pending_book_table_for_register()   # refresh table
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not book need approve!')
@@ -494,16 +491,25 @@ class SuperUserPage(QtGui.QWidget):
             # self.library.update_user_data(self.user)
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Congratulations', 'successful!!')
             self.submit_button.setDisabled(True)
+            if self.user.superUser is True:
+                self.set_pending_book_table()
 
 
-
+    def set_top5_list(self):
+        __sortingEnabled = self.top5_List.isSortingEnabled()
+        self.top5_List.setSortingEnabled(False)
+        books = self.library.searchTop5()
+        for i in range(len(books)):
+            item = self.top5_List.item(i)
+            item.setText(_translate("MainWindow", books[i].title, None))
+        self.top5_List.setSortingEnabled(__sortingEnabled)
 
     def searchBook(self):
         for i in range(5):
             item = self.top5_List.item(i)
             item.setText(_translate("MainWindow", "", None))
-        keyWord = self.search_Input.text()
-        result = self.library.searchBook(str(keyWord))
+        keyWord = str(self.search_Input.text())
+        result = self.library.searchBook(keyWord)
         if len(result) == 0:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
         else:
@@ -613,25 +619,29 @@ class SuperUserPage(QtGui.QWidget):
         self.username_Label.setText(_translate("superUser", "Name:", None))
         self.name_In_Label.setText(_translate("superUser", self.user.username, None))
         self.top5_Label.setText(_translate("superUser", "Top 5 Books:", None))
-        __sortingEnabled = self.top5_List.isSortingEnabled()
-        self.top5_List.setSortingEnabled(False)
-        books = self.library.searchTop5()
-        for i in range(len(books)):
-            item = self.top5_List.item(i)
-            item.setText(_translate("MainWindow", books[i].title, None))
 
-        self.top5_List.setSortingEnabled(__sortingEnabled)
+        self.set_top5_list()
+
+        # __sortingEnabled = self.top5_List.isSortingEnabled()
+        # self.top5_List.setSortingEnabled(False)
+        # books = self.library.searchTop5()
+        # for i in range(len(books)):
+        #     item = self.top5_List.item(i)
+        #     item.setText(_translate("MainWindow", books[i].title, None))
+        # self.top5_List.setSortingEnabled(__sortingEnabled)
+
         self.history_Label.setText(_translate("superUser", "Reading History:", None))
         __sortingEnabled = self.history_List.isSortingEnabled()
         self.history_List.setSortingEnabled(False)
-        item = self.history_List.item(0)
-        item.setText(_translate("superUser", "1. Book1", None))
-        item = self.history_List.item(1)
-        item.setText(_translate("superUser", "2. Book2", None))
-        item = self.history_List.item(2)
-        item.setText(_translate("superUser", "3. Book3", None))
-        item = self.history_List.item(3)
-        item.setText(_translate("superUser", "4. Book4", None))
-        item = self.history_List.item(4)
-        item.setText(_translate("superUser", "5. Book5", None))
+
+        i=0
+        for key, value in self.user.readingHistory.items():
+        #for i in range(len(self.user.readingHistory)):
+            item = self.history_List.item(i)
+            item.setText(_translate("superUser", key + "    Status:You have "+ str(value) + " mins remained!" , None))
+            i +=1
+
+
+
+
         self.history_List.setSortingEnabled(__sortingEnabled)

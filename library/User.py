@@ -6,8 +6,7 @@ class User(object):
         self.password = password
         self.superUser = super_user
         self.point = point
-        self.timelist = {"Quinneys":10}
-        self.readingHistory = []
+        self.readingHistory = {"Quinneys":10}
         self.own_book = []
         self.activate = activate
         # self.book_time
