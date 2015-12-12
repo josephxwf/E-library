@@ -88,7 +88,7 @@ class Library():
         else:
             new_data.append(new_book)
 
-        with open(path,'w') as output:
+        with open(path, 'w') as output:
             pickle.dump(new_data, output)
 
 
@@ -99,9 +99,11 @@ class Library():
         '''
         result = []
         resultNum = 5
-        if self.bookData:
-            for book in self.bookData:
-                if keyword.lower() in str(book.title).lower(): #maybe need to convert keyword to str(keyword)
+
+        bookData = self.loadBookData()
+        if bookData:
+            for book in bookData:
+                if keyword.lower() in book.title.lower(): #maybe need to convert keyword to str(keyword)
                     result.append(book)
                     resultNum -=1
                 elif keyword.lower() in str(book.author).lower():
