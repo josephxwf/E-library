@@ -14,6 +14,7 @@ class Book():
         self.contribute_by = ""
         self.superuser_set_point = 0
         self.complain = []
+
         self.last_time_read = time
 
 
