@@ -260,7 +260,7 @@ class Visitor_MainWindow(object):
             user_list = self.library.loadUserData()
             for user in user_list:
                 if username == user.username:
-                    self.label.setText(_fromUtf8("Username is used!"))
+                    self.labelsu.setText(_fromUtf8("Username is used!"))
                     break
             else:
                 self.apply.username = username

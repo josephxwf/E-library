@@ -161,10 +161,12 @@ class Library():
         book_data = self.loadBookData()
         if book_data:
             data = sorted(book_data, key=lambda book: book.NumOfRead, reverse=True)
-            for i in range(len(data)):
+            for i in range(5):
                 top5List.append(data[i])
                 #print i
         return top5List
+
+    # def rec
 
     def Catalog(self):
         BookList = []
