@@ -26,7 +26,7 @@ p12
 I01
 sS'point'
 p13
-I10
+I-50
 sS'own_book'
 p14
 (lp15

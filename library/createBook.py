@@ -1,5 +1,6 @@
 from Book import Book
 import pickle
+import time
 
 if __name__ == '__main__':
     book_list = []
@@ -13,6 +14,8 @@ if __name__ == '__main__':
     my_book.book_file = "Four in Camp.txt"
     my_book.contribute_by = "kaiying"
     my_book.superuser_set_point = 0
+    my_book.complain = []
+    my_book.last_time_read = time.time()
     book_list.append(my_book)
 
     my_book = Book("La chair et le sang","QUINNEYS.jpg", 5)
@@ -26,6 +29,8 @@ if __name__ == '__main__':
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.contribute_by = "kaiying"
     my_book.superuser_set_point = 0
+    my_book.complain = []
+    my_book.last_time_read = time.time()
     book_list.append(my_book)
 
     my_book = Book("The Fifteen Watt Tungsten Lamp","QUINNEYS.jpg",25)
@@ -39,6 +44,8 @@ if __name__ == '__main__':
     my_book.superuser_set_point = 0
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.contribute_by = "kaiying"
+    my_book.complain = []
+    my_book.last_time_read = time.time()
     book_list.append(my_book)
 
     my_book = Book("The Wonderful Wizard of Oz","QUINNEYS.jpg",35)
@@ -52,6 +59,8 @@ if __name__ == '__main__':
     my_book.superuser_set_point = 0
     my_book.cover_page = "The Wonderful Wizard of Oz.jpg"
     my_book.contribute_by = "kaiying"
+    my_book.complain = []
+    my_book.last_time_read = time.time()
     book_list.append(my_book)
 
 
@@ -65,6 +74,8 @@ if __name__ == '__main__':
     my_book.book_file = "Visages.txt"
     my_book.superuser_set_point = 0
     my_book.contribute_by = "kaiying"
+    my_book.complain = []
+    my_book.last_time_read = time.time()
     book_list.append(my_book)
 
     my_book = Book("Quinneys","QUINNEYS.jpg", 30)
@@ -77,6 +88,8 @@ if __name__ == '__main__':
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Quinneys.txt"
     my_book.contribute_by = "kaiying"
+    my_book.complain = []
+    my_book.last_time_read = time.time()
     book_list.append(my_book)
 
     with open('book_data.pkl', 'w') as output:
