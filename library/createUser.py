@@ -8,9 +8,9 @@ if __name__ == '__main__':
     super_user.superUser = True
     super_user.activate = True
 
-    user = User("joe","1")
+    user = User("joe", "1")
     user.activate = True
     user.superUser = False
-    my_list = [super_user,user]
+    my_list = [super_user, user]
     with open('user_data.pkl', 'w') as output:
         pickle.dump(my_list, output)
