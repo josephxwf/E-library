@@ -223,6 +223,9 @@ class Visitor_MainWindow(object):
                     self.bookitem.rate_label.hide()
                     self.bookitem.read_button.hide()
                     self.bookitem.SubmitButton.hide()
+                    self.bookitem.invite_Button.hide()
+                    self.bookitem.invite_Input.hide()
+                    #self.bookitem.comments_label.hide()
                     self.bookitem.comments_input.hide()
                     self.bookitem.complaint_button.hide()
                     self.bookitem.complaint_label.hide()
@@ -302,8 +305,10 @@ class Visitor_MainWindow(object):
                                 break
                         else:
                             self.password_warning_label.setText(_fromUtf8("user is in black list!!"))
+                            break
                     else:
                         self.password_warning_label.setText(_fromUtf8("Password is wrong!!"))
+                        break
                         # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
             else:
                 self.username_warning_label.setText(_fromUtf8("username is wrong!!"))

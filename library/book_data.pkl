@@ -3,48 +3,48 @@
 Book
 p1
 (dp2
-S'complaint'
+S'NumOfRead'
 p3
-(lp4
+I18
 sS'author'
+p4
+S'Ralph Henry Barbour'
 p5
-S'Franois Mauriac'
-p6
 sS'number_of_complaint'
-p7
+p6
 I0
-sS'cover_page'
-p8
-S'QUINNEYS.jpg'
-p9
-sS'last_time_read'
-p10
-F1450033702.585
-sS'NumOfRead'
-p11
-I8
-sS'summary'
-p12
-S'Since the introduction of the tungsten lamp some five years ago, the manufacturers have attempted continually to produce smaller and smaller units in the standard voltages.'
-p13
-sS'book_file'
-p14
-S'La chair et le sang.txt'
-p15
-sS'requestPoint'
-p16
-I5
-sS'contribute_by'
-p17
-S'kaiying'
-p18
 sS'title'
+p7
+S'Four in Camp'
+p8
+sS'last_time_read'
+p9
+F1450050926.914
+sS'complaint'
+p10
+(lp11
+sS'cover_page'
+p12
+S'QUINNEYS.jpg'
+p13
+sS'summary'
+p14
+S'A STORY OF SUMMER ADVENTURES IN THE NEW HAMPSHIRE WOODS'
+p15
+sS'book_file'
+p16
+S'Four in Camp.txt'
+p17
+sS'requestPoint'
+p18
+I20
+sS'contribute_by'
 p19
-S'La chair et le sang'
+S'kaiying'
 p20
 sS'type'
 p21
-S'Education'
+S'Adventures'
 p22
 sS'superuser_set_point'
 p23
@@ -57,109 +57,181 @@ Book
 p26
 (dp27
 g3
-(lp28
-sg5
-S'Clair Elmore Anderson'
-p29
-sg7
+I8
+sg4
+S'Franois Mauriac'
+p28
+sg6
 I0
-sg8
-g9
+sg7
+S'La chair et le sang'
+p29
+sg9
+F1450050926.914
 sg10
-F1450033702.585
-sg11
-I22
+(lp30
 sg12
 g13
 sg14
-S'The Fifteen Watt Tungsten Lamp.txt'
-p30
-sg16
-I25
-sg17
-g18
-sg19
-S'The Fifteen Watt Tungsten Lamp'
+S'Since the introduction of the tungsten lamp some five years ago, the manufacturers have attempted continually to produce smaller and smaller units in the standard voltages.'
 p31
+sg16
+S'La chair et le sang.txt'
+p32
+sg18
+I5
+sg19
+g20
+sg21
+S'Education'
+p33
+sg23
+I0
+sg24
+(lp34
+sba(iBook
+Book
+p35
+(dp36
+g3
+I22
+sg4
+S'Clair Elmore Anderson'
+p37
+sg6
+I0
+sg7
+S'The Fifteen Watt Tungsten Lamp'
+p38
+sg9
+F1450050926.914
+sg10
+(lp39
+sg12
+g13
+sg14
+g31
+sg16
+S'The Fifteen Watt Tungsten Lamp.txt'
+p40
+sg18
+I25
+sg19
+g20
+sg21
+g33
+sg23
+I0
+sg24
+(lp41
+sba(iBook
+Book
+p42
+(dp43
+g3
+I55
+sg4
+S'L. Frank Baum'
+p44
+sg6
+I0
+sg7
+S'The Wonderful Wizard of Oz'
+p45
+sg9
+F1450050926.914
+sg10
+(lp46
+sg12
+S'The Wonderful Wizard of Oz.jpg'
+p47
+sg14
+S'Folklore, legends, myths and fairy tales have followed childhood through the ages, for every healthy youngster has a wholesome andinstinctive love for stories fantastic, marvelous and manifestly unreal.'
+p48
+sg16
+S'The Wonderful Wizard of Oz.txt'
+p49
+sg18
+I35
+sg19
+g20
 sg21
 g22
 sg23
 I0
 sg24
-(lp32
+(lp50
 sba(iBook
 Book
-p33
-(dp34
+p51
+(dp52
 g3
-(lp35
-sg5
-S'L. Frank Baum'
-p36
-sg7
+I3
+sg4
+S'Francis Chevassu'
+p53
+sg6
 I0
-sg8
-S'The Wonderful Wizard of Oz.jpg'
-p37
+sg7
+S'Visages'
+p54
+sg9
+F1450050926.914
 sg10
-F1450033702.585
-sg11
-I55
+(lp55
 sg12
-S'Folklore, legends, myths and fairy tales have followed childhood through the ages, for every healthy youngster has a wholesome andinstinctive love for stories fantastic, marvelous and manifestly unreal.'
-p38
+g13
 sg14
-S'The Wonderful Wizard of Oz.txt'
-p39
+S'IL est certain que la gloire a un ge. Jean-Jacques nous apparat  quarante ans, Voltaire  soixante, Musset  vingt-cinq, Hugo cinquante,'
+p56
 sg16
-I35
-sg17
-g18
+S'Visages.txt'
+p57
+sg18
+I10
 sg19
-S'The Wonderful Wizard of Oz'
-p40
+g20
 sg21
-S'Adventures'
-p41
+g33
 sg23
 I0
 sg24
-(lp42
+(lp58
 sba(iBook
 Book
-p43
-(dp44
+p59
+(dp60
 g3
-(lp45
-sg5
-S'Horace Annesley Vachell'
-p46
-sg7
-I0
-sg8
-g9
-sg10
-F1450033702.585
-sg11
 I55
-sg12
-S"With his back to the man, Quinney smiled.  He could remember the day, not so long ago, when Pinker, the grocer, called him 'My lad.' "
-p47
-sg14
-S'Quinneys.txt'
-p48
-sg16
-I30
-sg17
-g18
-sg19
+sg4
+S'Horace Annesley Vachell'
+p61
+sg6
+I0
+sg7
 S'Quinneys'
-p49
+p62
+sg9
+F1450050926.914
+sg10
+(lp63
+sg12
+g13
+sg14
+S"With his back to the man, Quinney smiled.  He could remember the day, not so long ago, when Pinker, the grocer, called him 'My lad.' "
+p64
+sg16
+S'Quinneys.txt'
+p65
+sg18
+I30
+sg19
+g20
 sg21
 S'history'
-p50
+p66
 sg23
 I0
 sg24
-(lp51
+(lp67
 sba.

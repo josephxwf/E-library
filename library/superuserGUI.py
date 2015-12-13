@@ -159,6 +159,10 @@ class SuperUserPage(QtGui.QWidget):
             self.active_button.setGeometry(QtCore.QRect(1150, 300, 71, 31))
             self.active_button.setObjectName(_fromUtf8("active_button"))
 
+
+
+
+
             self.complain_table = QtGui.QTableWidget(superUser)
             self.complain_table.setGeometry(QtCore.QRect(800, 440, 341, 131))
             self.complain_table.setObjectName(_fromUtf8("complain_table"))
@@ -226,12 +230,33 @@ class SuperUserPage(QtGui.QWidget):
         self.history_List.setGeometry(QtCore.QRect(30, 370, 280, 164))
         self.history_List.setObjectName(_fromUtf8("history_List"))
 
-        self.invite_Input = QtGui.QLineEdit(superUser)
-        self.invite_Input.setGeometry(QtCore.QRect(610, 50, 100, 20))
-        self.invite_Input.setObjectName(_fromUtf8("search_Input"))
-        self.invite_Button = QtGui.QPushButton(superUser)
-        self.invite_Button.setGeometry(QtCore.QRect(710, 48, 75, 23))
-        self.invite_Button.setObjectName(_fromUtf8("search_Button"))
+
+
+
+        self.inviter_table = QtGui.QTableWidget(superUser)
+        self.inviter_table.setGeometry(QtCore.QRect(550, 30, 230, 100))
+        self.inviter_table.setObjectName(_fromUtf8("inviter_table "))
+        self.inviter_table.setColumnCount(2)
+        self.inviter_table.setRowCount(2)
+        item = QtGui.QTableWidgetItem()
+        self.inviter_table.setVerticalHeaderItem(0, item)
+        item = QtGui.QTableWidgetItem()
+        self.inviter_table.setVerticalHeaderItem(1, item)
+
+        item = QtGui.QTableWidgetItem()
+        self.inviter_table.setHorizontalHeaderItem(0, item)
+        item = QtGui.QTableWidgetItem()
+        self.inviter_table.setHorizontalHeaderItem(1, item)
+
+        self.inviter_table_label = QtGui.QLabel(superUser)
+        self.inviter_table_label.setGeometry(QtCore.QRect(610, 15, 211, 16))
+        self.inviter_table_label.setObjectName(_fromUtf8("user_active_Label"))
+
+        self.accept_Button = QtGui.QPushButton(superUser)
+        self.accept_Button.setGeometry(QtCore.QRect(710, 5, 75, 23))
+        self.accept_Button.setObjectName(_fromUtf8("accept_Button"))
+
+
 
 
         for i in range(len(self.user.readingHistory)):
@@ -243,7 +268,7 @@ class SuperUserPage(QtGui.QWidget):
 
         QtCore.QObject.connect(self.search_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
 
-        QtCore.QObject.connect(self.invite_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.invite)
+        QtCore.QObject.connect(self.accept_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.accept)
 
         QtCore.QObject.connect(self.top5_List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
         QtCore.QObject.connect(self.upload_book_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
@@ -297,17 +322,62 @@ class SuperUserPage(QtGui.QWidget):
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'no complaint!')
 
-    def invite(self):
+    def accept(self):
 
-        keyWord = str(self.invite_Input.text())
-        user = self.library.searchUser(keyWord)
-        if not user:
-            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
+        if self.inviter is not None:
+            print self.user.inviteDic
+            print self.user.inviteDic[self.inviter].values()[0]
+            self.user.inviteDic[self.inviter][self.user.inviteDic[self.inviter].keys()[0]] = True
+
+            user_data = self.library.loadUserData()
+            for user in user_data:
+              if user.username == self.inviter:
+
+                self.user.readingHistory[self.user.inviteDic[self.inviter].keys()[0]]=  0
+                print self.user.readingHistory
+            self.library.update_user_data(self.user)
+            print self.user.inviteDic
+            self.inviter = None
+            self.set_inviter_table()
         else:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'no invitation!')
 
-            for i in range(len(result)):
-                item = self.top5_List.item(i)
-                item.setText(_translate("MainWindow", result[i].title, None))
+    def set_inviter_table(self):
+        for index in range(2):
+            item = QtGui.QTableWidgetItem()
+            self.inviter_table.setItem(index, 0, item)
+            item = QtGui.QTableWidgetItem()
+            self.inviter_table.setItem(index, 1, item)
+
+            item = self.inviter_table.item(index, 0)
+            item.setText(_translate("superUser", "", None))
+            item = self.inviter_table.item(index, 1)
+            item.setText(_translate("superUser", "", None))
+        self.inviter = None
+        # self.approve_book = None
+        inviter_data = self.user.inviteDic
+        if inviter_data:
+            index = 0
+            for user in inviter_data:
+                if inviter_data[user].values()[0] == False:
+                #if user.activate is False:
+                    if index is 0:
+                        self.inviter = user
+                    item = QtGui.QTableWidgetItem()
+                    self.inviter_table.setItem(index, 0, item)
+                    item = QtGui.QTableWidgetItem()
+                    self.inviter_table.setItem(index, 1, item)
+
+                    item = self.inviter_table.item(index, 0)
+                    item.setText(_translate("User", user, None))
+                    item = self.inviter_table.item(index, 1)
+                    item.setText(_translate("User",inviter_data[user].keys()[0], None))
+
+                    if index == 1:
+                        break
+                    else:
+                       index += 1
+
 
 
     def active(self):
@@ -737,8 +807,12 @@ class SuperUserPage(QtGui.QWidget):
         self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
         self.username_Label.setText(_translate("superUser", "Name:", None))
         self.name_In_Label.setText(_translate("superUser", self.user.username, None))
-        # joseph add invite func
-        self.invite_Button.setText(_translate("superUser", "Invite", None))
+
+
+       # self.inviter_name.setText(_translate("superUser", self.user.inviteDic.username, None))
+
+
+        self.accept_Button.setText(_translate("superUser", "accept", None))
 
         self.top5_Label.setText(_translate("superUser", "Top 5 Books:", None))
 
@@ -767,3 +841,24 @@ class SuperUserPage(QtGui.QWidget):
 
 
         self.history_List.setSortingEnabled(__sortingEnabled)
+
+
+
+
+        self.accept_Button.setText(_translate("User", "accept", None))
+        item = self.inviter_table.verticalHeaderItem(0)
+        item.setText(_translate("User", "1", None))
+        item = self.inviter_table.verticalHeaderItem(1)
+        item.setText(_translate("User", "2", None))
+
+        item = self.inviter_table.horizontalHeaderItem(0)
+        item.setText(_translate("User", "InviterName", None))
+        item = self.inviter_table.horizontalHeaderItem(1)
+        item.setText(_translate("User", "BookName", None))
+
+        __sortingEnabled = self.inviter_table.isSortingEnabled()
+        self.inviter_table.setSortingEnabled(False)
+
+        self.set_inviter_table()
+        self.inviter_table.setSortingEnabled(__sortingEnabled)
+        self.inviter_table_label.setText(_translate("User", "Inviter List:", None))
