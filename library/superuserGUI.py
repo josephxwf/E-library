@@ -219,6 +219,13 @@ class SuperUserPage(QtGui.QWidget):
         self.history_List.setGeometry(QtCore.QRect(30, 370, 280, 164))
         self.history_List.setObjectName(_fromUtf8("history_List"))
 
+        self.invite_Input = QtGui.QLineEdit(superUser)
+        self.invite_Input.setGeometry(QtCore.QRect(610, 50, 100, 20))
+        self.invite_Input.setObjectName(_fromUtf8("search_Input"))
+        self.invite_Button = QtGui.QPushButton(superUser)
+        self.invite_Button.setGeometry(QtCore.QRect(710, 48, 75, 23))
+        self.invite_Button.setObjectName(_fromUtf8("search_Button"))
+
 
         for i in range(len(self.user.readingHistory)):
             item = QtGui.QListWidgetItem()
@@ -228,6 +235,9 @@ class SuperUserPage(QtGui.QWidget):
         self.retranslateUi(superUser)
 
         QtCore.QObject.connect(self.search_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
+
+        QtCore.QObject.connect(self.invite_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.invite)
+
         QtCore.QObject.connect(self.top5_List, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
         QtCore.QObject.connect(self.upload_book_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectFile)
         QtCore.QObject.connect(self.coverpage_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.selectCoverPage)
@@ -239,6 +249,20 @@ class SuperUserPage(QtGui.QWidget):
         QtCore.QObject.connect(self.denied_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.denied)
 
         QtCore.QMetaObject.connectSlotsByName(superUser)
+
+
+
+    def invite(self):
+
+        keyWord = str(self.invite_Input.text())
+        user = self.library.searchUser(keyWord)
+        if not user:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
+        else:
+
+            for i in range(len(result)):
+                item = self.top5_List.item(i)
+                item.setText(_translate("MainWindow", result[i].title, None))
 
 
     def active(self):
@@ -624,6 +648,9 @@ class SuperUserPage(QtGui.QWidget):
         self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
         self.username_Label.setText(_translate("superUser", "Name:", None))
         self.name_In_Label.setText(_translate("superUser", self.user.username, None))
+        # joseph add invite func
+        self.invite_Button.setText(_translate("superUser", "Invite", None))
+
         self.top5_Label.setText(_translate("superUser", "Top 5 Books:", None))
 
         self.set_top5_list()

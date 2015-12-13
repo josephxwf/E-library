@@ -288,12 +288,12 @@ class BookPageGUI(QtGui.QDialog):
         self.closeBookButton.setText(QtGui.QApplication.translate("Form", "close", None, QtGui.QApplication.UnicodeUTF8))
         self.SubmitButton.setText(_translate("Form", "Submit", None))
 
-#
-# if __name__ == "__main__":
-#     import sys
-#     app = QtGui.QApplication(sys.argv)
-#     Form = QtGui.QWidget()
-#     ui = Ui_Form()
-#     ui.setupUi(Form)
-#     Form.show()
-#     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+   import sys
+   app = QtGui.QApplication(sys.argv)
+   Form = QtGui.QWidget()
+   ui = BookPageGUI()
+   ui.setupUi(Form)
+   Form.show()
+   sys.exit(app.exec_())
