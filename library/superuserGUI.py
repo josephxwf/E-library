@@ -249,6 +249,7 @@ class SuperUserPage(QtGui.QWidget):
             #print self.decide_book.UploadBookDate
             self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
             self.user.own_book.append(self.approve_book)
+
             self.library.update_user_data(self.user)
             self.set_pending_book_table_for_register()   # refresh table
         else:

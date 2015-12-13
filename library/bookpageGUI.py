@@ -149,6 +149,7 @@ class BookPageGUI(QtGui.QDialog):
     def writecomments(self):
         keyWord = self.comments_input.toPlainText()
         self.comments_text.setText(keyWord)
+        #self.library.update_book_data("pending_book_data.pkl", comments = keyWord)
 
 
     def search_and_Highlight(self):

@@ -219,10 +219,8 @@ class Visitor_MainWindow(object):
                     self.bookitem.closeBookButton.hide()
                     self.bookitem.rate_label.hide()
                     self.bookitem.read_button.hide()
-                    self.bookitem.submit_button.hide()
-                    #self.bookitem.comments_label.hide()
+                    self.bookitem.SubmitButton.hide()
                     self.bookitem.comments_input.hide()
-                    #self.bookitem.comments_text.hide()
                     break
             else:
                 print("book not find")
