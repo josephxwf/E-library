@@ -134,6 +134,14 @@ class BookPageGUI(QtGui.QDialog):
         self.SubmitButton.setGeometry(QtCore.QRect(50, 600, 114, 32))
         self.SubmitButton.setObjectName(_fromUtf8("SubmitButton"))
 
+        self.invite_Input = QtGui.QLineEdit(Form)
+        self.invite_Input.setGeometry(QtCore.QRect(346, 356, 100, 20))
+        self.invite_Input.setObjectName(_fromUtf8("search_Input"))
+        self.invite_Button = QtGui.QPushButton(Form)
+        self.invite_Button.setGeometry(QtCore.QRect(270, 355, 75, 23))
+        self.invite_Button.setObjectName(_fromUtf8("search_Button"))
+
+
 
 
         self.retranslateUi(Form)
@@ -146,6 +154,48 @@ class BookPageGUI(QtGui.QDialog):
         QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("copyAvailable(bool)")), self.comments_text.copy)
         QtCore.QObject.connect(self.SubmitButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.comments_text.paste)
         #QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("textChanged()")), self.comments_text.copy)
+
+        QtCore.QObject.connect(self.invite_Button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.invite)
+
+    def invite(self):
+        library = Library()
+        keyWord = str(self.invite_Input.text())
+        user = library.searchUser(keyWord)
+        print user
+        if not user:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, we can not find any result.')
+        else:
+
+            if str(self.book.title) not in self.user.readingHistory.keys() and self.user.point > 0:
+              self.user.point = self.user.point - int(self.book.requestPoint)
+
+
+
+              self.user.readingHistory[str(self.book.title)] = 10
+              user.inviteDic[self.user.username] = {self.book.title:False}
+              # update data in database
+              library.update_user_data(self.user)
+              library.update_user_data(user)
+
+            elif str(self.book.title) in self.user.readingHistory.keys() and self.user.readingHistory[str(self.book.title)] > 0:
+
+
+              user.inviteDic[self.user.username] = {self.book.title:False}
+              # update data in database
+              library.update_user_data(user)
+
+            elif str(self.book.title) in self.user.readingHistory.keys() and self.user.point > 0 :
+
+              self.user.point = self.user.point - int(self.book.requestPoint)
+              self.user.readingHistory[str(self.book.title)] = 10
+              user.inviteDic[self.user.username] = {self.book.title:False}
+              # update data in database
+              library.update_user_data(self.user)
+              library.update_user_data(user)
+
+            else:
+              QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Sorry, you have no points.')
+
 
 
     def search_and_Highlight(self):
@@ -176,6 +226,14 @@ class BookPageGUI(QtGui.QDialog):
 
     def readBook(self):
         library = Library()
+        users = library.loadUserData()
+        self.inviter = None
+        if users and self.user.inviteDic:
+           for self.inviter in users:
+                print "hello"
+                if self.inviter.username == self.user.inviteDic.keys()[0]:
+                    break
+        #library = Library()
         if str(self.book.title) not in self.user.readingHistory.keys() and self.user.point > 0:
             self.user.point = self.user.point - int(self.book.requestPoint)
 
@@ -197,6 +255,33 @@ class BookPageGUI(QtGui.QDialog):
             #self.timer.setInterval(1000)
             self.timer.start(1000)
             self.timer.timeout.connect(self.displayTime)
+
+        elif str(self.book.title) in self.user.readingHistory.keys() and self.inviter and self.inviter.readingHistory[str(self.book.title)] > 0 and  self.user.inviteDic and self.user.inviteDic[self.user.inviteDic.keys()[0]].values()[0] is True:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Hi', 'You are using shared time reading this book!')
+            print "you are using shared time reading this book"
+            file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
+            file.open(QtCore.QIODevice.ReadOnly)
+            stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
+            self.book.last_time_read = time.time()
+            self.book.NumOfRead += 1
+            library.update_book_data(self.book)
+            #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
+            self.timer = QTimer(self)
+            print self.timer
+
+            #library = Library()
+            #users = library.loadUserData()
+            #self.inviter = None
+            #for self.inviter in users:
+               # print "hello"
+               # if self.inviter.username == self.user.inviteDic.keys()[0]:
+                 # print "hello"
+            if self.inviter is not None:
+                  self.start_time = self.inviter.readingHistory[str(self.book.title)]
+                  #self.timer.setInterval(1000)
+                  self.timer.start(1000)
+                  self.timer.timeout.connect(self.displayTime1)
 
         elif str(self.book.title) in self.user.readingHistory.keys() and self.user.readingHistory[str(self.book.title)] > 0:
             print self.book.requestPoint
@@ -258,6 +343,25 @@ class BookPageGUI(QtGui.QDialog):
 
            self.timer.stop()
 
+    def displayTime1(self):       # this timer is used to account shared time
+        self.start_time -= 1
+
+        self.inviter.readingHistory[str(self.book.title)] -= 1
+        if self.inviter.readingHistory[str(self.book.title)] < 0:
+           self.inviter.readingHistory[str(self.book.title)] = 0
+
+        #update database
+        library = Library()
+        library.update_user_data(self.inviter)
+
+        if self.start_time >= 0:
+           self.Timer.setText(("%d:%02d" % (self.start_time/60, self.start_time % 60)))
+        else:
+           self.read_book_text.setText("")
+           print "Time is up!"
+
+           self.timer.stop()
+
 
 
     def closeBook(self):
@@ -281,6 +385,8 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_label.setText(_translate("Form", "comments", None))
         self.time_label.setText(_translate("Form", "point for 5 min", None))
         self.author_label.setText(_translate("Form", "Author:", None))
+
+        self.invite_Button.setText(_translate("superUser", "Invite", None))
 
         self.summary_label.setText(_translate("Form", "Summary:", None))
         self.point_label.setText(_translate("Form", "Point required:", None))
