@@ -12,7 +12,7 @@ from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from Library import Library
-from time import time
+import time
 
 #import popplerqt4    fot pdf file
 
@@ -282,12 +282,12 @@ class BookPageGUI(QtGui.QDialog):
         self.closeBookButton.setText(QtGui.QApplication.translate("Form", "close", None, QtGui.QApplication.UnicodeUTF8))
         self.SubmitButton.setText(_translate("Form", "Submit", None))
 
-#
-# if __name__ == "__main__":
-#     import sys
-#     app = QtGui.QApplication(sys.argv)
-#     Form = QtGui.QWidget()
-#     ui = Ui_Form()
-#     ui.setupUi(Form)
-#     Form.show()
-#     sys.exit(app.exec_())
+
+if __name__ == "__main__":
+   import sys
+   app = QtGui.QApplication(sys.argv)
+   Form = QtGui.QWidget()
+   ui = BookPageGUI()
+   ui.setupUi(Form)
+   Form.show()
+   sys.exit(app.exec_())

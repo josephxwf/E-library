@@ -79,5 +79,5 @@ if __name__ == '__main__':
     my_book.contribute_by = "kaiying"
     book_list.append(my_book)
 
-    with open('pending_book_data.pkl', 'w') as output:
+    with open('book_data.pkl', 'w') as output:
         pickle.dump(book_list, output)
