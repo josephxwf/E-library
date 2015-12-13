@@ -45,6 +45,14 @@ class BookPageGUI(QtGui.QDialog):
 
 
     def setupUi(self, Form, book,user):
+        """
+        This function is create by PyQt4 UI code generator. But we did some change
+        This function set up book page GUI.
+        :param Form:
+        :param book:
+        :param user:
+        :return:
+        """
         Form.setObjectName(_fromUtf8("Form"))
         Form.resize(1085, 718)
         self.book_title_label = QtGui.QLabel(Form)
@@ -53,9 +61,7 @@ class BookPageGUI(QtGui.QDialog):
         self.rate_label = QtGui.QLabel(Form)
         self.rate_label.setGeometry(QtCore.QRect(50, 330, 111, 31))
         self.rate_label.setObjectName(_fromUtf8("rate_label"))
-        self.complaint_label = QtGui.QLabel(Form)
-        self.complaint_label.setGeometry(QtCore.QRect(50, 640, 111, 21))
-        self.complaint_label.setObjectName(_fromUtf8("complaint_label"))
+
         self.read_button = QtGui.QPushButton(Form)
         self.read_button.setGeometry(QtCore.QRect(270, 330, 75, 23))
         self.read_button.setObjectName(_fromUtf8("read_button"))
@@ -65,7 +71,9 @@ class BookPageGUI(QtGui.QDialog):
         self.complaint_button = QtGui.QPushButton(Form)
         self.complaint_button.setGeometry(QtCore.QRect(450, 670, 91, 31))
         self.complaint_button.setObjectName(_fromUtf8("complaint_button"))
-
+        self.complaint_label = QtGui.QLabel(Form)
+        self.complaint_label.setGeometry(QtCore.QRect(50, 640, 111, 21))
+        self.complaint_label.setObjectName(_fromUtf8("complaint_label"))
         self.closeBookButton = QtGui.QPushButton(Form)
         self.closeBookButton.setGeometry(QtCore.QRect(400, 330, 75, 23))
         self.closeBookButton.setObjectName(_fromUtf8("pushButton_3"))
@@ -78,7 +86,6 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_input = QtGui.QTextEdit(Form)
         self.comments_input.setGeometry(QtCore.QRect(50, 520, 491, 71))
         self.comments_input.setObjectName(_fromUtf8("comments_input"))
-
         self.comments_label = QtGui.QLabel(Form)
         self.comments_label.setGeometry(QtCore.QRect(50, 371, 48, 16))
         self.comments_label.setObjectName(_fromUtf8("comments_label"))
@@ -121,26 +128,19 @@ class BookPageGUI(QtGui.QDialog):
         self.TimeOutMessage = QtGui.QLabel(Form)
         self.TimeOutMessage.setGeometry(QtCore.QRect(670, 20, 200, 20))
         self.TimeOutMessage.setObjectName(_fromUtf8("TimeOutMessage"))
-
-
-
         self.search_button = QtGui.QPushButton(Form)
         self.search_button.setGeometry(QtCore.QRect(570, 592, 75, 23))
         self.search_button.setObjectName(_fromUtf8("read_button"))
-
         self.searchWordInput = QtGui.QLineEdit(Form)
         self.searchWordInput.setGeometry(QtCore.QRect(646, 592, 151, 21))
         self.searchWordInput.setObjectName(_fromUtf8("lineEdit"))
-
         self.SubmitButton = QtGui.QPushButton(Form)
         self.SubmitButton.setGeometry(QtCore.QRect(50, 600, 114, 32))
         self.SubmitButton.setObjectName(_fromUtf8("SubmitButton"))
 
-
-
         self.retranslateUi(Form)
+        self.set_up_complaint()            # set up complaint only for user who read this book.
         QtCore.QMetaObject.connectSlotsByName(Form)
-
         QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
         QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_and_Highlight)
@@ -149,6 +149,24 @@ class BookPageGUI(QtGui.QDialog):
         QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("copyAvailable(bool)")), self.comments_text.copy)
         QtCore.QObject.connect(self.SubmitButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.comments_text.paste)
         #QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("textChanged()")), self.comments_text.copy)
+
+
+    def set_up_complaint(self):
+        """
+        This function will check if user read this book or not.
+        complaint functionality only for user who read this book.
+        :return:
+        """
+        self.complaint_label.hide()    # first hide every things about complaint
+        self.complaint_input.hide()
+        self.complaint_button.hide()
+        if self.user:
+            reading_history = self.user.readingHistory.keys()
+            for book_name in reading_history:
+                if book_name == self.book.title:           # check if user read this book or not
+                    self.complaint_label.show()
+                    self.complaint_input.show()
+                    self.complaint_button.show()
 
 
     def search_and_Highlight(self):
@@ -268,10 +286,16 @@ class BookPageGUI(QtGui.QDialog):
         self.timer.stop()
 
     def complaint(self):
+        """
+        This function will call when user submit the complaint, it will write complaint
+        reason to book object and save to book database.
+        :return:
+        """
         complaint_reason = str(self.complaint_input.text())
         self.book.complaint.append(complaint_reason)
-        library = Library
+        library = Library()
         library.update_book_data(self.book)
+        self.complaint_button.setDisabled(True)
 
 
     def retranslateUi(self, Form):
@@ -299,13 +323,3 @@ class BookPageGUI(QtGui.QDialog):
         self.SubmitButton.setText(_translate("Form", "Submit", None))
         self.complaint_button.setText(_translate("Form", "Submit", None))
 
-
-
-if __name__ == "__main__":
-   import sys
-   app = QtGui.QApplication(sys.argv)
-   Form = QtGui.QWidget()
-   ui = BookPageGUI()
-   ui.setupUi(Form)
-   Form.show()
-   sys.exit(app.exec_())

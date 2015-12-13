@@ -8,8 +8,11 @@ class User(object):
         self.superUser = super_user
         self.point = point
         self.readingHistory = collections.OrderedDict()
+        # self.readingHistory["a"] = 10
         self.own_book = []
         self.activate = activate
+        self.black_list = False
+        self.number_of_book_delete = 0
 
         # self.book_time
 
