@@ -13,7 +13,8 @@ class Book():
         self.book_file = None
         self.contribute_by = ""
         self.superuser_set_point = 0
-        self.complain = []
+        self.complaint = []
+        self.number_of_complaint = 0
 
         self.last_time_read = time
 

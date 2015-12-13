@@ -46,17 +46,25 @@ class BookPageGUI(QtGui.QDialog):
 
     def setupUi(self, Form, book,user):
         Form.setObjectName(_fromUtf8("Form"))
-
-        Form.resize(1065, 651)
+        Form.resize(1085, 718)
         self.book_title_label = QtGui.QLabel(Form)
-        self.book_title_label.setGeometry(QtCore.QRect(270, 30, 61, 31))
+        self.book_title_label.setGeometry(QtCore.QRect(270, 40, 61, 21))
         self.book_title_label.setObjectName(_fromUtf8("book_title_label"))
         self.rate_label = QtGui.QLabel(Form)
         self.rate_label.setGeometry(QtCore.QRect(50, 330, 111, 31))
         self.rate_label.setObjectName(_fromUtf8("rate_label"))
+        self.complaint_label = QtGui.QLabel(Form)
+        self.complaint_label.setGeometry(QtCore.QRect(50, 640, 111, 21))
+        self.complaint_label.setObjectName(_fromUtf8("complaint_label"))
         self.read_button = QtGui.QPushButton(Form)
         self.read_button.setGeometry(QtCore.QRect(270, 330, 75, 23))
         self.read_button.setObjectName(_fromUtf8("read_button"))
+        self.complaint_input = QtGui.QLineEdit(Form)
+        self.complaint_input.setGeometry(QtCore.QRect(50, 670, 381, 30))
+        self.complaint_input.setObjectName(_fromUtf8("complaint_input"))
+        self.complaint_button = QtGui.QPushButton(Form)
+        self.complaint_button.setGeometry(QtCore.QRect(450, 670, 91, 31))
+        self.complaint_button.setObjectName(_fromUtf8("complaint_button"))
 
         self.closeBookButton = QtGui.QPushButton(Form)
         self.closeBookButton.setGeometry(QtCore.QRect(400, 330, 75, 23))
@@ -71,20 +79,14 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_input.setGeometry(QtCore.QRect(50, 520, 491, 71))
         self.comments_input.setObjectName(_fromUtf8("comments_input"))
 
-        self.layoutWidget = QtGui.QWidget(Form)
-        self.layoutWidget.setGeometry(QtCore.QRect(50, 370, 491, 141))
-        self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
-        self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget)
-        self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-
-        self.comments_label = QtGui.QLabel(self.layoutWidget)
+        self.comments_label = QtGui.QLabel(Form)
+        self.comments_label.setGeometry(QtCore.QRect(50, 371, 48, 16))
         self.comments_label.setObjectName(_fromUtf8("comments_label"))
-        self.verticalLayout_2.addWidget(self.comments_label)
-        self.comments_text = QtGui.QTextBrowser(self.layoutWidget)
+        self.comments_text = QtGui.QTextBrowser(Form)
+        self.comments_text.setGeometry(QtCore.QRect(50, 389, 489, 121))
         self.comments_text.setObjectName(_fromUtf8("comments_text"))
-        self.verticalLayout_2.addWidget(self.comments_text)
         self.book_title_display_label = QtGui.QLabel(Form)
-        self.book_title_display_label.setGeometry(QtCore.QRect(350, 20, 191, 31))
+        self.book_title_display_label.setGeometry(QtCore.QRect(350, 40, 181, 21))
         self.book_title_display_label.setText(_fromUtf8(book.title))
         self.book_title_display_label.setObjectName(_fromUtf8("book_title_display_label"))
         self.time_label = QtGui.QLabel(Form)
@@ -142,6 +144,7 @@ class BookPageGUI(QtGui.QDialog):
         QtCore.QObject.connect(self.read_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.readBook)
         QtCore.QObject.connect(self.closeBookButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.closeBook)
         QtCore.QObject.connect(self.search_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.search_and_Highlight)
+        QtCore.QObject.connect(self.complaint_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.complaint)
 
         QtCore.QObject.connect(self.comments_input, QtCore.SIGNAL(_fromUtf8("copyAvailable(bool)")), self.comments_text.copy)
         QtCore.QObject.connect(self.SubmitButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.comments_text.paste)
@@ -259,16 +262,23 @@ class BookPageGUI(QtGui.QDialog):
            self.timer.stop()
 
 
-
     def closeBook(self):
         self.read_book_text.setText("")
         print "Close the book!"
         self.timer.stop()
 
+    def complaint(self):
+        complaint_reason = str(self.complaint_input.text())
+        self.book.complaint.append(complaint_reason)
+        library = Library
+        library.update_book_data(self.book)
+
+
     def retranslateUi(self, Form):
         Form.setWindowTitle(_translate("Form", "Form", None))
         self.book_title_label.setText(_translate("Form", "BookTitle:", None))
         self.rate_label.setText(_translate("Form", "Rate this book", None))
+        self.complaint_label.setText(_translate("Form", "complaint reason:", None))
         self.read_button.setText(_translate("Form", "read", None))
         self.search_button.setText(_translate("Form", "search", None))
         self.comments_input.setHtml(_translate("Form", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
@@ -287,6 +297,8 @@ class BookPageGUI(QtGui.QDialog):
         self.point_display_label.setText(_translate("Form", str(self.book.requestPoint), None))
         self.closeBookButton.setText(QtGui.QApplication.translate("Form", "close", None, QtGui.QApplication.UnicodeUTF8))
         self.SubmitButton.setText(_translate("Form", "Submit", None))
+        self.complaint_button.setText(_translate("Form", "Submit", None))
+
 
 
 if __name__ == "__main__":

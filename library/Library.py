@@ -117,26 +117,27 @@ class Library():
 
 
     def searchBook(self, keyword):
-        '''
-        :param title:
-        :return: book
-        '''
+        """
+        This function will search book base on keyword. it will search book's title, author, type and summary.
+        :param keyword:string type
+        :return: book object list
+        """
         result = []
         resultNum = 5
 
         bookData = self.loadBookData()
         if bookData:
             for book in bookData:
-                if keyword.lower() in book.title.lower(): #maybe need to convert keyword to str(keyword)
+                if keyword.lower() in str(book.title.lower()):   # maybe need to convert keyword to str(keyword)
                     result.append(book)
                     resultNum -=1
-                elif keyword.lower() in str(book.author).lower():
+                elif keyword.lower() in str(book.author).lower():   # check book author
                     result.append(book)
                     resultNum -=1
-                elif keyword.lower() in str(book.type).lower():
+                elif keyword.lower() in str(book.type).lower():       # check book type
                     result.append(book)
                     resultNum -=1
-                elif keyword.lower() in str(book.summary).lower():
+                elif keyword.lower() in str(book.summary).lower():    # check book summary
                     result.append(book)
                     resultNum -=1
                 if resultNum == 0:
@@ -157,10 +158,14 @@ class Library():
         return None
 
     def searchTop5(self):
+        """
+        This function will return top 5 book base on number of read.
+        :return:book object list
+        """
         top5List = []
         book_data = self.loadBookData()
         if book_data:
-            data = sorted(book_data, key=lambda book: book.NumOfRead, reverse=True)
+            data = sorted(book_data, key=lambda book: book.NumOfRead, reverse=True)  # sort book data base on number of read
             index = 0
             if len(book_data) >= 5:
                 index = 5
@@ -168,7 +173,6 @@ class Library():
                 index = len(book_data)
             for i in range(index):
                 top5List.append(data[i])
-                #print i
         return top5List
 
     def search_book_by_type(self, type):
@@ -182,7 +186,7 @@ class Library():
         if book_data:
             index = 0
             for book in book_data:
-                if book.type == type:
+                if book.type == type:     # check type
                     book_list.append(book)
                     index += 1
                     if index is 5:
@@ -195,7 +199,7 @@ class Library():
         :param title: string type
         :return: book object
         """
-        book_data = self.loadBookData()
+        book_data = self.loadBookData()  # load book from database
         if book_data:
             for book in book_data:
                 if book.title == title:
@@ -215,6 +219,10 @@ class Library():
 
 
     def remove_book_with_nobody_read(self):
+        """
+        This function will remove books which no one read for a certain time, and 5 points are deducted from the contributing RU
+        :return:
+        """
         books = self.loadBookData()
         time_for_now = time.time()
         book_owners = []
