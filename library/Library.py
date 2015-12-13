@@ -161,12 +161,48 @@ class Library():
         book_data = self.loadBookData()
         if book_data:
             data = sorted(book_data, key=lambda book: book.NumOfRead, reverse=True)
-            for i in range(5):
+            index = 0
+            if len(book_data) >= 5:
+                index = 5
+            else:
+                index = len(book_data)
+            for i in range(index):
                 top5List.append(data[i])
                 #print i
         return top5List
 
-    # def rec
+    def search_book_by_type(self, type):
+        """
+        This function will return a book list(only 5 book) with input type
+        :param string (type)
+        :return:book list
+        """
+        book_data = self.loadBookData()
+        book_list = []
+        if book_data:
+            index = 0
+            for book in book_data:
+                if book.type == type:
+                    book_list.append(book)
+                    index += 1
+                    if index is 5:
+                        break
+        return book_list
+
+    def search_book_by_title(self, title):
+        """
+        This function return book object by input book title
+        :param title: string type
+        :return: book object
+        """
+        book_data = self.loadBookData()
+        if book_data:
+            for book in book_data:
+                if book.title == title:
+                    return book
+        return None
+
+
 
     def Catalog(self):
         BookList = []
@@ -184,7 +220,7 @@ class Library():
         book_owners = []
         if books:
             for book in books:
-                if time_for_now - book.last_time_read >= 120:
+                if time_for_now - book.last_time_read >= 120000:
                     self.update_book_data(book,delete=True)  # remove book from book database
                     book_owners.append(book.contribute_by)
 

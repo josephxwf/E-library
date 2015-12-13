@@ -479,6 +479,7 @@ class SuperUserPage(QtGui.QWidget):
         title = str(self.book_title_input.text())
         summary = str(self.book_summary_input.toPlainText())   #get data from input
         points = int(self.point_requested_input.text())
+        book_type = str(self.book_type_input.text())
         self.upload_book.contribute_by = self.user.username
         if not title:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Title is required')
@@ -501,6 +502,10 @@ class SuperUserPage(QtGui.QWidget):
         if not self.upload_book.book_file:
             print("book required!!")
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Book file need uploaded!!')
+        if not book_type:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Book type is required!!')
+        else:
+            self.upload_book.type = book_type
         if title and summary and points and self.upload_book.book_file and self.upload_book.cover_page:
             self.upload_book.last_time_read = time.time()
             self.library.update_book_data(self.upload_book, "pending_book_data.pkl")
@@ -515,7 +520,17 @@ class SuperUserPage(QtGui.QWidget):
     def set_top5_list(self):
         __sortingEnabled = self.top5_List.isSortingEnabled()
         self.top5_List.setSortingEnabled(False)
-        books = self.library.searchTop5()
+        reading_history = self.user.readingHistory.keys()
+        if reading_history:
+            book = self.library.search_book_by_title(reading_history[0])
+            print(book)
+            if book:
+                # type = book.type
+                books = self.library.search_book_by_type(book.type)
+            else:
+                books = self.library.searchTop5()
+        else:
+            books = self.library.searchTop5()
         for i in range(len(books)):
             item = self.top5_List.item(i)
             item.setText(_translate("MainWindow", books[i].title, None))

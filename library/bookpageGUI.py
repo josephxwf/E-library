@@ -175,11 +175,11 @@ class BookPageGUI(QtGui.QDialog):
 
 
     def readBook(self):
+        library = Library()
         if str(self.book.title) not in self.user.readingHistory.keys() and self.user.point > 0:
             self.user.point = self.user.point - int(self.book.requestPoint)
 
             # update data in database
-            library = Library()
             library.update_user_data(self.user)
 
             self.user.readingHistory[str(self.book.title)] = 10
@@ -188,6 +188,8 @@ class BookPageGUI(QtGui.QDialog):
             stream = QtCore.QTextStream(file)
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
+            self.book.NumOfRead += 1
+            library.update_book_data(self.book)  # update book information in database
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
@@ -203,6 +205,8 @@ class BookPageGUI(QtGui.QDialog):
             stream = QtCore.QTextStream(file)
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
+            self.book.NumOfRead += 1
+            library.update_book_data(self.book)
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
             print self.timer
@@ -223,6 +227,8 @@ class BookPageGUI(QtGui.QDialog):
             stream = QtCore.QTextStream(file)
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
+            self.book.NumOfRead += 1
+            library.update_book_data(self.book)
             self.timer = QTimer(self)
             #print self.timer
             self.start_time = self.user.readingHistory[str(self.book.title)]

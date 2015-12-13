@@ -6,17 +6,14 @@ class User(object):
         self.password = password
         self.superUser = super_user
         self.point = point
-        self.readingHistory = {"Quinneys":10}
+        self.readingHistory = {}
         self.own_book = []
         self.activate = activate
 
         # self.book_time
 
-
-
     def setReadingHistory(self, list):
         self.readingHistory = list
-
 
     def read_book(self):
         #first check if user have enough points to read book
