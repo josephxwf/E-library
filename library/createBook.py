@@ -1,5 +1,7 @@
 from Book import Book
 import pickle
+import time
+
 
 if __name__ == '__main__':
     book_list = []
@@ -12,6 +14,7 @@ if __name__ == '__main__':
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Four in Camp.txt"
     my_book.contribute_by = "kaiying"
+    my_book.last_time_read = time.time()
     my_book.superuser_set_point = 0
     book_list.append(my_book)
 
@@ -24,6 +27,7 @@ if __name__ == '__main__':
     my_book.book_file = "La chair et le sang.txt"
     my_book.NumOfRead = 8
     my_book.cover_page = "QUINNEYS.jpg"
+    my_book.last_time_read = time.time()
     my_book.contribute_by = "kaiying"
     my_book.superuser_set_point = 0
     book_list.append(my_book)
@@ -37,6 +41,7 @@ if __name__ == '__main__':
     my_book.book_file = "The Fifteen Watt Tungsten Lamp.txt"
     my_book.NumOfRead = 22
     my_book.superuser_set_point = 0
+    my_book.last_time_read = time.time()
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.contribute_by = "kaiying"
     book_list.append(my_book)
@@ -48,6 +53,7 @@ if __name__ == '__main__':
                       "instinctive love for stories fantastic, marvelous and manifestly unreal."
     my_book.type = "Adventures"
     my_book.book_file = "The Wonderful Wizard of Oz.txt"
+    my_book.last_time_read = time.time()
     my_book.NumOfRead = 55
     my_book.superuser_set_point = 0
     my_book.cover_page = "The Wonderful Wizard of Oz.jpg"
@@ -62,6 +68,7 @@ if __name__ == '__main__':
     my_book.type = "Education"
     my_book.NumOfRead = 3
     my_book.cover_page = "QUINNEYS.jpg"
+    my_book.last_time_read = time.time()
     my_book.book_file = "Visages.txt"
     my_book.superuser_set_point = 0
     my_book.contribute_by = "kaiying"
@@ -76,8 +83,9 @@ if __name__ == '__main__':
     my_book.superuser_set_point = 0
     my_book.cover_page = "QUINNEYS.jpg"
     my_book.book_file = "Quinneys.txt"
+    my_book.last_time_read = time.time()
     my_book.contribute_by = "kaiying"
     book_list.append(my_book)
 
-    with open('pending_book_data.pkl', 'w') as output:
+    with open('book_data.pkl', 'w') as output:
         pickle.dump(book_list, output)

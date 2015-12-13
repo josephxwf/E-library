@@ -1,3 +1,4 @@
+import collections
 
 class User(object):
 
@@ -6,7 +7,7 @@ class User(object):
         self.password = password
         self.superUser = super_user
         self.point = point
-        self.readingHistory = {}
+        self.readingHistory = collections.OrderedDict()
         self.own_book = []
         self.activate = activate
 

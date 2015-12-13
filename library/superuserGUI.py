@@ -277,9 +277,6 @@ class SuperUserPage(QtGui.QWidget):
         if self.decide_book is not None:
             item = self.request_Table_superuser.item(0, 2)
             point = int(item.text())             # superuser input point
-            print(point)
-            print(type(point))
-
             self.decide_book.superuser_set_point = point
             # self.library.update_book_data(self.decide_book, "pending_book_data.pkl", delete=True)
             self.library.update_book_data(self.decide_book, "pending_book_data.pkl")
@@ -498,7 +495,7 @@ class SuperUserPage(QtGui.QWidget):
         self.top5_List.setSortingEnabled(False)
         reading_history = self.user.readingHistory.keys()
         if reading_history:
-            book = self.library.search_book_by_title(reading_history[0])
+            book = self.library.search_book_by_title(reading_history[-1])
             print(book)
             if book:
                 # type = book.type
