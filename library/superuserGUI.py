@@ -129,7 +129,7 @@ class SuperUserPage(QtGui.QWidget):
             item = QtGui.QTableWidgetItem()
             self.request_Table_superuser.setHorizontalHeaderItem(2, item)
             self.request_List_superuser_Label = QtGui.QLabel(superUser)
-            self.request_List_superuser_Label.setGeometry(QtCore.QRect(800, 50, 211, 16))
+            self.request_List_superuser_Label.setGeometry(QtCore.QRect(800, 55, 211, 16))
             self.request_List_superuser_Label.setObjectName(_fromUtf8("request_List_superuser_Label"))
             self.decide_button = QtGui.QPushButton(superUser)
             self.decide_button.setGeometry(QtCore.QRect(1150, 100, 71, 31))
@@ -162,10 +162,6 @@ class SuperUserPage(QtGui.QWidget):
             self.not_active_button.setGeometry(QtCore.QRect(1150, 350, 71, 31))
             self.not_active_button.setObjectName(_fromUtf8("not_active_button"))
 
-
-
-
-
             self.complain_table = QtGui.QTableWidget(superUser)
             self.complain_table.setGeometry(QtCore.QRect(800, 440, 341, 131))
             self.complain_table.setObjectName(_fromUtf8("complain_table"))
@@ -182,8 +178,6 @@ class SuperUserPage(QtGui.QWidget):
             item = QtGui.QTableWidgetItem()
             self.complain_table.setHorizontalHeaderItem(1, item)
             self.complain_table.horizontalHeader().setStretchLastSection(True)
-            # item = QtGui.QTableWidgetItem()
-            # self.complain_table.setHorizontalHeaderItem(2, item)
             self.complain_Label = QtGui.QLabel(superUser)
             self.complain_Label.setGeometry(QtCore.QRect(800, 420, 211, 16))
             self.complain_Label.setObjectName(_fromUtf8("complain_Label"))
@@ -196,6 +190,22 @@ class SuperUserPage(QtGui.QWidget):
             self.serious_complain_button = QtGui.QPushButton(superUser)
             self.serious_complain_button.setGeometry(QtCore.QRect(1150, 540, 71, 30))
             self.serious_complain_button.setObjectName(_fromUtf8("serious_complain_button"))
+
+            self.user_add_point_label = QtGui.QLabel(superUser)
+            self.user_add_point_label.setGeometry(QtCore.QRect(1000, 10, 100, 16))
+            self.user_add_point_label.setObjectName(_fromUtf8("user_add_point_label"))
+            self.user_add_point_input = QtGui.QLineEdit(superUser)
+            self.user_add_point_input.setGeometry(QtCore.QRect(1000, 30, 113, 20))
+            self.user_add_point_input.setObjectName(_fromUtf8("user_add_point_input"))
+            self.point_for_user_add_point_label = QtGui.QLabel(superUser)
+            self.point_for_user_add_point_label.setGeometry(QtCore.QRect(1120, 10, 100, 16))
+            self.point_for_user_add_point_label.setObjectName(_fromUtf8("point_for_user_add_point_label"))
+            self.point_for_user_add_point_input = QtGui.QLineEdit(superUser)
+            self.point_for_user_add_point_input.setGeometry(QtCore.QRect(1120, 30, 113, 20))
+            self.point_for_user_add_point_input.setObjectName(_fromUtf8("point_for_user_add_point_input"))
+            self.user_add_point_button = QtGui.QPushButton(superUser)
+            self.user_add_point_button.setGeometry(QtCore.QRect(1160, 55, 71, 25))
+            self.user_add_point_button.setObjectName(_fromUtf8("user_add_point_button"))
 
         self.approve_button = QtGui.QPushButton(superUser)
         self.approve_button.setGeometry(QtCore.QRect(700, 450, 71, 31))
@@ -284,10 +294,32 @@ class SuperUserPage(QtGui.QWidget):
             QtCore.QObject.connect(self.accept_complain_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.accept_complain)
             QtCore.QObject.connect(self.reject_complain_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.reject_complain)
             QtCore.QObject.connect(self.serious_complain_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.serious_complain)
+            QtCore.QObject.connect(self.user_add_point_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.user_add_point)
+
         QtCore.QObject.connect(self.approve_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.approve)
         QtCore.QObject.connect(self.denied_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.denied)
 
         QtCore.QMetaObject.connectSlotsByName(superUser)
+
+    def user_add_point(self):
+        """
+        This function will add point to user.
+        :return:
+        """
+        username = str(self.user_add_point_input.text())
+        point = self.point_for_user_add_point_input.text()
+        if not username:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'please input username!')
+        elif not point:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'please input point!')
+        else:
+            number_point = int(point)
+            user = self.library.searchUser(username)
+            if user:
+                user.point += number_point
+                self.library.update_user_data(user)
+            else:
+                QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', "we didn't find user!")
 
     def accept_complain(self):
         """
@@ -395,7 +427,6 @@ class SuperUserPage(QtGui.QWidget):
                         break
                     else:
                        index += 1
-
 
     def active(self):
         """
@@ -835,14 +866,17 @@ class SuperUserPage(QtGui.QWidget):
             item.setText(_translate("superUser", "complaint reason", None))
 
             self.set_complaint_table()       # set up complaint_table
-            # item = self.complain_table.horizontalHeaderItem(2)
-            # item.setText(_translate("superUser", " ", None))
             __sortingEnabled = self.complain_table.isSortingEnabled()
             self.complain_table.setSortingEnabled(False)
 
-            # self.set_pending_book_table()
             self.complain_table.setSortingEnabled(__sortingEnabled)
             self.complain_Label.setText(_translate("superUser", "complaint List:", None))
+
+            self.user_add_point_label.setText(_translate("superUser", "username", None))
+            self.point_for_user_add_point_label.setText(_translate("superUser", "point", None))
+            self.user_add_point_button.setText(_translate("superUser", "Add", None))
+
+
 
 
         self.approve_button.setText(_translate("superUser", "approve", None))

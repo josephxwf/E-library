@@ -5,14 +5,12 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
-import os
 
-#import popplerqt4
+
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from Library import Library
-from Book import Book
 import time
 
 #import popplerqt4    fot pdf file
