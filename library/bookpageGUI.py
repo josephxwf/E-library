@@ -416,7 +416,7 @@ class BookPageGUI(QtGui.QDialog):
             stream = QtCore.QTextStream(file)
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
-            self.book.NumOfRead += 1
+
             library.update_book_data(self.book)
             self.timer = QTimer(self)
             #print self.timer
