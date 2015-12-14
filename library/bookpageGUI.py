@@ -65,7 +65,7 @@ class BookPageGUI(QtGui.QDialog):
         self.read_button.setGeometry(QtCore.QRect(270, 330, 75, 23))
         self.read_button.setObjectName(_fromUtf8("read_button"))
         self.complaint_input = QtGui.QLineEdit(Form)
-        self.complaint_input.setGeometry(QtCore.QRect(50, 660, 381, 28))
+        self.complaint_input.setGeometry(QtCore.QRect(50, 660, 381, 25))
         self.complaint_input.setObjectName(_fromUtf8("complaint_input"))
         self.complaint_button = QtGui.QPushButton(Form)
         self.complaint_button.setGeometry(QtCore.QRect(450, 660, 91, 31))
