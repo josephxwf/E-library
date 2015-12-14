@@ -14,6 +14,7 @@ class Book():
         self.contribute_by = ""
         self.superuser_set_point = 0
         self.comments = []
+        self.comment_type = []
         self.rate = []
         self.complaint = []
         self.number_of_complaint = 0

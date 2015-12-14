@@ -8,7 +8,7 @@ if __name__ == '__main__':
     super_user.superUser = True
     super_user.activate = True
 
-    user = User("john", "1")
+    user = User("din", "1")
     user.activate = True
     user.superUser = False
 
