@@ -254,6 +254,7 @@ class Visitor_MainWindow(object):
             for i in range(len(result)):
                 item = self.BookCatalog.item(i)
                 item.setText(_translate("MainWindow", result[i].title, None))
+        self.searchInput.setText("")
 
     def signUp(self):
         #self.signUp = SignUp(self.library)
@@ -320,6 +321,9 @@ class Visitor_MainWindow(object):
                         # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
             else:
                 self.username_warning_label.setText(_fromUtf8("username is wrong!!"))
+        self.usernameInput.setText("")
+        self.passwordInput.setText("")
+
                 # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'username is wrong!!')
 
     def retranslateUi(self, MainWindow):
@@ -348,4 +352,3 @@ class Visitor_MainWindow(object):
         self.SignupPassword_label.setText(_translate("MainWindow", "Password:", None))
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionClose.setText(_translate("MainWindow", "Close", None))
-
