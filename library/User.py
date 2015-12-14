@@ -7,15 +7,14 @@ class User(object):
         self.password = password
         self.superUser = super_user
         self.point = point
-
-
-
         self.readingHistory = collections.OrderedDict()
         self.readingHistory["Quinneys"]=10
-
+        self.bookreadtime = 0
         self.own_book = []
         self.activate = activate
-        self.inviteDic ={}
+        self.inviteDic = {}
+        self.black_list = False
+        self.number_of_book_delete = 0
 
         # self.book_time
 

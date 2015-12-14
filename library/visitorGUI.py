@@ -81,7 +81,7 @@ class Visitor_MainWindow(object):
         self.horizontalLayout_2.addWidget(self.passwordInput)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.EbookLibraryTitle_label = QtGui.QLabel(self.centralwidget)
-        self.EbookLibraryTitle_label.setGeometry(QtCore.QRect(20, 20, 261, 41))
+        self.EbookLibraryTitle_label.setGeometry(QtCore.QRect(20, 20, 361, 41))
         font = QtGui.QFont()
         font.setFamily(_fromUtf8("Arial"))
         font.setPointSize(36)
@@ -225,9 +225,14 @@ class Visitor_MainWindow(object):
                     self.bookitem.SubmitButton.hide()
                     self.bookitem.invite_Button.hide()
                     self.bookitem.invite_Input.hide()
+                    self.bookitem.write_label.hide()
+                    self.bookitem.rate_label.hide()
+                    self.bookitem.rate_lineEdit.hide()
                     #self.bookitem.comments_label.hide()
                     self.bookitem.comments_input.hide()
-                    #self.bookitem.comments_text.hide()
+                    self.bookitem.complaint_button.hide()
+                    self.bookitem.complaint_label.hide()
+                    self.bookitem.complaint_input.hide()
                     break
             else:
                 print("book not find")
@@ -293,15 +298,20 @@ class Visitor_MainWindow(object):
             for user in user_list:
                 if user.username == inputUsername:
                     if user.password == inputPassword:
-                        if user.activate is True:
-                            self.SuperUserPage= SuperUserPage(user, self.library)
-                            self.SuperUserPage.show()
-                            break
+                        if user.black_list is False:
+                            if user.activate is True:
+                                self.SuperUserPage= SuperUserPage(user, self.library)
+                                self.SuperUserPage.show()
+                                break
+                            else:
+                                self.password_warning_label.setText(_fromUtf8("user is not activity!!"))
+                                break
                         else:
-                            self.password_warning_label.setText(_fromUtf8("user is not activity!!"))
+                            self.password_warning_label.setText(_fromUtf8("user is in black list!!"))
                             break
                     else:
                         self.password_warning_label.setText(_fromUtf8("Password is wrong!!"))
+                        break
                         # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
             else:
                 self.username_warning_label.setText(_fromUtf8("username is wrong!!"))

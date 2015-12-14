@@ -13,10 +13,11 @@ class Book():
         self.book_file = None
         self.contribute_by = ""
         self.superuser_set_point = 0
-        self.complain = []
-
+        self.comments = []
+        self.rate = []
+        self.complaint = []
+        self.number_of_complaint = 0
         self.last_time_read = time
-
 
     def add_to_database(self):
         with open('user_data.pkl', 'a') as output:
@@ -30,6 +31,10 @@ class Book():
 
     def summary(self):
         self.readsummary = ""
+
+    #def comments(self):
+    #    self.comments = str(self.comments_input.toPlainText())
+    #    self.upload_book.comments = comments
 
     def clock(self):
         self.time = ""
