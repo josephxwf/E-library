@@ -9,7 +9,7 @@ class User(object):
         self.point = point
         self.commentsHistory = collections.OrderedDict()
         self.readingHistory = collections.OrderedDict()
-        self.readingHistory["Quinneys"]=10
+      #  self.readingHistory["Quinneys"]=10
         self.own_book = []
         self.activate = activate
         self.inviteDic = {}

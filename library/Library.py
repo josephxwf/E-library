@@ -169,6 +169,14 @@ class Library():
                     index += 1
                     if index is 5:
                         break
+            if index < 5:
+                for book in book_data:
+                    if book.type != type:
+                     book_list.append(book)
+                     index += 1
+                     if index is 5:
+                        break
+
         return book_list
 
     def search_book_by_title(self, title):
