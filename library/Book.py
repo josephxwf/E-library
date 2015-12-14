@@ -13,10 +13,10 @@ class Book():
         self.book_file = None
         self.contribute_by = ""
         self.superuser_set_point = 0
-        self.NumOfRead = 0
-        self.comments = ""
-        self.complain = []
-
+        self.comments = []
+        self.rate = []
+        self.complaint = []
+        self.number_of_complaint = 0
         self.last_time_read = time
 
     def add_to_database(self):
