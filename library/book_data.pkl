@@ -1,0 +1,217 @@
+(lp0
+(iBook
+Book
+p1
+(dp2
+S'NumOfRead'
+p3
+I18
+sS'author'
+p4
+S'Ralph Henry Barbour'
+p5
+sS'title'
+p6
+S'Four in Camp'
+p7
+sS'cover_page'
+p8
+S'QUINNEYS.jpg'
+p9
+sS'last_time_read'
+p10
+F1450040884.930077
+sS'summary'
+p11
+S'A STORY OF SUMMER ADVENTURES IN THE NEW HAMPSHIRE WOODS'
+p12
+sS'book_file'
+p13
+S'Four in Camp.txt'
+p14
+sS'requestPoint'
+p15
+I20
+sS'contribute_by'
+p16
+S'kaiying'
+p17
+sS'type'
+p18
+S'Adventures'
+p19
+sS'superuser_set_point'
+p20
+I0
+sS'complain'
+p21
+(lp22
+sba(iBook
+Book
+p23
+(dp24
+g3
+I16
+sg4
+S'Franois Mauriac'
+p25
+sg6
+S'La chair et le sang'
+p26
+sg8
+S'QUINNEYS.jpg'
+p27
+sg10
+F1450042087.278286
+sg11
+S'Since the introduction of the tungsten lamp some five years ago, the manufacturers have attempted continually to produce smaller and smaller units in the standard voltages.'
+p28
+sg13
+S'La chair et le sang.txt'
+p29
+sg15
+I5
+sg16
+S'kaiying'
+p30
+sg18
+S'Education'
+p31
+sg20
+I0
+sg21
+(lp32
+sba(iBook
+Book
+p33
+(dp34
+g3
+I22
+sg4
+S'Clair Elmore Anderson'
+p35
+sg6
+S'The Fifteen Watt Tungsten Lamp'
+p36
+sg8
+g9
+sg10
+F1450040884.930086
+sg11
+S'Since the introduction of the tungsten lamp some five years ago, the manufacturers have attempted continually to produce smaller and smaller units in the standard voltages.'
+p37
+sg13
+S'The Fifteen Watt Tungsten Lamp.txt'
+p38
+sg15
+I25
+sg16
+g17
+sg18
+S'Education'
+p39
+sg20
+I0
+sg21
+(lp40
+sba(iBook
+Book
+p41
+(dp42
+g3
+I55
+sg4
+S'L. Frank Baum'
+p43
+sg6
+S'The Wonderful Wizard of Oz'
+p44
+sg8
+S'The Wonderful Wizard of Oz.jpg'
+p45
+sg10
+F1450040884.930089
+sg11
+S'Folklore, legends, myths and fairy tales have followed childhood through the ages, for every healthy youngster has a wholesome andinstinctive love for stories fantastic, marvelous and manifestly unreal.'
+p46
+sg13
+S'The Wonderful Wizard of Oz.txt'
+p47
+sg15
+I35
+sg16
+g17
+sg18
+g19
+sg20
+I0
+sg21
+(lp48
+sba(iBook
+Book
+p49
+(dp50
+g3
+I3
+sg4
+S'Francis Chevassu'
+p51
+sg6
+S'Visages'
+p52
+sg8
+g9
+sg10
+F1450040884.930092
+sg11
+S'IL est certain que la gloire a un ge. Jean-Jacques nous apparat  quarante ans, Voltaire  soixante, Musset  vingt-cinq, Hugo cinquante,'
+p53
+sg13
+S'Visages.txt'
+p54
+sg15
+I10
+sg16
+g17
+sg18
+g39
+sg20
+I0
+sg21
+(lp55
+sba(iBook
+Book
+p56
+(dp57
+g3
+I58
+sg4
+S'Horace Annesley Vachell'
+p58
+sg6
+S'Quinneys'
+p59
+sg8
+S'QUINNEYS.jpg'
+p60
+sg10
+F1450041379.566347
+sg11
+S"With his back to the man, Quinney smiled.  He could remember the day, not so long ago, when Pinker, the grocer, called him 'My lad.' "
+p61
+sg13
+S'Quinneys.txt'
+p62
+sg15
+I30
+sg16
+S'kaiying'
+p63
+sg18
+S'history'
+p64
+sg20
+I0
+sg21
+(lp65
+sba.
