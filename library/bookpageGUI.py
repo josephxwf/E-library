@@ -67,10 +67,10 @@ class BookPageGUI(QtGui.QDialog):
         self.read_button.setGeometry(QtCore.QRect(270, 330, 75, 23))
         self.read_button.setObjectName(_fromUtf8("read_button"))
         self.complaint_input = QtGui.QLineEdit(Form)
-        self.complaint_input.setGeometry(QtCore.QRect(50, 670, 381, 30))
+        self.complaint_input.setGeometry(QtCore.QRect(50, 660, 381, 28))
         self.complaint_input.setObjectName(_fromUtf8("complaint_input"))
         self.complaint_button = QtGui.QPushButton(Form)
-        self.complaint_button.setGeometry(QtCore.QRect(450, 670, 91, 31))
+        self.complaint_button.setGeometry(QtCore.QRect(450, 660, 91, 31))
         self.complaint_button.setObjectName(_fromUtf8("complaint_button"))
         self.complaint_label = QtGui.QLabel(Form)
         self.complaint_label.setGeometry(QtCore.QRect(50, 640, 111, 21))
@@ -93,15 +93,6 @@ class BookPageGUI(QtGui.QDialog):
         self.layoutWidget.setObjectName(_fromUtf8("layoutWidget"))
         self.verticalLayout_2 = QtGui.QVBoxLayout(self.layoutWidget)
         self.verticalLayout_2.setObjectName(_fromUtf8("verticalLayout_2"))
-
-        #self.comments_label = QtGui.QLabel(self.layoutWidget)
-        #self.comments_label.setObjectName(_fromUtf8("comments_label"))
-        #self.verticalLayout_2.addWidget(self.comments_label)
-        #self.comments_text = QtGui.QTextBrowser(self.layoutWidget)
-        #self.comments_text.setObjectName(_fromUtf8("comments_text"))
-        #self.comments_text.setText(_fromUtf8(book.comments))
-        #self.verticalLayout_2.addWidget(self.comments_text)
-
         self.book_title_display_label = QtGui.QLabel(Form)
         self.book_title_display_label.setGeometry(QtCore.QRect(350, 40, 181, 21))
         self.book_title_display_label.setText(_fromUtf8(book.title))
@@ -139,13 +130,12 @@ class BookPageGUI(QtGui.QDialog):
         self.TimeOutMessage.setGeometry(QtCore.QRect(670, 20, 200, 20))
         self.TimeOutMessage.setObjectName(_fromUtf8("TimeOutMessage"))
         self.CantComment = QtGui.QLabel(Form)
-        self.CantComment.setGeometry(QtCore.QRect(170, 600, 350, 32))
+        self.CantComment.setGeometry(QtCore.QRect(400, 615, 350, 32))
         self.CantComment.setObjectName(_fromUtf8("CantComment"))
 
         self.review_label = QtGui.QLabel(Form)
         self.review_label.setGeometry(QtCore.QRect(50, 360, 131, 16))
         self.review_label.setObjectName(_fromUtf8("review_label"))
-#self.comments_text.setText(_fromUtf8(book.comments))
         self.comments_tableWidget = QtGui.QTableWidget(Form)
         self.comments_tableWidget.setGeometry(QtCore.QRect(50, 380, 491, 131))
         self.comments_tableWidget.setMaximumSize(QtCore.QSize(16777215, 16777215))
@@ -167,15 +157,6 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_tableWidget.horizontalHeader().setCascadingSectionResizes(False)
         self.comments_tableWidget.horizontalHeader().setSortIndicatorShown(True)
         self.comments_tableWidget.horizontalHeader().setStretchLastSection(True)
-        #item = QtGui.QTableWidgetItem()
-        #self.comments_tableWidget.setHorizontalHeaderItem(0, item)
-        #item = QtGui.QTableWidgetItem()
-        #self.comments_tableWidget.setHorizontalHeaderItem(1, item)
-        #item = QtGui.QTableWidgetItem()
-        #self.comments_tableWidget.setHorizontalHeaderItem(3, item)
-        #self.comments_tableWidget.verticalHeader().setCascadingSectionResizes(False)
-        #self.comments_tableWidget.verticalHeader().setHighlightSections(True)
-
         self.write_label = QtGui.QLabel(Form)
         self.write_label.setGeometry(QtCore.QRect(50, 520, 131, 16))
         self.write_label.setObjectName(_fromUtf8("write_label"))
@@ -238,10 +219,6 @@ class BookPageGUI(QtGui.QDialog):
 
         else:
             self.CantComment.setText(_fromUtf8("Read the book first, then you can add a comment"))
-
-        #comments = book.writecomments(KeyWord)
-        #self.comments_text.setText(keyWord)
-        #self.library.update_book_data("pending_book_data.pkl", comments = keyWord
 
     def set_rate_reviews_table(self):
         for index in range(len(self.book.comments)):
@@ -354,26 +331,26 @@ class BookPageGUI(QtGui.QDialog):
         #library = Library()
         if str(self.book.title) not in self.user.readingHistory.keys() and self.user.point > 0:
             self.user.point = self.user.point - int(self.book.requestPoint)
-            if self.user.point > 0:
-                self.user.bookreadtime += 5
-                # update data in database
-                library.update_user_data(self.user)
+            self.user.bookreadtime += 5
 
-                self.user.readingHistory[str(self.book.title)] = 10
-                file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
-                file.open(QtCore.QIODevice.ReadOnly)
-                stream = QtCore.QTextStream(file)
-                self.read_book_text.setText(stream.readAll())
-                self.book.last_time_read = time.time()
-                self.book.NumOfRead += 1
-                library.update_book_data(self.book)  # update book information in database
-                #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
-                self.timer = QTimer(self)
-                print self.timer
-                self.start_time = self.user.readingHistory[str(self.book.title)]
-                #self.timer.setInterval(1000)
-                self.timer.start(1000)
-                self.timer.timeout.connect(self.displayTime)
+            # update data in database
+            library.update_user_data(self.user)
+            self.user.readingHistory[str(self.book.title)] = 10
+            library.update_user_data(self.user)
+            file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
+            file.open(QtCore.QIODevice.ReadOnly)
+            stream = QtCore.QTextStream(file)
+            self.read_book_text.setText(stream.readAll())
+            self.book.last_time_read = time.time()
+            self.book.NumOfRead += 1
+            library.update_book_data(self.book)  # update book information in database
+            #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
+            self.timer = QTimer(self)
+            print self.timer
+            self.start_time = self.user.readingHistory[str(self.book.title)]
+            #self.timer.setInterval(1000)
+            self.timer.start(1000)
+            self.timer.timeout.connect(self.displayTime)
 
         elif str(self.book.title) in self.user.readingHistory.keys() and self.inviter and self.inviter.readingHistory[str(self.book.title)] > 0 and  self.user.inviteDic and self.user.inviteDic[self.user.inviteDic.keys()[0]].values()[0] is True:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Hi', 'You are using shared time reading this book!')
@@ -384,6 +361,8 @@ class BookPageGUI(QtGui.QDialog):
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
             self.book.NumOfRead += 1
+            self.user.bookreadtime += 5
+            library.update_user_data(self.user)
             library.update_book_data(self.book)
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
@@ -401,6 +380,9 @@ class BookPageGUI(QtGui.QDialog):
                   #self.timer.setInterval(1000)
                   self.timer.start(1000)
                   self.timer.timeout.connect(self.displayTime1)
+                  self.inviter.bookreadtime += 5
+                  library.update_user_data(self.inviter)
+                  library.update_user_data(self.user)
 
         elif str(self.book.title) in self.user.readingHistory.keys() and self.user.readingHistory[str(self.book.title)] > 0:
             print self.book.requestPoint
@@ -410,6 +392,8 @@ class BookPageGUI(QtGui.QDialog):
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
             self.book.NumOfRead += 1
+            self.user.bookreadtime += 5
+            library.update_user_data(self.user)
             library.update_book_data(self.book)
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
             self.timer = QTimer(self)
@@ -423,6 +407,7 @@ class BookPageGUI(QtGui.QDialog):
             print self.book.requestPoint
             self.user.point = self.user.point - int(self.book.requestPoint)
             self.user.readingHistory[str(self.book.title)] = 10
+            self.user.bookreadtime += 5
             #update database
             library = Library()
             library.update_user_data(self.user)
