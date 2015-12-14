@@ -230,6 +230,9 @@ class Visitor_MainWindow(object):
                     self.bookitem.SubmitButton.hide()
                     self.bookitem.invite_Button.hide()
                     self.bookitem.invite_Input.hide()
+                    self.bookitem.write_label.hide()
+                    self.bookitem.rate_label.hide()
+                    self.bookitem.rate_lineEdit.hide()
                     #self.bookitem.comments_label.hide()
                     self.bookitem.comments_input.hide()
                     self.bookitem.complaint_button.hide()
@@ -346,12 +349,3 @@ class Visitor_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionClose.setText(_translate("MainWindow", "Close", None))
 
-#
-# if __name__ == "__main__":
-#     import sys
-#     app = QtGui.QApplication(sys.argv)
-#     MainWindow = QtGui.QMainWindow()
-#     ui = Ui_MainWindow()
-#     ui.setupUi(MainWindow)
-#     MainWindow.show()
-#     sys.exit(app.exec_())

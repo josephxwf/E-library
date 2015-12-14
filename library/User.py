@@ -1,7 +1,7 @@
 import collections
 
-class User(object):
 
+class User(object):
     def __init__(self, username, password, super_user=False, point=100, activate=False):
         self.username = username
         self.password = password
@@ -9,7 +9,7 @@ class User(object):
         self.point = point
         self.readingHistory = collections.OrderedDict()
         self.readingHistory["Quinneys"]=10
-
+        self.bookreadtime = 0
         self.own_book = []
         self.activate = activate
         self.inviteDic = {}
