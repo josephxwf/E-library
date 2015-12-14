@@ -39,6 +39,11 @@ class Visitor_MainWindow(object):
         self.catalog = self.library.Catalog()
 
     def setupUi(self, MainWindow):
+        """
+        This function is create by PyQt4 UI code generator. But we did some change.
+        This function set up visitor page GUI.
+        :return:
+        """
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(917, 606)
         self.centralwidget = QtGui.QWidget(MainWindow)

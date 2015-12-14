@@ -110,7 +110,7 @@ class SuperUserPage(QtGui.QWidget):
         self.request_List_Label.setGeometry(QtCore.QRect(360, 400, 211, 16))
         self.request_List_Label.setObjectName(_fromUtf8("request_List_Label"))
 
-        if self.user.superUser is True:
+        if self.user.superUser is True:     # check user is superuser or not, for superuser,we add some feature that only superuser need.
             self.request_Table_superuser = QtGui.QTableWidget(superUser)
             self.request_Table_superuser.setGeometry(QtCore.QRect(800, 90, 441, 131))
             self.request_Table_superuser.setObjectName(_fromUtf8("request_Table_superuser"))
@@ -689,6 +689,11 @@ class SuperUserPage(QtGui.QWidget):
         self.top5_List.setSortingEnabled(__sortingEnabled)
 
     def searchBook(self):
+        """
+        This function is for search book base on keyword user enter in input box.
+        It will also set up result to list box.
+        :return:
+        """
         for i in range(5):
             item = self.top5_List.item(i)
             item.setText(_translate("MainWindow", "", None))
@@ -714,7 +719,7 @@ class SuperUserPage(QtGui.QWidget):
         self.coverpage_button.setText(_translate("superUser", "CoverPage", None))
         self.upload_book_button.setText(_translate("superUser", "Upload Book", None))
         self.submit_button.setText(_translate("superUser", "Submit", None))
-        if self.user.superUser == True:
+        if self.user.superUser is True:      # check user is superuser or not, for superuser,we add some feature that only superuser need.
             self.decide_button.setText(_translate("superUser", "decide", None))
             item = self.request_Table_superuser.verticalHeaderItem(0)
             item.setText(_translate("superUser", "1", None))
@@ -814,9 +819,9 @@ class SuperUserPage(QtGui.QWidget):
 
         self.accept_Button.setText(_translate("superUser", "accept", None))
 
-        self.top5_Label.setText(_translate("superUser", "Top 5 Books:", None))
+        self.top5_Label.setText(_translate("superUser", "recommended books or top 5 Books:", None))
 
-        self.set_top5_list()
+        self.set_top5_list()   # set up top 5 list
 
         # __sortingEnabled = self.top5_List.isSortingEnabled()
         # self.top5_List.setSortingEnabled(False)

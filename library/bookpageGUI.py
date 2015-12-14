@@ -46,7 +46,7 @@ class BookPageGUI(QtGui.QDialog):
 
     def setupUi(self, Form, book,user):
         """
-        This function is create by PyQt4 UI code generator. But we did some change
+        This function is create by PyQt4 UI code generator. But we did some change.
         This function set up book page GUI.
         :param Form:
         :param book:
@@ -336,11 +336,11 @@ class BookPageGUI(QtGui.QDialog):
             self.book.NumOfRead += 1
             library.update_book_data(self.book)
             self.timer = QTimer(self)
-            #print self.timer
+            # print self.timer
             self.start_time = self.user.readingHistory[str(self.book.title)]
-            #self.timer.setInterval(1000)
+            # self.timer.setInterval(1000)
             self.timer.start(1000)
-            self.timer.timeout.connect(self.displayTime)  #call function diaplayTime continuely
+            self.timer.timeout.connect(self.displayTime)  # call function diaplayTime continuely
         else:
             self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
 
@@ -352,7 +352,7 @@ class BookPageGUI(QtGui.QDialog):
         if self.user.readingHistory[str(self.book.title)] < 0:
             self.user.readingHistory[str(self.book.title)] = 0
 
-        #update database
+        # update database
         library = Library()
         library.update_user_data(self.user)
 
