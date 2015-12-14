@@ -153,6 +153,15 @@ class BookPageGUI(QtGui.QDialog):
         self.comments_tableWidget.setFrameShadow(QtGui.QFrame.Sunken)
         self.comments_tableWidget.setRowCount(10)
         self.comments_tableWidget.setColumnCount(3)
+        item = QtGui.QTableWidgetItem()
+        self.comments_tableWidget.setHorizontalHeaderItem(0, item)
+        item.setText("Weight")
+        item = QtGui.QTableWidgetItem()
+        self.comments_tableWidget.setHorizontalHeaderItem(1, item)
+        item.setText("Rate")
+        item = QtGui.QTableWidgetItem()
+        self.comments_tableWidget.setHorizontalHeaderItem(2, item)
+        item.setText("Review")
         self.comments_tableWidget.setObjectName(_fromUtf8("comments_tableWidget"))
         self.comments_tableWidget.horizontalHeader().setVisible(True)
         self.comments_tableWidget.horizontalHeader().setCascadingSectionResizes(False)
@@ -221,8 +230,11 @@ class BookPageGUI(QtGui.QDialog):
             rates = str(self.rate_lineEdit.text())
             self.book.comments.append(comm)
             self.book.rate.append(rates)
+            if self.user.bookreadtime > 15:
+                self.book.comment_type.append("Confident")
+            else:
+                self.book.comment_type.append("Doubdtful")
             library.update_book_data(self.book)
-
 
         else:
             self.CantComment.setText(_fromUtf8("Read the book first, then you can add a comment"))
@@ -233,23 +245,9 @@ class BookPageGUI(QtGui.QDialog):
 
     def set_rate_reviews_table(self):
         for index in range(len(self.book.comments)):
-            if self.user.bookreadtime > 15:
-                keyword = "Confident"
                 item = QtGui.QTableWidgetItem()
                 self.comments_tableWidget.setItem(index, 0, item)
-                item.setText(keyword)
-                item = QtGui.QTableWidgetItem()
-                self.comments_tableWidget.setItem(index, 1, item)
-                item.setText(_fromUtf8(self.book.rate[index]))
-                item = QtGui.QTableWidgetItem()
-                self.comments_tableWidget.setItem(index, 2, item)
-                item.setText(_fromUtf8(self.book.comments[index]))
-
-            if self.user.bookreadtime < 15:
-                keyword = "Doubdtful"
-                item = QtGui.QTableWidgetItem()
-                self.comments_tableWidget.setItem(index, 0, item)
-                item.setText(keyword)
+                item.setText(_fromUtf8(self.book.comment_type[index]))
                 item = QtGui.QTableWidgetItem()
                 self.comments_tableWidget.setItem(index, 1, item)
                 item.setText(_fromUtf8(self.book.rate[index]))
