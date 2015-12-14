@@ -7,9 +7,9 @@ class User(object):
         self.password = password
         self.superUser = super_user
         self.point = point
+        self.commentsHistory = collections.OrderedDict()
         self.readingHistory = collections.OrderedDict()
         self.readingHistory["Quinneys"]=10
-        self.bookreadtime = 0
         self.own_book = []
         self.activate = activate
         self.inviteDic = {}
@@ -20,6 +20,9 @@ class User(object):
 
     def setReadingHistory(self, list):
         self.readingHistory = list
+
+    def setCommentsHistory(self, list):
+        self.commentsHistory = list
 
     def read_book(self):
         #first check if user have enough points to read book
