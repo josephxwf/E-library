@@ -357,7 +357,7 @@ class BookPageGUI(QtGui.QDialog):
             self.timer.start(1000)
             self.timer.timeout.connect(self.displayTime)
 
-        elif str(self.book.title) in self.user.readingHistory.keys() and self.inviter and self.inviter.readingHistory[str(self.book.title)] > 0 and  self.user.inviteDic and self.user.inviteDic[self.user.inviteDic.keys()[0]].values()[0] is True:
+        elif str(self.book.title) in self.user.readingHistory.keys() and self.inviter and self.inviter.readingHistory[str(self.book.title)] > 0 and self.user.inviteDic and self.user.inviteDic[self.user.inviteDic.keys()[0]].values()[0] is True:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Hi', 'You are using shared time reading this book!')
             print "you are using shared time reading this book"
             file = QtCore.QFile('PendingBooks/'+ self.book.book_file)
@@ -383,10 +383,14 @@ class BookPageGUI(QtGui.QDialog):
                   #self.timer.setInterval(1000)
                   self.timer.start(1000)
                   self.timer.timeout.connect(self.displayTime1)
-                  self.user.commentsHistory[str(self.book.title)] += 5
-                  self.inviter.commentsHistory[str(self.book.title)] += 5
-                  library.update_user_data(self.inviter)
-                  library.update_user_data(self.user)
+
+            if str(self.book.title) in self.user.commentsHistory.keys():
+                self.user.commentsHistory[str(self.book.title)] += 5
+            else:
+                self.user.commentsHistory[str(self.book.title)] = 5
+                  # self.inviter.commentsHistory[str(self.book.title)] += 5
+                library.update_user_data(self.inviter)
+                library.update_user_data(self.user)
 
         elif str(self.book.title) in self.user.readingHistory.keys() and self.user.readingHistory[str(self.book.title)] > 0:
             print self.book.requestPoint
@@ -396,7 +400,11 @@ class BookPageGUI(QtGui.QDialog):
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
             self.book.NumOfRead += 1
-            self.user.commentsHistory[str(self.book.title)] += 5
+
+            if str(self.book.title) in self.user.commentsHistory.keys():
+                self.user.commentsHistory[str(self.book.title)] += 5
+            else:
+                self.user.commentsHistory[str(self.book.title)] = 5
             library.update_user_data(self.user)
             library.update_book_data(self.book)
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
@@ -411,7 +419,11 @@ class BookPageGUI(QtGui.QDialog):
             print self.book.requestPoint
             self.user.point = self.user.point - int(self.book.requestPoint)
             self.user.readingHistory[str(self.book.title)] = 10
-            self.user.commentsHistory[str(self.book.title)] += 5
+            # self.user.commentsHistory[str(self.book.title)] += 5
+            if str(self.book.title) in self.user.commentsHistory.keys():
+                self.user.commentsHistory[str(self.book.title)] += 5
+            else:
+                self.user.commentsHistory[str(self.book.title)] = 5
             #update database
             library = Library()
             library.update_user_data(self.user)
