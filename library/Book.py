@@ -1,8 +1,8 @@
 import pickle
 
-class Book():
 
-    def __init__(self, title, cover_page, requestPoint):
+class Book():
+    def __init__(self, title, cover_page, requestPoint, time=0.0):
         self.title = title
         self.author = ""
         self.summary = ""
@@ -16,7 +16,8 @@ class Book():
         self.NumOfRead = 0
         self.comments = ""
         self.complain = []
-        self.UploadBookDate = 0
+
+        self.last_time_read = time
 
     def add_to_database(self):
         with open('user_data.pkl', 'a') as output:
@@ -30,6 +31,10 @@ class Book():
 
     def summary(self):
         self.readsummary = ""
+
+    #def comments(self):
+    #    self.comments = str(self.comments_input.toPlainText())
+    #    self.upload_book.comments = comments
 
     def clock(self):
         self.time = ""

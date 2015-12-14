@@ -1,21 +1,26 @@
+import collections
 
 class User(object):
 
-    def __init__(self, username, password,super_user=False, point=100, activate=False):
+    def __init__(self, username, password, super_user=False, point=100, activate=False):
         self.username = username
         self.password = password
         self.superUser = super_user
         self.point = point
-        self.readingHistory = {"Quinneys":10}
+
+
+
+        self.readingHistory = collections.OrderedDict()
+        self.readingHistory["Quinneys"]=10
+
         self.own_book = []
         self.activate = activate
+        self.inviteDic ={}
+
         # self.book_time
-
-
 
     def setReadingHistory(self, list):
         self.readingHistory = list
-
 
     def read_book(self):
         #first check if user have enough points to read book

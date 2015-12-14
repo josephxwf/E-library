@@ -1,6 +1,7 @@
 from User import User
 from Book import Book
 import pickle
+import time
 #import os
 # from PyQt4 import QtCore, QtGui
 # from visitorGUI import Visitor_MainWindow
@@ -29,6 +30,11 @@ class Library():
         self.bookData = self.loadBookData()
 
     def update_user_data(self, new_user):
+        """
+        This function will updata user object in user database
+        :param new_user: user object which need update
+        :return:
+        """
         userData = self.loadUserData()
         newData = []
         find = False
@@ -45,6 +51,11 @@ class Library():
             pickle.dump(newData, output)
 
     def loadUserData(self):
+        """
+        This function will load all user object from user database.
+
+        :return: user object list
+        """
         try:
             with open('user_data.pkl', 'r') as input:
                 try:
@@ -58,6 +69,12 @@ class Library():
         return user
 
     def loadBookData(self, path='book_data.pkl'):
+        """
+        This function will load all book object from book database.
+
+        :param path: string type, path of database
+        :return: book object list
+        """
         try:
             with open(path, 'r') as input:
                 try:
@@ -71,7 +88,14 @@ class Library():
 
         return book
 
-    def update_book_data(self, new_book, path='book_data.pkl',delete=False):
+    def update_book_data(self, new_book, path='book_data.pkl', delete=False):
+        """
+        this function will updata book database
+        :param new_book: book object which need update
+        :param path: string type, path of book database
+        :param delete: boolean, if true, it will delete book object
+        :return:
+        """
         book_data = self.loadBookData(path)
         new_data = []
         find = False
@@ -120,20 +144,65 @@ class Library():
         return result
 
     def searchUser(self, name):
-        '''
-        :param name:
-        :return: user
-        '''
+        """
+        This function will return user object by input string type username
+
+        :param string (username)
+        :return: user object
+        """
+        users = self.loadUserData() # load all users from database
+        for user in users:
+            if user.username == name:
+                return user
+        return None
 
     def searchTop5(self):
         top5List = []
         book_data = self.loadBookData()
         if book_data:
             data = sorted(book_data, key=lambda book: book.NumOfRead, reverse=True)
-            for i in range(len(data)):
+            index = 0
+            if len(book_data) >= 5:
+                index = 5
+            else:
+                index = len(book_data)
+            for i in range(index):
                 top5List.append(data[i])
                 #print i
         return top5List
+
+    def search_book_by_type(self, type):
+        """
+        This function will return a book list(only 5 book) with input type
+        :param string (type)
+        :return:book list
+        """
+        book_data = self.loadBookData()
+        book_list = []
+        if book_data:
+            index = 0
+            for book in book_data:
+                if book.type == type:
+                    book_list.append(book)
+                    index += 1
+                    if index is 5:
+                        break
+        return book_list
+
+    def search_book_by_title(self, title):
+        """
+        This function return book object by input book title
+        :param title: string type
+        :return: book object
+        """
+        book_data = self.loadBookData()
+        if book_data:
+            for book in book_data:
+                if book.title == title:
+                    return book
+        return None
+
+
 
     def Catalog(self):
         BookList = []
@@ -143,6 +212,26 @@ class Library():
             for i in range(len(bookdata)):  #need to make the range equal total number of books in self.bookData
                 BookList.append(bookdata[i])
         return BookList
+
+
+    def remove_book_with_nobody_read(self):
+        books = self.loadBookData()
+        time_for_now = time.time()
+        book_owners = []
+        if books:
+            for book in books:
+                if time_for_now - book.last_time_read >= 120000:
+                    self.update_book_data(book,delete=True)  # remove book from book database
+                    book_owners.append(book.contribute_by)
+
+        if book_owners:
+            for username in book_owners:
+                user = self.searchUser(username)   # search user by username, get user object
+                if user:
+                    user.point -= 5                     # 5 points are deducted from the contributing RU
+                    self.update_user_data(user)  # update user information on user database
+
+
 # if __name__ == '__main__':
 #     mylibrary = Library()
 #     top5 = mylibrary.searchTop5()
