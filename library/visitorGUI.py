@@ -7,14 +7,10 @@
 #
 # WARNING! All changes made in this file will be lost!
 from User import User
-import pickle
 from PyQt4 import QtCore, QtGui
-from signUp import SignUp
-from registeredUser import registeredUser
 from bookpageGUI import BookPageGUI
 from superuserGUI import SuperUserPage
-import time
-import sys
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -39,6 +35,11 @@ class Visitor_MainWindow(object):
         self.catalog = self.library.Catalog()
 
     def setupUi(self, MainWindow):
+        """
+        This function is create by PyQt4 UI code generator. But we did some change.
+        This function set up visitor page GUI.
+        :return:
+        """
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(917, 606)
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -238,6 +239,10 @@ class Visitor_MainWindow(object):
                 print("book not find")
 
     def searchBook(self):
+        """
+
+        :return:
+        """
         for i in range(len(self.catalog)):
             item = self.BookCatalog.item(i)
             item.setText(_translate("MainWindow", "", None))
@@ -344,12 +349,3 @@ class Visitor_MainWindow(object):
         self.menuFile.setTitle(_translate("MainWindow", "File", None))
         self.actionClose.setText(_translate("MainWindow", "Close", None))
 
-#
-# if __name__ == "__main__":
-#     import sys
-#     app = QtGui.QApplication(sys.argv)
-#     MainWindow = QtGui.QMainWindow()
-#     ui = Ui_MainWindow()
-#     ui.setupUi(MainWindow)
-#     MainWindow.show()
-#     sys.exit(app.exec_())

@@ -1,7 +1,7 @@
 import collections
 
-class User(object):
 
+class User(object):
     def __init__(self, username, password, super_user=False, point=100, activate=False):
         self.username = username
         self.password = password

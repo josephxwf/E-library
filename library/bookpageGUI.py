@@ -5,14 +5,12 @@
 # Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
-import os
 
-#import popplerqt4
+
 from PyQt4 import QtCore, QtGui
 from PyQt4.QtGui import *
 from PyQt4.QtCore import *
 from Library import Library
-from Book import Book
 import time
 
 #import popplerqt4    fot pdf file
@@ -47,7 +45,7 @@ class BookPageGUI(QtGui.QDialog):
 
     def setupUi(self, Form, book,user):
         """
-        This function is create by PyQt4 UI code generator. But we did some change
+        This function is create by PyQt4 UI code generator. But we did some change.
         This function set up book page GUI.
         :param Form:
         :param book:
@@ -211,11 +209,10 @@ class BookPageGUI(QtGui.QDialog):
             rates = str(self.rate_lineEdit.text())
             self.book.comments.append(comm)
             self.book.rate.append(rates)
-            if self.user.commentsHistory[str(self.book.title)] >= 15:
+            if self.user.commentsHistory[str(self.book.title)] > 15:
                 self.book.comment_type.append("Confident")
             else:
                 self.book.comment_type.append("Doubdtful")
-
             library.update_book_data(self.book)
 
         else:
@@ -385,14 +382,8 @@ class BookPageGUI(QtGui.QDialog):
                   #self.timer.setInterval(1000)
                   self.timer.start(1000)
                   self.timer.timeout.connect(self.displayTime1)
-                  if str(self.book.title) not in self.user.commentsHistory.keys():
-                      self.user.commentsHistory[str(self.book.title)] = 5
-                  else:
-                      self.user.commentsHistory[str(self.book.title)] += 5
-                  if str(self.book.title) not in self.inviter.commentsHistory.keys():
-                      self.inviter.commentsHistory[str(self.book.title)] = 5
-                  else:
-                      self.inviter.commentsHistory[str(self.book.title)] += 5
+                  self.user.commentsHistory[str(self.book.title)] += 5
+                  self.inviter.commentsHistory[str(self.book.title)] += 5
                   library.update_user_data(self.inviter)
                   library.update_user_data(self.user)
 
@@ -404,10 +395,7 @@ class BookPageGUI(QtGui.QDialog):
             self.read_book_text.setText(stream.readAll())
             self.book.last_time_read = time.time()
             self.book.NumOfRead += 1
-            if str(self.book.title) not in self.user.commentsHistory.keys():
-                self.user.commentsHistory[str(self.book.title)] = 5
-            else:
-                self.user.commentsHistory[str(self.book.title)] += 5
+            self.user.commentsHistory[str(self.book.title)] += 5
             library.update_user_data(self.user)
             library.update_book_data(self.book)
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
@@ -422,10 +410,7 @@ class BookPageGUI(QtGui.QDialog):
             print self.book.requestPoint
             self.user.point = self.user.point - int(self.book.requestPoint)
             self.user.readingHistory[str(self.book.title)] = 10
-            if str(self.book.title) not in self.user.commentsHistory.keys():
-                self.user.commentsHistory[str(self.book.title)] = 5
-            else:
-                self.user.commentsHistory[str(self.book.title)] += 5
+            self.user.commentsHistory[str(self.book.title)] += 5
             #update database
             library = Library()
             library.update_user_data(self.user)
@@ -437,11 +422,11 @@ class BookPageGUI(QtGui.QDialog):
 
             library.update_book_data(self.book)
             self.timer = QTimer(self)
-            #print self.timer
+            # print self.timer
             self.start_time = self.user.readingHistory[str(self.book.title)]
-            #self.timer.setInterval(1000)
+            # self.timer.setInterval(1000)
             self.timer.start(1000)
-            self.timer.timeout.connect(self.displayTime)  #call function diaplayTime continuely
+            self.timer.timeout.connect(self.displayTime)  # call function diaplayTime continuely
         else:
             self.TimeOutMessage.setText(_fromUtf8("You have no points!"))
 
@@ -453,7 +438,7 @@ class BookPageGUI(QtGui.QDialog):
         if self.user.readingHistory[str(self.book.title)] < 0:
             self.user.readingHistory[str(self.book.title)] = 0
 
-        #update database
+        # update database
         library = Library()
         library.update_user_data(self.user)
 

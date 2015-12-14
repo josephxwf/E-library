@@ -110,7 +110,7 @@ class SuperUserPage(QtGui.QWidget):
         self.request_List_Label.setGeometry(QtCore.QRect(360, 400, 211, 16))
         self.request_List_Label.setObjectName(_fromUtf8("request_List_Label"))
 
-        if self.user.superUser is True:
+        if self.user.superUser is True:     # check user is superuser or not, for superuser,we add some feature that only superuser need.
             self.request_Table_superuser = QtGui.QTableWidget(superUser)
             self.request_Table_superuser.setGeometry(QtCore.QRect(800, 90, 441, 131))
             self.request_Table_superuser.setObjectName(_fromUtf8("request_Table_superuser"))
@@ -129,7 +129,7 @@ class SuperUserPage(QtGui.QWidget):
             item = QtGui.QTableWidgetItem()
             self.request_Table_superuser.setHorizontalHeaderItem(2, item)
             self.request_List_superuser_Label = QtGui.QLabel(superUser)
-            self.request_List_superuser_Label.setGeometry(QtCore.QRect(800, 50, 211, 16))
+            self.request_List_superuser_Label.setGeometry(QtCore.QRect(800, 55, 211, 16))
             self.request_List_superuser_Label.setObjectName(_fromUtf8("request_List_superuser_Label"))
             self.decide_button = QtGui.QPushButton(superUser)
             self.decide_button.setGeometry(QtCore.QRect(1150, 100, 71, 31))
@@ -158,10 +158,9 @@ class SuperUserPage(QtGui.QWidget):
             self.active_button = QtGui.QPushButton(superUser)
             self.active_button.setGeometry(QtCore.QRect(1150, 300, 71, 31))
             self.active_button.setObjectName(_fromUtf8("active_button"))
-
-
-
-
+            self.not_active_button = QtGui.QPushButton(superUser)
+            self.not_active_button.setGeometry(QtCore.QRect(1150, 350, 71, 31))
+            self.not_active_button.setObjectName(_fromUtf8("not_active_button"))
 
             self.complain_table = QtGui.QTableWidget(superUser)
             self.complain_table.setGeometry(QtCore.QRect(800, 440, 341, 131))
@@ -179,8 +178,6 @@ class SuperUserPage(QtGui.QWidget):
             item = QtGui.QTableWidgetItem()
             self.complain_table.setHorizontalHeaderItem(1, item)
             self.complain_table.horizontalHeader().setStretchLastSection(True)
-            # item = QtGui.QTableWidgetItem()
-            # self.complain_table.setHorizontalHeaderItem(2, item)
             self.complain_Label = QtGui.QLabel(superUser)
             self.complain_Label.setGeometry(QtCore.QRect(800, 420, 211, 16))
             self.complain_Label.setObjectName(_fromUtf8("complain_Label"))
@@ -193,6 +190,22 @@ class SuperUserPage(QtGui.QWidget):
             self.serious_complain_button = QtGui.QPushButton(superUser)
             self.serious_complain_button.setGeometry(QtCore.QRect(1150, 540, 71, 30))
             self.serious_complain_button.setObjectName(_fromUtf8("serious_complain_button"))
+
+            self.user_add_point_label = QtGui.QLabel(superUser)
+            self.user_add_point_label.setGeometry(QtCore.QRect(1000, 10, 100, 16))
+            self.user_add_point_label.setObjectName(_fromUtf8("user_add_point_label"))
+            self.user_add_point_input = QtGui.QLineEdit(superUser)
+            self.user_add_point_input.setGeometry(QtCore.QRect(1000, 30, 113, 20))
+            self.user_add_point_input.setObjectName(_fromUtf8("user_add_point_input"))
+            self.point_for_user_add_point_label = QtGui.QLabel(superUser)
+            self.point_for_user_add_point_label.setGeometry(QtCore.QRect(1120, 10, 100, 16))
+            self.point_for_user_add_point_label.setObjectName(_fromUtf8("point_for_user_add_point_label"))
+            self.point_for_user_add_point_input = QtGui.QLineEdit(superUser)
+            self.point_for_user_add_point_input.setGeometry(QtCore.QRect(1120, 30, 113, 20))
+            self.point_for_user_add_point_input.setObjectName(_fromUtf8("point_for_user_add_point_input"))
+            self.user_add_point_button = QtGui.QPushButton(superUser)
+            self.user_add_point_button.setGeometry(QtCore.QRect(1160, 55, 71, 25))
+            self.user_add_point_button.setObjectName(_fromUtf8("user_add_point_button"))
 
         self.approve_button = QtGui.QPushButton(superUser)
         self.approve_button.setGeometry(QtCore.QRect(700, 450, 71, 31))
@@ -277,15 +290,44 @@ class SuperUserPage(QtGui.QWidget):
         if self.user.superUser is True:
             QtCore.QObject.connect(self.decide_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.decide)
             QtCore.QObject.connect(self.active_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.active)
+            QtCore.QObject.connect(self.not_active_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.not_active)
             QtCore.QObject.connect(self.accept_complain_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.accept_complain)
             QtCore.QObject.connect(self.reject_complain_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.reject_complain)
             QtCore.QObject.connect(self.serious_complain_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.serious_complain)
+            QtCore.QObject.connect(self.user_add_point_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.user_add_point)
+
         QtCore.QObject.connect(self.approve_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.approve)
         QtCore.QObject.connect(self.denied_button, QtCore.SIGNAL(_fromUtf8("clicked()")), self.denied)
 
         QtCore.QMetaObject.connectSlotsByName(superUser)
 
+    def user_add_point(self):
+        """
+        This function will add point to user.
+        :return:
+        """
+        username = str(self.user_add_point_input.text())
+        point = self.point_for_user_add_point_input.text()
+        if not username:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'please input username!')
+        elif not point:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'please input point!')
+        else:
+            number_point = int(point)
+            user = self.library.searchUser(username)
+            if user:
+                user.point += number_point
+                self.library.update_user_data(user)
+            else:
+                QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', "we didn't find user!")
+
     def accept_complain(self):
+        """
+        This function will call when superuser click accept in complaint table.
+        superuser accept complaint, so number of complaint for book will increase 1,
+        then delete that complain and reset complaint table
+        :return:
+        """
         if self.complain_book:
             self.complain_book.number_of_complaint += 1
             del self.complain_book.complaint[0]
@@ -304,23 +346,31 @@ class SuperUserPage(QtGui.QWidget):
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'no complaint!')
 
     def reject_complain(self):
+        """
+        This function will reject the complaint.
+        :return:
+        """
         if self.complain_book:
-            del self.complain_book.complaint[0]
+            del self.complain_book.complaint[0]        # delete that complaint
             self.library.update_book_data(self.complain_book)
             self.set_complaint_table()
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'no complaint!')
 
     def serious_complain(self):
+        """
+        This function is for serious complaint, it will delete that book,
+        add user who contributed this book to black list.
+        :return:
+        """
         if self.complain_book:
             self.library.update_book_data(self.complain_book, delete=True)
             user_who_contributed = self.library.searchUser(self.complain_book.contribute_by)  # get the user who contributed this book
-            user_who_contributed.black_list = True
+            user_who_contributed.black_list = True          # add to black list
             self.library.update_user_data(user_who_contributed)
-
             self.set_complaint_table()
         else:
-            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'no complaint!')
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'no complaint!')     # if not more complaint
 
     def accept(self):
 
@@ -378,55 +428,79 @@ class SuperUserPage(QtGui.QWidget):
                     else:
                        index += 1
 
-
-
     def active(self):
+        """
+        This function will activate the new register user.
+        :return:
+        """
         if self.user_need_activate:
             self.user_need_activate.activate = True
-            self.library.update_user_data(self.user_need_activate)
+            self.library.update_user_data(self.user_need_activate)  # update user in user database
             self.user_need_activate = None
             self.set_user_active_table()
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not new user need activate!')
 
+    def not_active(self):
+        """
+        This function will not activate the user, and delete the user form user database.
+        :return:
+        """
+        if self.user_need_activate:
+            self.library.update_user_data(self.user_need_activate, delete=True)   # delete user in database
+            self.user_need_activate = None
+            self.set_user_active_table()
+        else:
+            QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not new user need activate!')
 
     def approve(self):
+        """
+        This function will approve the book with superuser response.
+        :return:
+        """
         if self.approve_book:
             self.library.update_book_data(self.approve_book, "pending_book_data.pkl", delete=True)
             self.library.update_book_data(self.approve_book)
-            self.user.point += self.approve_book.superuser_set_point
-
-            #self.decide_book.UploadBookDate  = QDateTime.currentDateTime();
-            #print self.decide_book.UploadBookDate
-            self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
+            self.user.point += self.approve_book.superuser_set_point   # user add the point which superuser decide
+            self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))   # update user point information in page
             self.user.own_book.append(self.approve_book)
 
-            self.library.update_user_data(self.user)
+            self.library.update_user_data(self.user)     # update user information in database
             self.set_superuser_response_table()   # refresh table
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not book need approve!')
 
     def denied(self):
+        """
+        This function will denied the book with superuser response.
+        :return:
+        """
         if self.approve_book:
-            self.library.update_book_data(self.approve_book, "pending_book_data.pkl", delete=True)
+            self.library.update_book_data(self.approve_book, "pending_book_data.pkl", delete=True)   # delete the book from pending book database
             self.set_superuser_response_table()
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not book need denied!')
 
     def decide(self):
+        """
+        superuser decide the book request point, and add to book.
+        :return:
+        """
         if self.decide_book:
             item = self.request_Table_superuser.item(0, 2)
             point = int(item.text())             # superuser input point
             self.decide_book.superuser_set_point = point
-            # self.library.update_book_data(self.decide_book, "pending_book_data.pkl", delete=True)
             self.library.update_book_data(self.decide_book, "pending_book_data.pkl")
-
             self.set_pending_book_table()
             self.set_superuser_response_table()
         else:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'not book need decide!')
 
     def set_pending_book_table(self):
+        """
+        This function set pending book table.
+        :return:
+        """
         for index in range(3):
             item = QtGui.QTableWidgetItem()
             self.request_Table_superuser.setItem(index, 0, item)
@@ -435,13 +509,13 @@ class SuperUserPage(QtGui.QWidget):
             item = QtGui.QTableWidgetItem()
             self.request_Table_superuser.setItem(index, 2, item)
             item = self.request_Table_superuser.item(index, 0)
-            item.setText(_translate("superUser", "", None))
+            item.setText(_translate("superUser", "", None))       # set all box in table to empty first
             item = self.request_Table_superuser.item(index, 1)
             item.setText(_translate("superUser", "", None))
             item = self.request_Table_superuser.item(index, 2)
             item.setText(_translate("superUser", "", None))
         self.decide_book = None
-        pending_book = self.library.loadBookData("pending_book_data.pkl")
+        pending_book = self.library.loadBookData("pending_book_data.pkl")  # get all pending book
         if pending_book:
             index = 0
             for book in pending_book:
@@ -457,7 +531,7 @@ class SuperUserPage(QtGui.QWidget):
                     item = self.request_Table_superuser.item(index, 0)
                     item.setText(_translate("superUser", book.contribute_by, None))
                     item = self.request_Table_superuser.item(index, 1)
-                    item.setText(_translate("superUser", book.title, None))
+                    item.setText(_translate("superUser", book.title, None))   # set up book information
                     item = self.request_Table_superuser.item(index, 2)
                     item.setText(_translate("superUser", str(book.requestPoint), None))
                     print(index)
@@ -468,6 +542,10 @@ class SuperUserPage(QtGui.QWidget):
 
 
     def set_superuser_response_table(self):
+        """
+        This function set up superuser response table.
+        :return:
+        """
         for index in range(3):
             item = QtGui.QTableWidgetItem()
             self.request_Table.setItem(index, 0, item)
@@ -478,7 +556,7 @@ class SuperUserPage(QtGui.QWidget):
             item = self.request_Table.item(index, 0)
             item.setText(_translate("superUser", "", None))
             item = self.request_Table.item(index, 1)
-            item.setText(_translate("superUser", "", None))
+            item.setText(_translate("superUser", "", None))   # set all box in table to empty first
             item = self.request_Table.item(index, 2)
             item.setText(_translate("superUser", "", None))
         self.approve_book = None
@@ -498,7 +576,7 @@ class SuperUserPage(QtGui.QWidget):
                     item = self.request_Table.item(index, 0)
                     item.setText(_translate("superUser", book.title, None))
                     item = self.request_Table.item(index, 1)
-                    item.setText(_translate("superUser", str(book.requestPoint), None))
+                    item.setText(_translate("superUser", str(book.requestPoint), None))   # set up book information
                     item = self.request_Table.item(index, 2)
                     item.setText(_translate("superUser", str(book.superuser_set_point), None))
                     print(index)
@@ -509,6 +587,10 @@ class SuperUserPage(QtGui.QWidget):
 
 
     def set_user_active_table(self):
+        """
+        This function set up user activate table.
+        :return:
+        """
         for index in range(3):
             item = QtGui.QTableWidgetItem()
             self.user_active_table.setItem(index, 0, item)
@@ -519,15 +601,15 @@ class SuperUserPage(QtGui.QWidget):
             item = self.user_active_table.item(index, 0)
             item.setText(_translate("superUser", "", None))
             item = self.user_active_table.item(index, 1)
-            item.setText(_translate("superUser", "", None))
+            item.setText(_translate("superUser", "", None))   # set all box in table to empty first
             item = self.user_active_table.item(index, 2)
             item.setText(_translate("superUser", "", None))
         self.user_need_activate = None
-        user_data = self.library.loadUserData()
+        user_data = self.library.loadUserData()   # get all user
         if user_data:
             index = 0
             for user in user_data:
-                if user.activate is False:
+                if user.activate is False:          # check user activate or not
                     if index is 0:
                         self.user_need_activate = user
                     item = QtGui.QTableWidgetItem()
@@ -537,7 +619,7 @@ class SuperUserPage(QtGui.QWidget):
                     item = QtGui.QTableWidgetItem()
                     self.user_active_table.setItem(index, 2, item)
                     item = self.user_active_table.item(index, 0)
-                    item.setText(_translate("superUser", user.username, None))
+                    item.setText(_translate("superUser", user.username, None))   # set up user information
                     item = self.user_active_table.item(index, 1)
                     item.setText(_translate("superUser", user.password, None))
                     item = self.user_active_table.item(index, 2)
@@ -549,39 +631,35 @@ class SuperUserPage(QtGui.QWidget):
 
 
     def set_complaint_table(self):
+        """
+        This function set up complaint table.
+        :return:
+        """
         for index in range(3):
             item = QtGui.QTableWidgetItem()
             self.complain_table.setItem(index, 0, item)
             item = QtGui.QTableWidgetItem()
             self.complain_table.setItem(index, 1, item)
-            # item = QtGui.QTableWidgetItem()
-            # self.complain_table.setItem(index, 2, item)
             item = self.complain_table.item(index, 0)
-            item.setText(_translate("superUser", "", None))
+            item.setText(_translate("superUser", "", None))   # set all box in table to empty first
             item = self.complain_table.item(index, 1)
             item.setText(_translate("superUser", "", None))
-            # item = self.complain_table.item(index, 2)
-            # item.setText(_translate("superUser", "", None))
         self.complain_book = None
-        book_data = self.library.loadBookData()
+        book_data = self.library.loadBookData()  # get all books
         if book_data:
             index = 0
             for book in book_data:
-                if book.complaint:
+                if book.complaint:    # check if book got complaint
                     if index is 0:
                         self.complain_book = book
                     item = QtGui.QTableWidgetItem()
                     self.complain_table.setItem(index, 0, item)
                     item = QtGui.QTableWidgetItem()
                     self.complain_table.setItem(index, 1, item)
-                    # item = QtGui.QTableWidgetItem()
-                    # self.user_active_table.setItem(index, 2, item)
                     item = self.complain_table.item(index, 0)
-                    item.setText(_translate("superUser", book.title, None))
+                    item.setText(_translate("superUser", book.title, None))  # set up book information
                     item = self.complain_table.item(index, 1)
                     item.setText(_translate("superUser", book.complaint[0], None))
-                    # item = self.complain_table.item(index, 2)
-                    # item.setText(_translate("superUser", ' ', None))
                     if index >= 2:
                         break
                     else:
@@ -629,6 +707,11 @@ class SuperUserPage(QtGui.QWidget):
             self.coverpage_button.setDisabled(True)
 
     def submit(self):
+        """
+        This function will submit the contribute book form, and check all the input.
+        If user fill all input, it will create the book object and save on pending_book_data database.
+        :return:
+        """
         title = str(self.book_title_input.text())
         summary = str(self.book_summary_input.toPlainText())   #get data from input
         points = int(self.point_requested_input.text())
@@ -671,6 +754,12 @@ class SuperUserPage(QtGui.QWidget):
 
 
     def set_top5_list(self):
+        """
+        This function will check user's reading history first.
+        If user has reading history, it will display books which has same type with the last book user read.
+        If user has not reading history, it will display books which most people read.
+        :return:
+        """
         __sortingEnabled = self.top5_List.isSortingEnabled()
         self.top5_List.setSortingEnabled(False)
         reading_history = self.user.readingHistory.keys()
@@ -690,6 +779,11 @@ class SuperUserPage(QtGui.QWidget):
         self.top5_List.setSortingEnabled(__sortingEnabled)
 
     def searchBook(self):
+        """
+        This function is for search book base on keyword user enter in input box.
+        It will also set up result to list box.
+        :return:
+        """
         for i in range(5):
             item = self.top5_List.item(i)
             item.setText(_translate("MainWindow", "", None))
@@ -715,7 +809,7 @@ class SuperUserPage(QtGui.QWidget):
         self.coverpage_button.setText(_translate("superUser", "CoverPage", None))
         self.upload_book_button.setText(_translate("superUser", "Upload Book", None))
         self.submit_button.setText(_translate("superUser", "Submit", None))
-        if self.user.superUser == True:
+        if self.user.superUser is True:      # check user is superuser or not, for superuser,we add some feature that only superuser need.
             self.decide_button.setText(_translate("superUser", "decide", None))
             item = self.request_Table_superuser.verticalHeaderItem(0)
             item.setText(_translate("superUser", "1", None))
@@ -736,7 +830,8 @@ class SuperUserPage(QtGui.QWidget):
             self.request_Table_superuser.setSortingEnabled(__sortingEnabled)
             self.request_List_superuser_Label.setText(_translate("superUser", "Book contribute request List:", None))
 
-            self.active_button.setText(_translate("superUser", "active", None))
+            self.active_button.setText(_translate("superUser", "activate", None))
+            self.not_active_button.setText(_translate("superUser", "delete", None))
             item = self.user_active_table.verticalHeaderItem(0)
             item.setText(_translate("superUser", "1", None))
             item = self.user_active_table.verticalHeaderItem(1)
@@ -771,14 +866,17 @@ class SuperUserPage(QtGui.QWidget):
             item.setText(_translate("superUser", "complaint reason", None))
 
             self.set_complaint_table()       # set up complaint_table
-            # item = self.complain_table.horizontalHeaderItem(2)
-            # item.setText(_translate("superUser", " ", None))
             __sortingEnabled = self.complain_table.isSortingEnabled()
             self.complain_table.setSortingEnabled(False)
 
-            # self.set_pending_book_table()
             self.complain_table.setSortingEnabled(__sortingEnabled)
             self.complain_Label.setText(_translate("superUser", "complaint List:", None))
+
+            self.user_add_point_label.setText(_translate("superUser", "username", None))
+            self.point_for_user_add_point_label.setText(_translate("superUser", "point", None))
+            self.user_add_point_button.setText(_translate("superUser", "Add", None))
+
+
 
 
         self.approve_button.setText(_translate("superUser", "approve", None))
@@ -815,17 +913,10 @@ class SuperUserPage(QtGui.QWidget):
 
         self.accept_Button.setText(_translate("superUser", "accept", None))
 
-        self.top5_Label.setText(_translate("superUser", "Top 5 Books:", None))
+        self.top5_Label.setText(_translate("superUser", "recommended books or top 5 Books:", None))
 
-        self.set_top5_list()
+        self.set_top5_list()   # set up top 5 list
 
-        # __sortingEnabled = self.top5_List.isSortingEnabled()
-        # self.top5_List.setSortingEnabled(False)
-        # books = self.library.searchTop5()
-        # for i in range(len(books)):
-        #     item = self.top5_List.item(i)
-        #     item.setText(_translate("MainWindow", books[i].title, None))
-        # self.top5_List.setSortingEnabled(__sortingEnabled)
 
         self.history_Label.setText(_translate("superUser", "Reading History:", None))
         __sortingEnabled = self.history_List.isSortingEnabled()
