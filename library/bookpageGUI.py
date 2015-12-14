@@ -214,6 +214,7 @@ class BookPageGUI(QtGui.QDialog):
             else:
                 self.book.comment_type.append("Doubdtful")
             library.update_book_data(self.book)
+            self.set_rate_reviews_table()
 
         else:
             self.CantComment.setText(_fromUtf8("Read the book first, then you can add a comment"))
