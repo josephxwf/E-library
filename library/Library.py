@@ -186,13 +186,13 @@ class Library():
 
 
 
-    def Catalog(self):
-        BookList = []
-        book_data = self.loadBookData()
+    def Catalog(self):  #a catalog of all books avaialble in library
+        BookList = [] #book list representing all books in GUI interface
+        book_data = self.loadBookData() #loading book data from database
         if book_data:
-            bookdata = sorted(book_data, key=lambda book: book.title, reverse=True)
-            for i in range(len(bookdata)):  #need to make the range equal total number of books in self.bookData
-                BookList.append(bookdata[i])
+            bookdata = sorted(book_data, key=lambda book: book.title, reverse=True) #sorting books by book title
+            for i in range(len(bookdata)):  #need to make the range equal to total number of books in self.bookData
+                BookList.append(bookdata[i]) #adding all books to the BookList
         return BookList
 
 
@@ -216,4 +216,3 @@ class Library():
                 if user:
                     user.point -= 5                     # 5 points are deducted from the contributing RU
                     self.update_user_data(user)  # update user information on user database
-

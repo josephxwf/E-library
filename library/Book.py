@@ -13,9 +13,8 @@ class Book():
         self.book_file = None
         self.contribute_by = ""
         self.superuser_set_point = 0
-        self.comments = []
-        self.comment_type = []
-        self.rate = []
+        self.comments = []  #a list of all reviews for the book
+        self.rate = []  #a list of all ratings for the book
         self.complaint = []
         self.number_of_complaint = 0
         self.last_time_read = time
