@@ -202,36 +202,36 @@ class BookPageGUI(QtGui.QDialog):
 
 
 
-    def writecomments(self):
+    def writecomments(self):  #function to be called when user submits review or rating for a book
         library = Library()
-        if str(self.book.title) in self.user.readingHistory.keys():
-            comm = str(self.comments_input.toPlainText())
-            rates = str(self.rate_lineEdit.text())
-            self.book.comments.append(comm)
-            self.book.rate.append(rates)
-            if self.user.commentsHistory[str(self.book.title)] > 15:
+        if str(self.book.title) in self.user.readingHistory.keys(): #if user have read the book then he can comment/rate it
+            comm = str(self.comments_input.toPlainText()) #reading the comments from inputbox
+            rates = str(self.rate_lineEdit.text()) #reading the rate number from input box
+            self.book.comments.append(comm) #appending the comment to book comments list
+            self.book.rate.append(rates) #appending the rate to book rating list
+            if self.user.commentsHistory[str(self.book.title)] > 15: #if user have read a book for 15 minutes his review has a confident weightage
                 self.book.comment_type.append("Confident")
-            else:
+            else:                                              #else the review have a doubdtful weightage
                 self.book.comment_type.append("Doubdtful")
-            library.update_book_data(self.book)
-            self.set_rate_reviews_table()
+            library.update_book_data(self.book) #updating comments and rates in book data
+            self.set_rate_reviews_table() #calling the display function to dynamically insert new reviews
 
         else:
             self.CantComment.setText(_fromUtf8("Read the book first, then you can add a comment"))
+            #if book not in user reading history, then user cannot comment/rate on book
 
 
-
-    def set_rate_reviews_table(self):
+    def set_rate_reviews_table(self): #function to set the rate & reviews table for book
         for index in range(len(self.book.comments)):
                 item = QtGui.QTableWidgetItem()
                 self.comments_tableWidget.setItem(index, 0, item)
-                item.setText(_fromUtf8(self.book.comment_type[index]))
+                item.setText(_fromUtf8(self.book.comment_type[index])) #first column displays user weightage
                 item = QtGui.QTableWidgetItem()
                 self.comments_tableWidget.setItem(index, 1, item)
-                item.setText(_fromUtf8(self.book.rate[index]))
+                item.setText(_fromUtf8(self.book.rate[index])) #second column displays the rate
                 item = QtGui.QTableWidgetItem()
                 self.comments_tableWidget.setItem(index, 2, item)
-                item.setText(_fromUtf8(self.book.comments[index]))
+                item.setText(_fromUtf8(self.book.comments[index])) #third column displays the review
 
 
 
@@ -331,10 +331,10 @@ class BookPageGUI(QtGui.QDialog):
                     break
         #library = Library()
         if str(self.book.title) not in self.user.readingHistory.keys() and self.user.point > 0:
-            if str(self.book.title) not in self.user.commentsHistory.keys():
-                self.user.commentsHistory[str(self.book.title)] = 5
+            if str(self.book.title) not in self.user.commentsHistory.keys():  #if book not read before
+                self.user.commentsHistory[str(self.book.title)] = 5 #then initialize book read time to 5 minutes
             else:
-                self.user.commentsHistory[str(self.book.title)] += 5
+                self.user.commentsHistory[str(self.book.title)] += 5 #else increment book reading time by 5 minutes
 
             self.user.point = self.user.point - int(self.book.requestPoint)
 
@@ -384,11 +384,10 @@ class BookPageGUI(QtGui.QDialog):
                   self.timer.start(1000)
                   self.timer.timeout.connect(self.displayTime1)
 
-            if str(self.book.title) in self.user.commentsHistory.keys():
-                self.user.commentsHistory[str(self.book.title)] += 5
+            if str(self.book.title) in self.user.commentsHistory.keys():   #if book read before
+                self.user.commentsHistory[str(self.book.title)] += 5   #increment book reading time by 5 minutes
             else:
-                self.user.commentsHistory[str(self.book.title)] = 5
-                  # self.inviter.commentsHistory[str(self.book.title)] += 5
+                self.user.commentsHistory[str(self.book.title)] = 5  #else initialize book read time to 5 minutes
                 library.update_user_data(self.inviter)
                 library.update_user_data(self.user)
 
@@ -401,10 +400,10 @@ class BookPageGUI(QtGui.QDialog):
             self.book.last_time_read = time.time()
             self.book.NumOfRead += 1
 
-            if str(self.book.title) in self.user.commentsHistory.keys():
-                self.user.commentsHistory[str(self.book.title)] += 5
+            if str(self.book.title) in self.user.commentsHistory.keys():  #if book  read before
+                self.user.commentsHistory[str(self.book.title)] += 5 #increment book reading time by 5 minutes
             else:
-                self.user.commentsHistory[str(self.book.title)] = 5
+                self.user.commentsHistory[str(self.book.title)] = 5  #else initialize book read time to 5 minutes
             library.update_user_data(self.user)
             library.update_book_data(self.book)
             #d = popplerqt4.Poppler.Document.load('PendingBooks/'+ self.book.book_file)
@@ -420,10 +419,10 @@ class BookPageGUI(QtGui.QDialog):
             self.user.point = self.user.point - int(self.book.requestPoint)
             self.user.readingHistory[str(self.book.title)] = 10
             # self.user.commentsHistory[str(self.book.title)] += 5
-            if str(self.book.title) in self.user.commentsHistory.keys():
-                self.user.commentsHistory[str(self.book.title)] += 5
+            if str(self.book.title) in self.user.commentsHistory.keys():   #if book read before
+                self.user.commentsHistory[str(self.book.title)] += 5  #increment book reading time by 5 minutes
             else:
-                self.user.commentsHistory[str(self.book.title)] = 5
+                self.user.commentsHistory[str(self.book.title)] = 5  #else initialize book read time to 5 minutes
             #update database
             library = Library()
             library.update_user_data(self.user)
@@ -463,7 +462,7 @@ class BookPageGUI(QtGui.QDialog):
 
            self.timer.stop()
 
-    def displayTime1(self):       # this timer is used to account shared time
+    def displayTime1(self):       # this timer is used to count shared time
         self.start_time -= 1
 
         self.inviter.readingHistory[str(self.book.title)] -= 1

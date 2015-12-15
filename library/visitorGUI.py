@@ -220,7 +220,7 @@ class Visitor_MainWindow(object):
                 if book.title == str(item.text()):
                     self.bookitem = BookPageGUI(book, None)
                     self.bookitem.show()
-                    self.bookitem.closeBookButton.hide()
+                    self.bookitem.closeBookButton.hide()  #hiding the activities only available for user
                     self.bookitem.rate_label.hide()
                     self.bookitem.read_button.hide()
                     self.bookitem.SubmitButton.hide()
@@ -257,8 +257,6 @@ class Visitor_MainWindow(object):
         self.searchInput.setText("")
 
     def signUp(self):
-        #self.signUp = SignUp(self.library)
-        #self.signUp.show()
         firstname = str(self.Firstname_input.text())
         lastname = str(self.Lastname_input.text())
         username = str(self.SignupUsername_input.text())
@@ -321,10 +319,9 @@ class Visitor_MainWindow(object):
                         # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'password is wrong!!')
             else:
                 self.username_warning_label.setText(_fromUtf8("username is wrong!!"))
-        self.usernameInput.setText("")
-        self.passwordInput.setText("")
+        self.usernameInput.setText("") #clearing up usernameInput box
+        self.passwordInput.setText("") #clearing up password Input box
 
-                # QtGui.QMessageBox.warning(QtGui.QDialog(), 'warning', 'username is wrong!!')
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Ebook Library", None))

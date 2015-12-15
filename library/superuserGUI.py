@@ -667,40 +667,37 @@ class SuperUserPage(QtGui.QWidget):
 
 
     def open_book(self, item):
-        book_list = self.library.loadBookData()
+        book_list = self.library.loadBookData()  #loading all books from book database
         for book in book_list:
             if book.title == str(item.text()):
-                self.bookitem = BookPageGUI(book, self.user)
+                self.bookitem = BookPageGUI(book, self.user) #opening the book page for selected book
                 self.bookitem.show()
                 break
         else:
-            print("book not find")
+            print("book not find") #if book title not in catalog then print message book not find
 
 
-    def selectFile(self):
-        file_name = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+    def selectFile(self): #select a text file to upload book to system
+        file_name = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home') #opening a QTfileDialogue to select file from computer
         if file_name:
             file_name_cut_list = str(file_name).split('/')
             print(file_name_cut_list)
             # if not self.upload_book.book_file:
             print file_name
-            shutil.copy(str(file_name), 'PendingBooks')
+            shutil.copy(str(file_name), 'PendingBooks') #copying the book file to pending books directory so super
+                                #user can decide if book is to be added to catalog or not
             self.upload_book.book_file = file_name_cut_list[-1]
             print(self.upload_book.book_file)
             self.upload_book_button.setDisabled(True)
-            # else:
-            #     # path = os.getcwd()+"/PendingBooks"
-            #     print(self.upload_book.book_file)
-            #     os.remove(self.upload_book.book_file)
-            #     shutil.copy(str(file_name), 'PendingBooks')
-            #     self.upload_book.book_file = file_name_cut_list[-1]
 
 
-    def selectCoverPage(self):
-        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')
+
+
+    def selectCoverPage(self): #select an image file to upload the book cover page
+        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home') #opening a QTFileDialogue to select image form computer
         if image:
             file_name_cut_list = str(image).split('/')
-            shutil.copy(str(image), 'CoverPage')
+            shutil.copy(str(image), 'CoverPage') #copying the selected image file to Coverpage database
             self.upload_book.cover_page = file_name_cut_list[-1]
             print(self.upload_book.cover_page)
 

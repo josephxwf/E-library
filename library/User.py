@@ -7,9 +7,10 @@ class User(object):
         self.password = password
         self.superUser = super_user
         self.point = point
-        self.commentsHistory = collections.OrderedDict()
+        self.commentsHistory = collections.OrderedDict()  #A dictionary which remembers the number of times any user read
+                                                          #any book. Each user will have their own dictionary.
+
         self.readingHistory = collections.OrderedDict()
-        self.readingHistory["Quinneys"]=10
         self.own_book = []
         self.activate = activate
         self.inviteDic = {}
