@@ -177,6 +177,7 @@ class Library():
                      index += 1
                      if index is 5:
                         break
+        return book_list
 
     def search_book_by_title(self, title):
         """
