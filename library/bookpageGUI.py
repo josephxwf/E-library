@@ -462,7 +462,7 @@ class BookPageGUI(QtGui.QDialog):
 
            self.timer.stop()
 
-    def displayTime1(self):       # this timer is used to account shared time
+    def displayTime1(self):       # this timer is used to count shared time
         self.start_time -= 1
 
         self.inviter.readingHistory[str(self.book.title)] -= 1

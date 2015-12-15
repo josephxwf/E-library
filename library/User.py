@@ -11,7 +11,6 @@ class User(object):
                                                           #any book. Each user will have their own dictionary.
 
         self.readingHistory = collections.OrderedDict()
-        #self.readingHistory["Quinneys"]=10
         self.own_book = []
         self.activate = activate
         self.inviteDic = {}
@@ -23,7 +22,7 @@ class User(object):
     def setReadingHistory(self, list):
         self.readingHistory = list
 
-    def setCommentsHistory(self, list):      
+    def setCommentsHistory(self, list):
         self.commentsHistory = list
 
     def read_book(self):
