@@ -74,7 +74,7 @@ class Library():
         :param delete: boolean, if true, it will delete book object
         :return:
         """
-        book_data = self.loadBookData(path)
+        book_data = self.loadBookData(path)   # get all book from our book database
         new_data = []
         find = False
         if book_data:
@@ -169,6 +169,13 @@ class Library():
                     index += 1
                     if index is 5:
                         break
+            length = len(book_list)
+            if length < 5:
+                for book in book_data:
+                    book_list.append(book)
+                    length += 1
+                    if length >= 5:
+                        break
         return book_list
 
     def search_book_by_title(self, title):
@@ -206,8 +213,8 @@ class Library():
         book_owners = []
         if books:
             for book in books:
-                if time_for_now - book.last_time_read >= 120000:
-                    self.update_book_data(book,delete=True)  # remove book from book database
+                if time_for_now - book.last_time_read >= 120000:    # calculate how long no one read this book, and decide time for remove book
+                    self.update_book_data(book, delete=True)  # remove book from book database
                     book_owners.append(book.contribute_by)
 
         if book_owners:
