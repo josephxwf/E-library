@@ -78,7 +78,6 @@ class Visitor_MainWindow(object):
         self.passwordInput = QtGui.QLineEdit(self.layoutWidget)
         self.passwordInput.setEchoMode(QtGui.QLineEdit.Password)
         self.passwordInput.setObjectName(_fromUtf8("passwordInput"))
-##
         self.horizontalLayout_2.addWidget(self.passwordInput)
         self.verticalLayout.addLayout(self.horizontalLayout_2)
         self.EbookLibraryTitle_label = QtGui.QLabel(self.centralwidget)
@@ -198,15 +197,9 @@ class Visitor_MainWindow(object):
         self.menubar.addAction(self.menuFile.menuAction())
 
         self.retranslateUi(MainWindow)
-        #QtCore.QObject.connect(self.signinButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.usernameInput.selectAll)
-        #QtCore.QObject.connect(self.signinButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.passwordInput.selectAll)
-        #QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Firstname_input.selectAll)
-        #QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.Lastname_input.selectAll)
-        #QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.SignupUsername_input.selectAll)
-        #QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.SignupPassword_input.selectAll)
+
         QtCore.QObject.connect(self.signinButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signIn)
         QtCore.QObject.connect(self.signUpButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.signUp)
-
         QtCore.QObject.connect(self.searchButton, QtCore.SIGNAL(_fromUtf8("clicked()")), self.searchBook)
         QtCore.QObject.connect(self.BookCatalog, QtCore.SIGNAL("itemClicked(QListWidgetItem *)"), self.open_book)
         QtCore.QObject.connect(self.verticalScrollBar, QtCore.SIGNAL(_fromUtf8("sliderMoved(int)")), self.BookCatalog.scrollToBottom)
@@ -324,6 +317,11 @@ class Visitor_MainWindow(object):
 
 
     def retranslateUi(self, MainWindow):
+        """
+        This function is create by PyQt4 UI code generator. But we did some change.
+        This function set text to label, button and table.
+        :return:
+        """
         MainWindow.setWindowTitle(_translate("MainWindow", "Ebook Library", None))
         self.signinButton.setText(_translate("MainWindow", "sign in", None))
         self.signUpButton.setText(_translate("MainWindow", "Apply", None))

@@ -2,6 +2,9 @@ from Book import Book
 import pickle
 import time
 
+"""
+This file just for create some sample book object to database
+"""
 
 if __name__ == '__main__':
     book_list = []

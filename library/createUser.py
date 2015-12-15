@@ -2,8 +2,12 @@ __author__ = 'Administrator'
 import pickle
 from User import User
 
-if __name__ == '__main__':
+"""
+This file just for create superuser and register user for test.
+"""
 
+
+if __name__ == '__main__':
     super_user = User("kaiying","1")
     super_user.superUser = True
     super_user.activate = True

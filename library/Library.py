@@ -12,21 +12,21 @@ class Library():
         :param new_user: user object which need update
         :return:
         """
-        userData = self.loadUserData()
+        userData = self.loadUserData()           # load user object list from file
         newData = []
         find = False
         for user in userData:
-            if user.username == new_user.username:
-                if delete is False:
-                    newData.append(new_user)
+            if user.username == new_user.username:     # check user by username to find the user object we want update
+                if delete is False:                  # check we want delete or not
+                    newData.append(new_user)        # if not, we add new user object to list
                 find = True
             else:
-                newData.append(user)
+                newData.append(user)              # if this object is not we want, just add to list
         if find is False:
-            newData.append(new_user)
+            newData.append(new_user)          # if not find, add new user
 
         with open('user_data.pkl', 'w') as output:
-            pickle.dump(newData, output)
+            pickle.dump(newData, output)           # write new user object list to user database
 
     def loadUserData(self):
         """
@@ -35,14 +35,14 @@ class Library():
         :return: user object list
         """
         try:
-            with open('user_data.pkl', 'r') as input:
+            with open('user_data.pkl', 'r') as input:   # open user database file
                 try:
-                    user = pickle.load(input)
+                    user = pickle.load(input)       # load user object list from file
                 except:
                     user = None
         except:
             user=None
-            with open('user_data.pkl', 'w') as output:
+            with open('user_data.pkl', 'w') as output:      # if no file, create one
                 pass
         return user
 
@@ -54,14 +54,14 @@ class Library():
         :return: book object list
         """
         try:
-            with open(path, 'r') as input:
+            with open(path, 'r') as input:         # open book database file
                 try:
-                    book = pickle.load(input)
+                    book = pickle.load(input)          # load book object list from file
                 except:
                     book = None
         except:
             book = None
-            with open(path, 'w') as output:
+            with open(path, 'w') as output:           # if no file, create one
                 pass
 
         return book
@@ -79,19 +79,19 @@ class Library():
         find = False
         if book_data:
             for book in book_data:
-                if book.title == new_book.title:
-                    if delete == False:
-                        new_data.append(new_book)
+                if book.title == new_book.title:   # check book by title to find the book object we want update
+                    if delete == False:            # check we want delete or not
+                        new_data.append(new_book)       # if not, we add new book object to list
                     find = True
                 else:
-                    new_data.append(book)
+                    new_data.append(book)         # if this object is not we want, just add to list
             if find is False:
                 new_data.append(new_book)
         else:
             new_data.append(new_book)
 
         with open(path, 'w') as output:
-            pickle.dump(new_data, output)
+            pickle.dump(new_data, output)         # write new book object list to book database
 
 
     def searchBook(self, keyword):
@@ -165,7 +165,7 @@ class Library():
             index = 0
             for book in book_data:
                 if book.type == type:     # check type
-                    book_list.append(book)
+                    book_list.append(book)  # add book
                     index += 1
                     if index is 5:
                         break
@@ -205,7 +205,8 @@ class Library():
 
     def remove_book_with_nobody_read(self):
         """
-        This function will remove books which no one read for a certain time, and 5 points are deducted from the contributing RU
+        This function will remove books which no one read for a certain time,
+        and 5 points are deducted from the contributing RU
         :return:
         """
         books = self.loadBookData()

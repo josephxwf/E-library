@@ -40,6 +40,11 @@ class SuperUserPage(QtGui.QWidget):
         self.setupUi(self)
 
     def setupUi(self, superUser):
+        """
+        This function is create by PyQt4 UI code generator. But we did some change.
+        This function set up superuser page GUI.
+        :return:
+        """
         superUser.setObjectName(_fromUtf8("superUser"))
         if self.user.superUser is True:
             superUser.resize(1350, 615)
@@ -498,7 +503,7 @@ class SuperUserPage(QtGui.QWidget):
 
     def set_pending_book_table(self):
         """
-        This function set pending book table.
+        This function set up pending book table.
         :return:
         """
         for index in range(3):
@@ -691,16 +696,16 @@ class SuperUserPage(QtGui.QWidget):
             self.upload_book_button.setDisabled(True)
 
 
-
-
-    def selectCoverPage(self): #select an image file to upload the book cover page
-        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home') #opening a QTFileDialogue to select image form computer
+    def selectCoverPage(self):
+        """
+        This function select an image file to upload the book cover page
+        :return:
+        """
+        image = QtGui.QFileDialog.getOpenFileName(self, 'Open file', '/home')     # opening a QTFileDialogue to select image form computer
         if image:
             file_name_cut_list = str(image).split('/')
-            shutil.copy(str(image), 'CoverPage') #copying the selected image file to Coverpage database
+            shutil.copy(str(image), 'CoverPage')      # copying the selected image file to Coverpage database
             self.upload_book.cover_page = file_name_cut_list[-1]
-            print(self.upload_book.cover_page)
-
             self.coverpage_button.setDisabled(True)
 
     def submit(self):
@@ -714,36 +719,29 @@ class SuperUserPage(QtGui.QWidget):
         points = int(self.point_requested_input.text())
         book_type = str(self.book_type_input.text())
         self.upload_book.contribute_by = self.user.username
-        if not title:
+        if not title:              # check if not title
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Title is required')
-            print("Title is required")
         else:
             self.upload_book.title = title
         if not summary:
-            print("Summary is required")
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'summary is required')
         else:
             self.upload_book.summary = summary
         if not points:
-            print("Points is required!!")
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'points is required')
         else:
             self.upload_book.requestPoint = points
         if not self.upload_book.cover_page:
-            print("cover page required!!")
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'cover page need uploaded!!')
         if not self.upload_book.book_file:
-            print("book required!!")
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Book file need uploaded!!')
         if not book_type:
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Sorry', 'Book type is required!!')
-        else:
-            self.upload_book.type = book_type
-        if title and summary and points and self.upload_book.book_file and self.upload_book.cover_page:
+        else:       # if we have type
+            self.upload_book.type = book_type    # add type to book object
+        if title and summary and points and self.upload_book.book_file and self.upload_book.cover_page:  # check if we have everything
             self.upload_book.last_time_read = time.time()
             self.library.update_book_data(self.upload_book, "pending_book_data.pkl")
-            # self.user.own_book.append(self.upload_book)
-            # self.library.update_user_data(self.user)
             QtGui.QMessageBox.warning(QtGui.QDialog(), 'Congratulations', 'successful!!')
             self.submit_button.setDisabled(True)
             if self.user.superUser is True:
@@ -764,7 +762,6 @@ class SuperUserPage(QtGui.QWidget):
             book = self.library.search_book_by_title(reading_history[-1])
             print(book)
             if book:
-                # type = book.type
                 books = self.library.search_book_by_type(book.type)
             else:
                 books = self.library.searchTop5()
@@ -795,6 +792,11 @@ class SuperUserPage(QtGui.QWidget):
 
 
     def retranslateUi(self, superUser):
+        """
+        This function is create by PyQt4 UI code generator. But we did some change.
+        This function set up superuser page GUI.
+        :return:
+        """
         superUser.setWindowTitle(_translate("superUser", "Form", None))
         self.search_Button.setText(_translate("superUser", "Search", None))
 
@@ -873,9 +875,6 @@ class SuperUserPage(QtGui.QWidget):
             self.point_for_user_add_point_label.setText(_translate("superUser", "point", None))
             self.user_add_point_button.setText(_translate("superUser", "Add", None))
 
-
-
-
         self.approve_button.setText(_translate("superUser", "approve", None))
         self.denied_button.setText(_translate("superUser", "denied", None))
         item = self.request_Table.verticalHeaderItem(0)
@@ -898,12 +897,10 @@ class SuperUserPage(QtGui.QWidget):
         self.request_Table.setSortingEnabled(__sortingEnabled)
         self.request_List_Label.setText(_translate("superUser", "superuser response:", None))
 
-
         self.point_Label.setText(_translate("superUser", "Total points:", None))
         self.points_number_Label.setText(_translate("superUser", str(self.user.point), None))
         self.username_Label.setText(_translate("superUser", "Name:", None))
         self.name_In_Label.setText(_translate("superUser", self.user.username, None))
-
 
        # self.inviter_name.setText(_translate("superUser", self.user.inviteDic.username, None))
 
@@ -924,15 +921,9 @@ class SuperUserPage(QtGui.QWidget):
         #for i in range(len(self.user.readingHistory)):
             item = self.history_List.item(i)
             item.setText(_translate("superUser", key + "    Status:You have "+ str(value) + " mins remained!" , None))
-            i +=1
-
-
-
+            i += 1
 
         self.history_List.setSortingEnabled(__sortingEnabled)
-
-
-
 
         self.accept_Button.setText(_translate("User", "accept", None))
         item = self.inviter_table.verticalHeaderItem(0)
