@@ -1,16 +1,17 @@
-Read Me
+# E-library
+
+## What is this repository for?
+This repository is for Jie Wei's CSc 322, Software Engineering class at The City College of New York, which is to design and implement a private book sharing system.
 
 
-E-LIBRARY
+## Video Walkthrough
 
+Here's a walkthrough of implemented user stories:
 
-Introduction:
-E-library is an interface where people can share books with each other, and read books shared by others. A catalog of all the books are maintained, and new books can be added by users. A GUI for the application is designed, where users can easily carry out different actions. 
-Requirements:
-The application needs Python 2.7, PyQT4, and Pickle.
-Installation:
-Download the installation package, and run main.py
-Maintainers:
-Xue Wei Fan               Josephxwf@gmail.com
-Khadeeja Din             khadeejadin@gmail.com
-Kaiying Chen             ckykokoko@gmail.com
+<img src='ebook.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+## Contributors
+* [Josephfxw](https://github.com/Josephfxw) (Xuewei Fan)
+* [kaiying](https://github.com/) (kaiying Chen)
+* [Khadeejia](https://github.com/) (Khadeejia Din)
+
